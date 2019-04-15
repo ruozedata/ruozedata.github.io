@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>ruozedata</title>
+  <title>若泽大数据 www.ruozedata.com</title>
   
   <subtitle>ruozedata</subtitle>
   <link href="/atom.xml" rel="self"/>
@@ -62,9 +62,9 @@
     
       <category term="hive" scheme="http://yoursite.com/tags/hive/"/>
     
-      <category term="压缩格式" scheme="http://yoursite.com/tags/%E5%8E%8B%E7%BC%A9%E6%A0%BC%E5%BC%8F/"/>
-    
       <category term="案例" scheme="http://yoursite.com/tags/%E6%A1%88%E4%BE%8B/"/>
+    
+      <category term="压缩格式" scheme="http://yoursite.com/tags/%E5%8E%8B%E7%BC%A9%E6%A0%BC%E5%BC%8F/"/>
     
   </entry>
   
@@ -117,28 +117,6 @@
   </entry>
   
   <entry>
-    <title>Hadoop常用命令大全</title>
-    <link href="http://yoursite.com/2018/04/14/Hadoop%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/"/>
-    <id>http://yoursite.com/2018/04/14/Hadoop常用命令大全/</id>
-    <published>2018-04-13T16:00:00.000Z</published>
-    <updated>2019-04-15T07:53:37.751Z</updated>
-    
-    <content type="html"><![CDATA[<p>若泽大数据，Hadoop常用命令大全<br><a id="more"></a> </p><h6 id="1-单独启动和关闭hadoop服务"><a href="#1-单独启动和关闭hadoop服务" class="headerlink" title="1. 单独启动和关闭hadoop服务"></a><strong>1. 单独启动和关闭hadoop服务</strong></h6><table><thead><tr><th>功能</th><th style="text-align:center">命令</th></tr></thead><tbody><tr><td><strong>启动名称节点</strong></td><td style="text-align:center">hadoop-daemon.sh start namenode</td></tr><tr><td><strong>启动数据节点</strong></td><td style="text-align:center">hadoop-daemons.sh start datanode slave</td></tr><tr><td><strong>启动secondarynamenode</strong></td><td style="text-align:center">hadoop-daemon.sh start secondarynamenode</td></tr><tr><td><strong>启动resourcemanager</strong></td><td style="text-align:center">yarn-daemon.sh start resourcemanager</td></tr><tr><td><strong>启动nodemanager</strong></td><td style="text-align:center">bin/yarn-daemons.sh start nodemanager</td></tr><tr><td><strong>停止数据节点</strong></td><td style="text-align:center">hadoop-daemons.sh stop datanode</td></tr></tbody></table><h6 id="2-常用的命令"><a href="#2-常用的命令" class="headerlink" title="2. 常用的命令"></a><strong>2. 常用的命令</strong></h6><table><thead><tr><th>功能</th><th style="text-align:center">命令</th></tr></thead><tbody><tr><td><strong>创建目录</strong></td><td style="text-align:center">hdfs dfs -mkdir /input</td></tr><tr><td><strong>查看</strong></td><td style="text-align:center">hdfs dfs  -ls</td></tr><tr><td><strong>递归查看</strong></td><td style="text-align:center">hdfs dfs ls -R</td></tr><tr><td><strong>上传</strong></td><td style="text-align:center">hdfs dfs -put </td></tr><tr><td><strong>下载</strong></td><td style="text-align:center">hdfs dfs -get </td></tr><tr><td><strong>删除</strong></td><td style="text-align:center">hdfs dfs -rm</td></tr><tr><td><strong>从本地剪切粘贴到hdfs</strong></td><td style="text-align:center">hdfs fs -moveFromLocal /input/xx.txt /input/xx.txt</td></tr><tr><td><strong>从hdfs剪切粘贴到本地</strong></td><td style="text-align:center">hdfs fs -moveToLocal /input/xx.txt /input/xx.txt</td></tr><tr><td><strong>追加一个文件到另一个文件到末尾</strong></td><td style="text-align:center">hdfs fs -appedToFile ./hello.txt /input/hello.txt</td></tr><tr><td><strong>查看文件内容</strong></td><td style="text-align:center">hdfs fs -cat /input/hello.txt</td></tr><tr><td><strong>显示一个文件到末尾</strong></td><td style="text-align:center">hdfs fs -tail /input/hello.txt</td></tr><tr><td><strong>以字符串的形式打印文件的内容</strong></td><td style="text-align:center">hdfs fs -text /input/hello.txt</td></tr><tr><td><strong>修改文件权限</strong></td><td style="text-align:center">hdfs fs -chmod 666 /input/hello.txt</td></tr><tr><td><strong>修改文件所属</strong></td><td style="text-align:center">hdfs fs -chown ruoze.ruoze  /input/hello.txt</td></tr><tr><td><strong>从本地文件系统拷贝到hdfs里</strong></td><td style="text-align:center">hdfs fs -copyFromLocal /input/hello.txt /input/</td></tr><tr><td><strong>从hdfs拷贝到本地</strong></td><td style="text-align:center">hdfs fs -copyToLocal /input/hello.txt /input/</td></tr><tr><td><strong>从hdfs到一个路径拷贝到另一个路径</strong></td><td style="text-align:center">hdfs fs -cp /input/xx.txt /output/xx.txt</td></tr><tr><td><strong>从hdfs到一个路径移动到另一个路径</strong></td><td style="text-align:center">hdfs fs -mv /input/xx.txt /output/xx.txt</td></tr><tr><td><strong>统计文件系统的可用空间信息</strong></td><td style="text-align:center">hdfs fs -df -h /</td></tr><tr><td><strong>统计文件夹的大小信息</strong></td><td style="text-align:center">hdfs fs -du -s -h /</td></tr><tr><td><strong>统计一个指定目录下的文件节点数量</strong></td><td style="text-align:center">hadoop  fs -count /aaa</td></tr><tr><td><strong>设置hdfs的文件副本数量</strong></td><td style="text-align:center">hadoop fs -setrep 3 /input/xx.txt</td></tr></tbody></table><h5 id="总结：一定要学会查看命令帮助"><a href="#总结：一定要学会查看命令帮助" class="headerlink" title="总结：一定要学会查看命令帮助"></a>总结：一定要学会查看命令帮助</h5><p><strong>1.hadoop命令直接回车查看命令帮助<br>2.hdfs命令、hdfs dfs命令直接回车查看命令帮助<br>3.hadoop fs 等价 hdfs dfs命令，和Linux的命令差不多。</strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;若泽大数据，Hadoop常用命令大全&lt;br&gt;
-    
-    </summary>
-    
-      <category term="其余组件" scheme="http://yoursite.com/categories/%E5%85%B6%E4%BD%99%E7%BB%84%E4%BB%B6/"/>
-    
-    
-      <category term="hadoop" scheme="http://yoursite.com/tags/hadoop/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Spark2.2.0 全网最详细的源码编译</title>
     <link href="http://yoursite.com/2018/04/14/Spark2.2.0%20%E5%85%A8%E7%BD%91%E6%9C%80%E8%AF%A6%E7%BB%86%E7%9A%84%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/"/>
     <id>http://yoursite.com/2018/04/14/Spark2.2.0 全网最详细的源码编译/</id>
@@ -161,6 +139,28 @@
       <category term="基础" scheme="http://yoursite.com/tags/%E5%9F%BA%E7%A1%80/"/>
     
       <category term="spark" scheme="http://yoursite.com/tags/spark/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hadoop常用命令大全</title>
+    <link href="http://yoursite.com/2018/04/14/Hadoop%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/"/>
+    <id>http://yoursite.com/2018/04/14/Hadoop常用命令大全/</id>
+    <published>2018-04-13T16:00:00.000Z</published>
+    <updated>2019-04-15T07:53:37.751Z</updated>
+    
+    <content type="html"><![CDATA[<p>若泽大数据，Hadoop常用命令大全<br><a id="more"></a> </p><h6 id="1-单独启动和关闭hadoop服务"><a href="#1-单独启动和关闭hadoop服务" class="headerlink" title="1. 单独启动和关闭hadoop服务"></a><strong>1. 单独启动和关闭hadoop服务</strong></h6><table><thead><tr><th>功能</th><th style="text-align:center">命令</th></tr></thead><tbody><tr><td><strong>启动名称节点</strong></td><td style="text-align:center">hadoop-daemon.sh start namenode</td></tr><tr><td><strong>启动数据节点</strong></td><td style="text-align:center">hadoop-daemons.sh start datanode slave</td></tr><tr><td><strong>启动secondarynamenode</strong></td><td style="text-align:center">hadoop-daemon.sh start secondarynamenode</td></tr><tr><td><strong>启动resourcemanager</strong></td><td style="text-align:center">yarn-daemon.sh start resourcemanager</td></tr><tr><td><strong>启动nodemanager</strong></td><td style="text-align:center">bin/yarn-daemons.sh start nodemanager</td></tr><tr><td><strong>停止数据节点</strong></td><td style="text-align:center">hadoop-daemons.sh stop datanode</td></tr></tbody></table><h6 id="2-常用的命令"><a href="#2-常用的命令" class="headerlink" title="2. 常用的命令"></a><strong>2. 常用的命令</strong></h6><table><thead><tr><th>功能</th><th style="text-align:center">命令</th></tr></thead><tbody><tr><td><strong>创建目录</strong></td><td style="text-align:center">hdfs dfs -mkdir /input</td></tr><tr><td><strong>查看</strong></td><td style="text-align:center">hdfs dfs  -ls</td></tr><tr><td><strong>递归查看</strong></td><td style="text-align:center">hdfs dfs ls -R</td></tr><tr><td><strong>上传</strong></td><td style="text-align:center">hdfs dfs -put </td></tr><tr><td><strong>下载</strong></td><td style="text-align:center">hdfs dfs -get </td></tr><tr><td><strong>删除</strong></td><td style="text-align:center">hdfs dfs -rm</td></tr><tr><td><strong>从本地剪切粘贴到hdfs</strong></td><td style="text-align:center">hdfs fs -moveFromLocal /input/xx.txt /input/xx.txt</td></tr><tr><td><strong>从hdfs剪切粘贴到本地</strong></td><td style="text-align:center">hdfs fs -moveToLocal /input/xx.txt /input/xx.txt</td></tr><tr><td><strong>追加一个文件到另一个文件到末尾</strong></td><td style="text-align:center">hdfs fs -appedToFile ./hello.txt /input/hello.txt</td></tr><tr><td><strong>查看文件内容</strong></td><td style="text-align:center">hdfs fs -cat /input/hello.txt</td></tr><tr><td><strong>显示一个文件到末尾</strong></td><td style="text-align:center">hdfs fs -tail /input/hello.txt</td></tr><tr><td><strong>以字符串的形式打印文件的内容</strong></td><td style="text-align:center">hdfs fs -text /input/hello.txt</td></tr><tr><td><strong>修改文件权限</strong></td><td style="text-align:center">hdfs fs -chmod 666 /input/hello.txt</td></tr><tr><td><strong>修改文件所属</strong></td><td style="text-align:center">hdfs fs -chown ruoze.ruoze  /input/hello.txt</td></tr><tr><td><strong>从本地文件系统拷贝到hdfs里</strong></td><td style="text-align:center">hdfs fs -copyFromLocal /input/hello.txt /input/</td></tr><tr><td><strong>从hdfs拷贝到本地</strong></td><td style="text-align:center">hdfs fs -copyToLocal /input/hello.txt /input/</td></tr><tr><td><strong>从hdfs到一个路径拷贝到另一个路径</strong></td><td style="text-align:center">hdfs fs -cp /input/xx.txt /output/xx.txt</td></tr><tr><td><strong>从hdfs到一个路径移动到另一个路径</strong></td><td style="text-align:center">hdfs fs -mv /input/xx.txt /output/xx.txt</td></tr><tr><td><strong>统计文件系统的可用空间信息</strong></td><td style="text-align:center">hdfs fs -df -h /</td></tr><tr><td><strong>统计文件夹的大小信息</strong></td><td style="text-align:center">hdfs fs -du -s -h /</td></tr><tr><td><strong>统计一个指定目录下的文件节点数量</strong></td><td style="text-align:center">hadoop  fs -count /aaa</td></tr><tr><td><strong>设置hdfs的文件副本数量</strong></td><td style="text-align:center">hadoop fs -setrep 3 /input/xx.txt</td></tr></tbody></table><h5 id="总结：一定要学会查看命令帮助"><a href="#总结：一定要学会查看命令帮助" class="headerlink" title="总结：一定要学会查看命令帮助"></a>总结：一定要学会查看命令帮助</h5><p><strong>1.hadoop命令直接回车查看命令帮助<br>2.hdfs命令、hdfs dfs命令直接回车查看命令帮助<br>3.hadoop fs 等价 hdfs dfs命令，和Linux的命令差不多。</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;若泽大数据，Hadoop常用命令大全&lt;br&gt;
+    
+    </summary>
+    
+      <category term="其余组件" scheme="http://yoursite.com/categories/%E5%85%B6%E4%BD%99%E7%BB%84%E4%BB%B6/"/>
+    
+    
+      <category term="hadoop" scheme="http://yoursite.com/tags/hadoop/"/>
     
   </entry>
   
@@ -206,11 +206,11 @@
       <category term="hadoop" scheme="http://yoursite.com/categories/hadoop/"/>
     
     
+      <category term="hive" scheme="http://yoursite.com/tags/hive/"/>
+    
       <category term="环境搭建" scheme="http://yoursite.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     
       <category term="基础" scheme="http://yoursite.com/tags/%E5%9F%BA%E7%A1%80/"/>
-    
-      <category term="hive" scheme="http://yoursite.com/tags/hive/"/>
     
   </entry>
   
@@ -291,17 +291,17 @@
   </entry>
   
   <entry>
-    <title>linux常用命令（一）</title>
-    <link href="http://yoursite.com/2018/04/01/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4(%E4%B8%80)/"/>
-    <id>http://yoursite.com/2018/04/01/Linux常用命令(一)/</id>
+    <title>linux常用命令（二）</title>
+    <link href="http://yoursite.com/2018/04/01/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
+    <id>http://yoursite.com/2018/04/01/linux常用命令（二）/</id>
     <published>2018-03-31T16:00:00.000Z</published>
-    <updated>2019-04-15T07:49:59.571Z</updated>
+    <updated>2019-04-15T07:50:11.632Z</updated>
     
-    <content type="html"><![CDATA[<p>Linux最常用实战命令（一）<br><a id="more"></a> </p><ol><li><p>查看当前目录    pwd</p></li><li><p>查看IP</p></li></ol><ul><li><p>ifconfig    查看虚拟机ip </p></li><li><p>hostname    主机名字</p><ul><li>i    查看主机名映射的IP</li></ul></li></ul><ol start="3"><li>切换目录    cd</li></ol><ul><li><p>cd ~    切换家目录（root为/root，普通用户为/home/用户名）</p></li><li><p>cd /filename    以绝对路径切换目录</p></li><li><p>cd -    返回上一次操作路径，并输出路径</p></li><li><p>cd ../    返回上一层目录</p></li></ul><ol start="4"><li><p>清理桌面    clear</p></li><li><p>显示当前目录文件和文件夹  ls</p></li></ol><ul><li><p>ls -l(ll)   显示详细信息</p></li><li><p>ls -la    显示详细信息+隐藏文件（以 . 开头，例：.ssh）</p></li><li><p>ls -lh    显示详细信息+文件大小</p></li><li><p>ls -lrt    显示详细信息+按时间排序</p></li></ul><ol start="6"><li><p>查看文件夹大小    du -sh</p></li><li><p>命令帮助</p></li></ol><ul><li><p>man 命令</p></li><li><p>命令 –help</p></li></ul><ol start="8"><li>创建文件夹    mkdir</li></ol><ul><li>mkdir -p filename1/filename2    递归创建文件夹</li></ul><ol start="9"><li><p>创建文件    touch/vi/echo xx&gt;filename</p></li><li><p>查看文件内容</p></li></ol><ul><li><p>cat filename    直接打印所有内容</p></li><li><p>more filename    根据窗口大小进行分页显示</p></li></ul><ol start="11"><li>文件编辑 vi</li></ol><ul><li><p>vi分为命令行模式，插入模式，尾行模式</p></li><li><p>命令行模式—&gt;插入模式：按i或a键</p></li><li><p>插入模式—&gt;命令行模式：按Esc键</p></li><li><p>命令行模式—&gt;尾行模式：按Shift和:键</p><p>  插入模式</p><ul><li><p>dd    删除光标所在行</p></li><li><p>n+dd    删除光标以下的n行</p></li><li><p>dG    删除光标以下行</p></li><li><p>gg    第一行第一个字母</p></li><li><p>G    最后一行第一个字母</p></li><li><p>shift+$    该行最后一个字母</p><p>尾行模式</p></li><li><p>q!    强制退出</p></li><li><p>qw    写入并退出</p></li><li><p>qw!    强制写入退出</p></li><li><p>x    退出，如果存在改动，则保存再退出</p></li></ul></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>Linux最常用实战命令（二）<br><a id="more"></a> </p><ol><li>实时查看文件内容    tail filename</li></ol><ul><li><p>tail -f filename    当文件(名)被修改后，不能监视文件内容</p></li><li><p>tail -F filename    当文件(名)被修改后，依然可以监视文件内容</p></li></ul><ol start="2"><li>复制、移动文件</li></ol><ul><li><p>cp oldfilename newfilename    复制</p></li><li><p>mv oldfilename newfilename    移动/重命名</p></li></ul><ol start="3"><li>echo</li></ol><ul><li><p>echo “xxx”     输出</p></li><li><p>echo “xxx” &gt; filename    覆盖</p></li><li><p>echo “xxx” &gt;&gt; filename    追加</p></li></ul><ol start="4"><li>删除    rm</li></ol><ul><li><p>rm -f    强制删除</p></li><li><p>rm -rf    强制删除文件夹，r 表示递归参数，指针对文件夹及文件夹里面文件 </p></li></ul><ol start="5"><li>别名 alias</li></ol><ul><li><p>alias x=”xxxxxx”    临时引用别名</p></li><li><p>alias x=”xxxxxx” 配置到环境变量中即为永久生效</p></li></ul><ol start="6"><li>查看历史命令    history</li></ol><ul><li><p>history    显示出所有历史记录 </p></li><li><p>history n    显示出n条记录 </p></li><li><p>!n    执行第n条记录</p></li></ul><ol start="7"><li>管道命令    （ | ）</li></ol><ul><li>管道的两边都是命令，左边的命令先执行，执行的结果作为右边命令的输入</li></ul><ol start="8"><li>查看进程、查看id、端口</li></ol><ul><li><p>ps -ef ｜grep 进程名    查看进程基本信息</p></li><li><p>netstat -npl｜grep 进程名或进程id    查看服务id和端口</p></li></ul><ol start="9"><li>杀死进程     kill</li></ol><ul><li><p>kill -9 进程名/pid    强制删除</p></li><li><p>kill -9 $(pgrep 进程名)：杀死与该进程相关的所有进程</p></li></ul><ol start="10"><li>rpm 搜索、卸载</li></ol><ul><li><p>rpm -qa | grep xxx     搜索xxx</p></li><li><p>rpm –nodeps -e xxx    删除xxx</p></li><li><p>–nodeps    不验证包的依赖性</p></li></ul><ol start="11"><li>查询</li></ol><ul><li><p>find 路径 -name xxx    (推荐)</p></li><li><p>which xxx</p></li><li><p>local xxx</p></li></ul><ol start="12"><li>查看磁盘、内存、系统的情况</li></ol><ul><li><p>df -h    查看磁盘大小及其使用情况</p></li><li><p>free -m    查看内存大小及其使用情况</p></li><li><p>top    查看系统情况</p></li></ul><ol start="13"><li>软连接</li></ol><ul><li>ln -s 原始目录 目标目录</li></ul><ol start="14"><li>压缩、解压</li></ol><ul><li><p>tar -czf    压缩     tar -xzvf    解压</p></li><li><p>zip    压缩    unzip    解压</p></li></ul>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;Linux最常用实战命令（一）&lt;br&gt;
+      &lt;p&gt;Linux最常用实战命令（二）&lt;br&gt;
     
     </summary>
     
@@ -315,17 +315,17 @@
   </entry>
   
   <entry>
-    <title>linux常用命令（二）</title>
-    <link href="http://yoursite.com/2018/04/01/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
-    <id>http://yoursite.com/2018/04/01/linux常用命令（二）/</id>
+    <title>linux常用命令（一）</title>
+    <link href="http://yoursite.com/2018/04/01/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4(%E4%B8%80)/"/>
+    <id>http://yoursite.com/2018/04/01/Linux常用命令(一)/</id>
     <published>2018-03-31T16:00:00.000Z</published>
-    <updated>2019-04-15T07:50:11.632Z</updated>
+    <updated>2019-04-15T07:49:59.571Z</updated>
     
-    <content type="html"><![CDATA[<p>Linux最常用实战命令（二）<br><a id="more"></a> </p><ol><li>实时查看文件内容    tail filename</li></ol><ul><li><p>tail -f filename    当文件(名)被修改后，不能监视文件内容</p></li><li><p>tail -F filename    当文件(名)被修改后，依然可以监视文件内容</p></li></ul><ol start="2"><li>复制、移动文件</li></ol><ul><li><p>cp oldfilename newfilename    复制</p></li><li><p>mv oldfilename newfilename    移动/重命名</p></li></ul><ol start="3"><li>echo</li></ol><ul><li><p>echo “xxx”     输出</p></li><li><p>echo “xxx” &gt; filename    覆盖</p></li><li><p>echo “xxx” &gt;&gt; filename    追加</p></li></ul><ol start="4"><li>删除    rm</li></ol><ul><li><p>rm -f    强制删除</p></li><li><p>rm -rf    强制删除文件夹，r 表示递归参数，指针对文件夹及文件夹里面文件 </p></li></ul><ol start="5"><li>别名 alias</li></ol><ul><li><p>alias x=”xxxxxx”    临时引用别名</p></li><li><p>alias x=”xxxxxx” 配置到环境变量中即为永久生效</p></li></ul><ol start="6"><li>查看历史命令    history</li></ol><ul><li><p>history    显示出所有历史记录 </p></li><li><p>history n    显示出n条记录 </p></li><li><p>!n    执行第n条记录</p></li></ul><ol start="7"><li>管道命令    （ | ）</li></ol><ul><li>管道的两边都是命令，左边的命令先执行，执行的结果作为右边命令的输入</li></ul><ol start="8"><li>查看进程、查看id、端口</li></ol><ul><li><p>ps -ef ｜grep 进程名    查看进程基本信息</p></li><li><p>netstat -npl｜grep 进程名或进程id    查看服务id和端口</p></li></ul><ol start="9"><li>杀死进程     kill</li></ol><ul><li><p>kill -9 进程名/pid    强制删除</p></li><li><p>kill -9 $(pgrep 进程名)：杀死与该进程相关的所有进程</p></li></ul><ol start="10"><li>rpm 搜索、卸载</li></ol><ul><li><p>rpm -qa | grep xxx     搜索xxx</p></li><li><p>rpm –nodeps -e xxx    删除xxx</p></li><li><p>–nodeps    不验证包的依赖性</p></li></ul><ol start="11"><li>查询</li></ol><ul><li><p>find 路径 -name xxx    (推荐)</p></li><li><p>which xxx</p></li><li><p>local xxx</p></li></ul><ol start="12"><li>查看磁盘、内存、系统的情况</li></ol><ul><li><p>df -h    查看磁盘大小及其使用情况</p></li><li><p>free -m    查看内存大小及其使用情况</p></li><li><p>top    查看系统情况</p></li></ul><ol start="13"><li>软连接</li></ol><ul><li>ln -s 原始目录 目标目录</li></ul><ol start="14"><li>压缩、解压</li></ol><ul><li><p>tar -czf    压缩     tar -xzvf    解压</p></li><li><p>zip    压缩    unzip    解压</p></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>Linux最常用实战命令（一）<br><a id="more"></a> </p><ol><li><p>查看当前目录    pwd</p></li><li><p>查看IP</p></li></ol><ul><li><p>ifconfig    查看虚拟机ip </p></li><li><p>hostname    主机名字</p><ul><li>i    查看主机名映射的IP</li></ul></li></ul><ol start="3"><li>切换目录    cd</li></ol><ul><li><p>cd ~    切换家目录（root为/root，普通用户为/home/用户名）</p></li><li><p>cd /filename    以绝对路径切换目录</p></li><li><p>cd -    返回上一次操作路径，并输出路径</p></li><li><p>cd ../    返回上一层目录</p></li></ul><ol start="4"><li><p>清理桌面    clear</p></li><li><p>显示当前目录文件和文件夹  ls</p></li></ol><ul><li><p>ls -l(ll)   显示详细信息</p></li><li><p>ls -la    显示详细信息+隐藏文件（以 . 开头，例：.ssh）</p></li><li><p>ls -lh    显示详细信息+文件大小</p></li><li><p>ls -lrt    显示详细信息+按时间排序</p></li></ul><ol start="6"><li><p>查看文件夹大小    du -sh</p></li><li><p>命令帮助</p></li></ol><ul><li><p>man 命令</p></li><li><p>命令 –help</p></li></ul><ol start="8"><li>创建文件夹    mkdir</li></ol><ul><li>mkdir -p filename1/filename2    递归创建文件夹</li></ul><ol start="9"><li><p>创建文件    touch/vi/echo xx&gt;filename</p></li><li><p>查看文件内容</p></li></ol><ul><li><p>cat filename    直接打印所有内容</p></li><li><p>more filename    根据窗口大小进行分页显示</p></li></ul><ol start="11"><li>文件编辑 vi</li></ol><ul><li><p>vi分为命令行模式，插入模式，尾行模式</p></li><li><p>命令行模式—&gt;插入模式：按i或a键</p></li><li><p>插入模式—&gt;命令行模式：按Esc键</p></li><li><p>命令行模式—&gt;尾行模式：按Shift和:键</p><p>  插入模式</p><ul><li><p>dd    删除光标所在行</p></li><li><p>n+dd    删除光标以下的n行</p></li><li><p>dG    删除光标以下行</p></li><li><p>gg    第一行第一个字母</p></li><li><p>G    最后一行第一个字母</p></li><li><p>shift+$    该行最后一个字母</p><p>尾行模式</p></li><li><p>q!    强制退出</p></li><li><p>qw    写入并退出</p></li><li><p>qw!    强制写入退出</p></li><li><p>x    退出，如果存在改动，则保存再退出</p></li></ul></li></ul>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;Linux最常用实战命令（二）&lt;br&gt;
+      &lt;p&gt;Linux最常用实战命令（一）&lt;br&gt;
     
     </summary>
     

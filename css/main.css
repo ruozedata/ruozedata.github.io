@@ -1085,7 +1085,7 @@ pre .javascript .function {
   }
 }
 .header {
-  background: url("../image/time.jpg");
+  background: transparent;
 }
 .header-inner {
   position: relative;
@@ -1843,7 +1843,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff4eb0;
+  background: #63ab2e;
 }
 .feed-link,
 .chat {
