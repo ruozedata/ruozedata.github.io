@@ -96,18 +96,21 @@
 
 
 
-  <meta name="description" content="若泽大数据，Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)">
-<meta name="keywords" content="hadoop,环境搭建,基础">
+  <meta name="description" content="本地开发环境：IntelliJ IDEA+Maven3.3.9">
+<meta name="keywords" content="hive">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)">
-<meta property="og:url" content="http://yoursite.com/2018/04/10/Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)/index.html">
+<meta property="og:title" content="Hive自定义函数(UDF)的编程开发，你会吗？">
+<meta property="og:url" content="http://yoursite.com/2018/04/25/Hive自定义函数(UDF)的编程开发，你会吗？/index.html">
 <meta property="og:site_name" content="若泽大数据 www.ruozedata.com">
-<meta property="og:description" content="若泽大数据，Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)">
+<meta property="og:description" content="本地开发环境：IntelliJ IDEA+Maven3.3.9">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-04-15T07:49:46.211Z">
+<meta property="og:image" content="http://yoursite.com/assets/blogImg/425hive1.png">
+<meta property="og:image" content="http://yoursite.com/assets/blogImg/425hive2.png">
+<meta property="og:updated_time" content="2019-04-15T12:57:39.415Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)">
-<meta name="twitter:description" content="若泽大数据，Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)">
+<meta name="twitter:title" content="Hive自定义函数(UDF)的编程开发，你会吗？">
+<meta name="twitter:description" content="本地开发环境：IntelliJ IDEA+Maven3.3.9">
+<meta name="twitter:image" content="http://yoursite.com/assets/blogImg/425hive1.png">
 
 
 
@@ -117,7 +120,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2018/04/10/Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)/">
+  <link rel="canonical" href="http://yoursite.com/2018/04/25/Hive自定义函数(UDF)的编程开发，你会吗？/">
 
 
 
@@ -127,7 +130,7 @@
   };
 </script>
 
-  <title>Hadoop全网最详细的伪分布式部署(MapReduce+Yarn) | 若泽大数据 www.ruozedata.com</title>
+  <title>Hive自定义函数(UDF)的编程开发，你会吗？ | 若泽大数据 www.ruozedata.com</title>
   
 
 
@@ -376,7 +379,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/10/Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/25/Hive自定义函数(UDF)的编程开发，你会吗？/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ruozedata">
@@ -393,7 +396,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)
+          <h1 class="post-title" itemprop="name headline">Hive自定义函数(UDF)的编程开发，你会吗？
 
               
             
@@ -419,7 +422,7 @@
                 
               
 
-              <time title="Erstellt: 2018-04-10 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-10T00:00:00+08:00">2018-04-10</time>
+              <time title="Erstellt: 2018-04-25 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-25T00:00:00+08:00">2018-04-25</time>
             
 
             
@@ -436,7 +439,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-04-15 15:49:46" itemprop="dateModified" datetime="2019-04-15T15:49:46+08:00">2019-04-15</time>
+                <time title="Geändert am: 2019-04-15 20:57:39" itemprop="dateModified" datetime="2019-04-15T20:57:39+08:00">2019-04-15</time>
               
             
           </span>
@@ -453,7 +456,7 @@
                 <span class="post-meta-item-text">in</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hadoop/" itemprop="url" rel="index"><span itemprop="name">hadoop</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hive/" itemprop="url" rel="index"><span itemprop="name">hive</span></a></span>
 
                 
                 
@@ -488,21 +491,23 @@
       
 
       
-        <p>若泽大数据，Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)<br><a id="more"></a> </p>
-<ol>
-<li><p>修改mapred-site.xml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[hadoop@hadoop000 ~]# cd /opt/software/hadoop/etc/hadoop</span><br><span class="line"></span><br><span class="line">[hadoop@hadoop000 hadoop]# cp mapred-site.xml.template  mapred-site.xml</span><br><span class="line"></span><br><span class="line">[hadoop@hadoop000 hadoop]# vi mapred-site.xml</span><br><span class="line"></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line"></span><br><span class="line">	&lt;property&gt;</span><br><span class="line"></span><br><span class="line">		&lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">		&lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">	&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改yarn-site.xml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[hadoop@hadoop000 hadoop]# vi yarn-site.xml</span><br><span class="line"></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line"></span><br><span class="line">	&lt;property&gt;</span><br><span class="line"></span><br><span class="line">		&lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">      		&lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  	&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[hadoop@hadoop000 hadoop]# cd ../../</span><br><span class="line"></span><br><span class="line">[hadoop@hadoop000 hadoop]# sbin/start-yarn.sh</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>关闭</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[hadoop@hadoop000 hadoop]# sbin/stop-yarn.sh</span><br></pre></td></tr></table></figure>
-</li>
+        <p>本地开发环境：IntelliJ IDEA+Maven3.3.9<br><a id="more"></a> </p>
+<h6 id="1-创建工程"><a href="#1-创建工程" class="headerlink" title="1. 创建工程"></a>1. 创建工程</h6><p>   打开IntelliJ IDEA<br>   File–&gt;New–&gt;Project…–&gt;Maven选择Create from archetye–&gt;org.apache.maven.archety:maven-archetype-quitkstart</p>
+<h6 id="2-配置"><a href="#2-配置" class="headerlink" title="2. 配置"></a>2. 配置</h6><p> 在工程中找到pom.xml文件，添加hadoop、hive依赖<br> <img src="/assets/blogImg/425hive1.png" alt="Hive图1"></p>
+<h6 id="3-创建类、并编写一个HelloUDF-java，代码如下："><a href="#3-创建类、并编写一个HelloUDF-java，代码如下：" class="headerlink" title="3. 创建类、并编写一个HelloUDF.java，代码如下："></a>3. 创建类、并编写一个HelloUDF.java，代码如下：</h6><p>  <img src="/assets/blogImg/425hive2.png" alt="Hive图2"></p>
+<p><strong>首先一个UDF必须满足下面两个条件:</strong></p>
+<ul>
+<li><ol>
+<li>一个UDF必须是org.apache.hadoop.hive.ql.exec.UDF的子类（换句话说就是我们一般都是去继承这个类）</li>
 </ol>
+</li>
+<li><ol start="2">
+<li>一个UDF必须至少实现了evaluate()方法</li>
+</ol>
+</li>
+</ul>
+<h6 id="4-测试，右击运行run-‘HelloUDF-main-’"><a href="#4-测试，右击运行run-‘HelloUDF-main-’" class="headerlink" title="4. 测试，右击运行run ‘HelloUDF.main()’"></a>4. 测试，右击运行run ‘HelloUDF.main()’</h6><h6 id="5-打包"><a href="#5-打包" class="headerlink" title="5. 打包"></a>5. 打包</h6><p>在IDEA菜单中选择view–&gt;Tool Windows–&gt;Maven Projects，然后在Maven Projects窗口中选择【工程名】–&gt;Lifecycle–&gt;package，在package中右键选择Run Maven Build开始打包<br>执行成功后在日志中找：<br>     <font color="#FF4500">     [INFO] Building jar: (路径)/hive-1.0.jar  </font></p>
+<p></p>
 
       
     </div>
@@ -550,11 +555,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hadoop/" rel="tag"># hadoop</a>
-          
-            <a href="/tags/环境搭建/" rel="tag"># 环境搭建</a>
-          
-            <a href="/tags/基础/" rel="tag"># 基础</a>
+            <a href="/tags/hive/" rel="tag"># hive</a>
           
         </div>
       
@@ -567,8 +568,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/08/Hadoop全网最详细的伪分布式部署(HDFS)/" rel="next" title="Hadoop全网最详细的伪分布式部署(HDFS)">
-                <i class="fa fa-chevron-left"></i> Hadoop全网最详细的伪分布式部署(HDFS)
+              <a href="/2018/04/24/Hive DDL，你真的了解吗？/" rel="next" title="Hive DDL，你真的了解吗？">
+                <i class="fa fa-chevron-left"></i> Hive DDL，你真的了解吗？
               </a>
             
           </div>
@@ -576,10 +577,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/11/Hive全网最详细的编译及部署/" rel="prev" title="Hive全网最详细的编译及部署">
-                Hive全网最详细的编译及部署 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -623,8 +620,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -752,6 +758,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-创建工程"><span class="nav-number">1.</span> <span class="nav-text">1. 创建工程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-配置"><span class="nav-number">2.</span> <span class="nav-text">2. 配置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-创建类、并编写一个HelloUDF-java，代码如下："><span class="nav-number">3.</span> <span class="nav-text">3. 创建类、并编写一个HelloUDF.java，代码如下：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-测试，右击运行run-‘HelloUDF-main-’"><span class="nav-number">4.</span> <span class="nav-text">4. 测试，右击运行run ‘HelloUDF.main()’</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5-打包"><span class="nav-number">5.</span> <span class="nav-text">5. 打包</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
