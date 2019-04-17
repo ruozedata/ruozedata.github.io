@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[谈谈我和大数据的情缘及入门]]></title>
+    <url>%2F2018%2F05%2F01%2F%E8%B0%88%E8%B0%88%E6%88%91%E5%92%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E6%83%85%E7%BC%98%E5%8F%8A%E5%85%A5%E9%97%A8%2F</url>
+    <content type="text"><![CDATA[&#8195;当年我是做C#+Java软件开发，然后考取OCP来了上海，立志要做一名DBA。只记得当年试用期刚过时，阴差阳错轮到我负责公司的大数据平台这块，刚开始很痛苦，一个陌生的行业，一个讨论的小伙伴都没有，一份现成资料都没有，心情焦虑。后来我调整心态，从DB转移到对大数据的研究，决定啃下这块硬骨头，把它嚼碎，把它消化吸收。 &#8195;由于当时公司都是CDH环境，刚开始安装卡了很久都过不去，后面选择在线安装，很慢，有时需要1天。后来安装HDFS ,YARN,HIVE组件，不过对它们不理解，不明白，有时很困惑。这样的过程大概持续三个月了。 &#8195;后来看了很多博文，都是Apache Hadoop版本搭建，于是我先试试用Apache Hadoop搭建部署单节点和集群，然后配置HA，最后我发现自己比较喜欢这种方式，因为我能了解其配置参数，配置文件和常规命令等等，再回头去对比CDH安装HDFS服务，真是太爽了，因为Apache Hadoop版本有真正体验感，这时我就迅速调整方向 : 先Apache版本，再CDH。 &#8195;由于公司项目环境，推进自己实在太慢，于是我在网上看各种相关视频教程；加n种群，在群里潜水，看水友们提的问题自己会不会，不会就去查资料，会就帮助他们一起研究学习进步。 &#8195;后来这样的进度太慢了，因为很多群都是打广告，潜水，没有真正的技术讨论氛围，于是我迅速调整方向，自己建个QQ群，慢慢招兵买马，和管理员们一起去管理，在过去的两年里我也学到了很多知识和认识和我一样前进的小伙伴们，现在也有很多已成为friends。 &#8195;每当夜晚，我就会深深思考仅凭公司项目,网上免费课程视频，QQ群等，还是不够的，于是我开始咨询培训机构的课程，在这里提醒各位小伙伴们，报班一定要擦亮眼睛，选择老师很重要，真心很重要，许多培训机构的老师都是Java转的，讲的是全是基础，根本没有企业项目实战经验；还有不要跟风，一定看仔细看清楚课程是否符合当前的你。 &#8195;这时还是远远不够的，于是我开始每天上下班地铁上看技术博客，积极分享。然后再申请博客，写博文，写总结，坚持每次做完一次实验就将博文，梳理好，写好，这样久而久之，知识点就慢慢夯实积累了。 &#8195;再着后面就开始受邀几大培训机构做公开课，再一次将知识点梳理了，也认识了新的小伙伴们，我们有着相同的方向和目标，我们尽情的讨论着大数据的知识点，慢慢朝着我们心目中的目标而努力着！ 以上基本就是我和大数据的情缘，下面我来谈谈我对大数据入门的感悟。1. 心态要端正。既然想要从事这行，那么一定要下定决心，当然付出是肯定大大的，不光光是毛爷爷，而更多的付出是自己的那一份坚持，凡事贵在坚持，真真体现在这里。后来我将我老婆从化工实验室分析员转行，做Python爬虫和数据分析，当然这个主要还是靠她的那份坚持。 2. 心目中要有计划。先学习Linux和Shell，再学习数据库和SQL，再学习Java和Scala，然后学习Apache Haoop、Hive、Kafka、Spark，朝大数据研发或开发而努力着。 3. 各种方式学习。QQ群，博客，上下班看技术文章，选择好的老师和课程培训， (擦亮眼睛，很多视频，很多大数据老师都是瞎扯的，最终总结一句话，不在企业上班的教大数据都是耍流氓的。)可以加速自己前进的马拉松里程，其实一般都要看大家怎么衡量培训这个事的，time和money的抉择，以及快速jump后的高薪。 4. 项目经验。很多小白都没有项目经验也没有面试经验和技巧，屡屡面试以失败告终，这时大家可以找你们熟悉的小伙伴们的，让他给你培训他的项目，这样就有了，当然可以直接互联网搜索一个就行，不过一般很难有完整的。而面试，就看看其他人面试分享，学习他人。 最后，总结一句话，坚持才是最重要的。最后，总结一句话，坚持才是最重要的。最后，总结一句话，坚持才是最重要的。]]></content>
+      <categories>
+        <category>感悟</category>
+      </categories>
+      <tags>
+        <tag>人生感悟</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Hive自定义函数(UDF)的部署使用，你会吗？]]></title>
     <url>%2F2018%2F04%2F27%2FHive%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0(UDF)%E7%9A%84%E9%83%A8%E7%BD%B2%E4%BD%BF%E7%94%A8%EF%BC%8C%E4%BD%A0%E4%BC%9A%E5%90%97%EF%BC%9F%2F</url>
     <content type="text"><![CDATA[Hive自定义函数(UDF)的部署使用，你会吗，三种方式！ 一.临时函数 idea编写udf 打包Maven Projects —-&gt;Lifecycle —-&gt;package —-&gt; 右击 Run Maven Build rz上传至服务器 添加jar包hive&gt;add xxx.jar jar_filepath; 查看jar包hive&gt;list jars; 创建临时函数hive&gt;create temporary function my_lower as ‘com.example.hive.udf.Lower’; 二.持久函数 idea编写udf 打包Maven Projects —-&gt;Lifecycle —-&gt;package —-&gt; 右击 Run Maven Build rz上传至服务器 上传到HDFS$ hdfs dfs -put xxx.jar hdfs:///path/to/xxx.jar 创建持久函数hive&gt;CREATE FUNCTION myfunc AS ‘myclass’ USING JAR ‘hdfs:///path/to/xxx.jar’; 注意点： 此方法在show functions时是看不到的，但是可以使用 需要上传至hdfs 三.持久函数，并注册环境介绍：CentOS7+hive-1.1.0-cdh5.7.0+Maven3.3.9 下载源码hive-1.1.0-cdh5.7.0-src.tar.gzhttp://archive.cloudera.com/cdh5/cdh/5/hive-1.1.0-cdh5.7.0-src.tar.gz 解压源码tar -zxvf hive-1.1.0-cdh5.7.0-src.tar.gz -C /home/hadoop/cd /home/hadoop/hive-1.1.0-cdh5.7.0 将HelloUDF.java文件增加到HIVE源码中cp HelloUDF.java /home/hadoop/hive-1.1.0-cdh5.7.0/ql/src/java/org/apache/hadoop/hive/ql/udf/ 修改FunctionRegistry.java 文件 1234cd /home/hadoop/hive-1.1.0-cdh5.7.0/ql/src/java/org/apache/hadoop/hive/ql/exec/vi FunctionRegistry.java在import中增加：import org.apache.hadoop.hive.ql.udf.HelloUDF;在文件头部 static 块中添加：system.registerUDF(&quot;helloUDF&quot;, HelloUDF.class, false); 重新编译cd /home/hadoop/hive-1.1.0-cdh5.7.0mvn clean package -DskipTests -Phadoop-2 -Pdist 编译结果全部为：BUILD SUCCESS文件所在目录：/home/hadoop/hive-1.1.0-cdh5.7.0/hive-1.1.0-cdh5.7.0/packaging/target 配置hive环境配置hive环境时，可以全新配置或将编译后带UDF函数的包复制到旧hive环境中：7.1. 全部配置：参照之前文档 Hive全网最详细的编译及部署 7.2. 将编译后带UDF函数的包复制到旧hive环境 到/home/hadoop/hive-1.1.0-cdh5.7.0/packaging/target/apache-hive-1.1.0-cdh5.7.0-bin/apache-hive-1.1.0-cdh5.7.0-bin/lib下，找到hive-exec-1.1.0-cdh5.7.0.jar包，并将旧环境中对照的包替换掉 命令： 1234cd /home/hadoop/app/hive-1.1.0-cdh5.7.0/libmv hive-exec-1.1.0-cdh5.7.0.jar hive-exec-1.1.0-cdh5.7.0.jar_bakcd /home/hadoop/hive-1.1.0-cdh5.7.0/packaging/target/apache-hive-1.1.0-cdh5.7.0-bin/apache-hive-1.1.0-cdh5.7.0-bin/libcp hive-exec-1.1.0-cdh5.7.0.jar /home/hadoop/app/hive-1.1.0-cdh5.7.0/lib 最终启动hive 测试： 123hivehive (default)&gt; show functions ; -- 能查看到有 helloudfhive(default)&gt;select deptno,dname,helloudf(dname) from dept; -- helloudf函数生效]]></content>
@@ -145,18 +156,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Linux常用命令（三）]]></title>
-    <url>%2F2018%2F04%2F01%2Flinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%883%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[Linux最常用实战命令（三） 用户、用户组 用户 useradd 用户名 添加用户 userdel 用户名 删除用户 id 用户名 查看用户信息 passwd 用户名 修改用户密码 su - 用户名 切换用户 ll /home/ 查看已有的用户 用户组 groupadd 用户组 添加用户组 cat /etc/group 用户组的文件 usermod -a -G 用户组 用户 将用户添加到用户组中 给一个普通用户添加sudo权限 123vi /etc/sudoers #在root ALL=(ALL) ALL 下面添加一行 用户 ALL=(ALL) NOPASSWD:ALL 修改文件权限 chown 修改文件或文件夹的所属用户和用户组 chown -R 用户:用户组 文件夹名 -R 为递归参数，指针对文件夹 chown 用户:用户组 文件名 chmod: 修改文件夹或者文件的权限 chmod -R 700 文件夹名 chmod 700 文件夹名 r =&gt; 4 w =&gt; 2 x =&gt; 1 后台执行命令 &amp; nohup screen 多人合作 screen screen -list 查看会话 screen -S 建立一个后台的会话 screen -r 进入会话 ctrl+a+d 退出会话]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>基础</tag>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[linux常用命令（一）]]></title>
     <url>%2F2018%2F04%2F01%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4(%E4%B8%80)%2F</url>
     <content type="text"><![CDATA[Linux最常用实战命令（一） 查看当前目录 pwd 查看IP ifconfig 查看虚拟机ip hostname 主机名字 i 查看主机名映射的IP 切换目录 cd cd ~ 切换家目录（root为/root，普通用户为/home/用户名） cd /filename 以绝对路径切换目录 cd - 返回上一次操作路径，并输出路径 cd ../ 返回上一层目录 清理桌面 clear 显示当前目录文件和文件夹 ls ls -l(ll) 显示详细信息 ls -la 显示详细信息+隐藏文件（以 . 开头，例：.ssh） ls -lh 显示详细信息+文件大小 ls -lrt 显示详细信息+按时间排序 查看文件夹大小 du -sh 命令帮助 man 命令 命令 –help 创建文件夹 mkdir mkdir -p filename1/filename2 递归创建文件夹 创建文件 touch/vi/echo xx&gt;filename 查看文件内容 cat filename 直接打印所有内容 more filename 根据窗口大小进行分页显示 文件编辑 vi vi分为命令行模式，插入模式，尾行模式 命令行模式—&gt;插入模式：按i或a键 插入模式—&gt;命令行模式：按Esc键 命令行模式—&gt;尾行模式：按Shift和:键 插入模式 dd 删除光标所在行 n+dd 删除光标以下的n行 dG 删除光标以下行 gg 第一行第一个字母 G 最后一行第一个字母 shift+$ 该行最后一个字母 尾行模式 q! 强制退出 qw 写入并退出 qw! 强制写入退出 x 退出，如果存在改动，则保存再退出]]></content>
@@ -172,6 +171,18 @@
     <title><![CDATA[linux常用命令（二）]]></title>
     <url>%2F2018%2F04%2F01%2Flinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%88%E4%BA%8C%EF%BC%89%2F</url>
     <content type="text"><![CDATA[Linux最常用实战命令（二） 实时查看文件内容 tail filename tail -f filename 当文件(名)被修改后，不能监视文件内容 tail -F filename 当文件(名)被修改后，依然可以监视文件内容 复制、移动文件 cp oldfilename newfilename 复制 mv oldfilename newfilename 移动/重命名 echo echo “xxx” 输出 echo “xxx” &gt; filename 覆盖 echo “xxx” &gt;&gt; filename 追加 删除 rm rm -f 强制删除 rm -rf 强制删除文件夹，r 表示递归参数，指针对文件夹及文件夹里面文件 别名 alias alias x=”xxxxxx” 临时引用别名 alias x=”xxxxxx” 配置到环境变量中即为永久生效 查看历史命令 history history 显示出所有历史记录 history n 显示出n条记录 !n 执行第n条记录 管道命令 （ | ） 管道的两边都是命令，左边的命令先执行，执行的结果作为右边命令的输入 查看进程、查看id、端口 ps -ef ｜grep 进程名 查看进程基本信息 netstat -npl｜grep 进程名或进程id 查看服务id和端口 杀死进程 kill kill -9 进程名/pid 强制删除 kill -9 $(pgrep 进程名)：杀死与该进程相关的所有进程 rpm 搜索、卸载 rpm -qa | grep xxx 搜索xxx rpm –nodeps -e xxx 删除xxx –nodeps 不验证包的依赖性 查询 find 路径 -name xxx (推荐) which xxx local xxx 查看磁盘、内存、系统的情况 df -h 查看磁盘大小及其使用情况 free -m 查看内存大小及其使用情况 top 查看系统情况 软连接 ln -s 原始目录 目标目录 压缩、解压 tar -czf 压缩 tar -xzvf 解压 zip 压缩 unzip 解压]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Linux常用命令（三）]]></title>
+    <url>%2F2018%2F04%2F01%2Flinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%883%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[Linux最常用实战命令（三） 用户、用户组 用户 useradd 用户名 添加用户 userdel 用户名 删除用户 id 用户名 查看用户信息 passwd 用户名 修改用户密码 su - 用户名 切换用户 ll /home/ 查看已有的用户 用户组 groupadd 用户组 添加用户组 cat /etc/group 用户组的文件 usermod -a -G 用户组 用户 将用户添加到用户组中 给一个普通用户添加sudo权限 123vi /etc/sudoers #在root ALL=(ALL) ALL 下面添加一行 用户 ALL=(ALL) NOPASSWD:ALL 修改文件权限 chown 修改文件或文件夹的所属用户和用户组 chown -R 用户:用户组 文件夹名 -R 为递归参数，指针对文件夹 chown 用户:用户组 文件名 chmod: 修改文件夹或者文件的权限 chmod -R 700 文件夹名 chmod 700 文件夹名 r =&gt; 4 w =&gt; 2 x =&gt; 1 后台执行命令 &amp; nohup screen 多人合作 screen screen -list 查看会话 screen -S 建立一个后台的会话 screen -r 进入会话 ctrl+a+d 退出会话]]></content>
       <categories>
         <category>linux</category>
       </categories>
