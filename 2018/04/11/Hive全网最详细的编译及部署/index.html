@@ -14,7 +14,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="zh">
+<html class="theme-next mist use-motion" lang="zh-cn">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -97,14 +97,14 @@
 
 
   <meta name="description" content="若泽大数据，Hive全网最详细的编译及部署">
-<meta name="keywords" content="hive,环境搭建,基础">
+<meta name="keywords" content="环境搭建,基础,hive">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hive全网最详细的编译及部署">
 <meta property="og:url" content="http://yoursite.com/2018/04/11/Hive全网最详细的编译及部署/index.html">
 <meta property="og:site_name" content="若泽大数据 www.ruozedata.com">
 <meta property="og:description" content="若泽大数据，Hive全网最详细的编译及部署">
-<meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-04-16T12:28:25.419Z">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-04-16T12:40:22.908Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive全网最详细的编译及部署">
 <meta name="twitter:description" content="若泽大数据，Hive全网最详细的编译及部署">
@@ -168,7 +168,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
 
   
   
@@ -436,7 +436,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-04-16 20:28:25" itemprop="dateModified" datetime="2019-04-16T20:28:25+08:00">2019-04-16</time>
+                <time title="Geändert am: 2019-04-16 20:40:22" itemprop="dateModified" datetime="2019-04-16T20:40:22+08:00">2019-04-16</time>
               
             
           </span>
@@ -469,6 +469,13 @@
           
           
 
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Aufrufe:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
           
 
           
@@ -567,11 +574,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hive/" rel="tag"># hive</a>
-          
             <a href="/tags/环境搭建/" rel="tag"># 环境搭建</a>
           
             <a href="/tags/基础/" rel="tag"># 基础</a>
+          
+            <a href="/tags/hive/" rel="tag"># hive</a>
           
         </div>
       
@@ -617,6 +624,10 @@
 
           </div>
           
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
 
   
 
@@ -810,19 +821,12 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">ruozedata</span>
-
+        <div class="copyright"> 
   
 
   
 </div>
 
-
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -830,12 +834,38 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+  <div class="theme-info"><a href="/www.ruozedata.com" class="theme-link">若泽数据</a></div>
 
 
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Alle Besucher">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Alle Aufrufe">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
 
 
 
@@ -943,6 +973,35 @@
 
   
 
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '53baf2a5ee1c5d4e827f',
+    clientSecret: 'e4d5b4c40ee409e495d0a94c31ee721c0a404bbe',
+    repo: 'blog_issues# Repository name to store issues',
+    owner: 'ruozedata',
+    admin: ['ruozedata'],
+    id: md5(location.pathname),
+    
+      language: 'zh-CN',
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
 
   
 

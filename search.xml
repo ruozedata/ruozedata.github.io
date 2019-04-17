@@ -38,7 +38,7 @@
     <url>%2F2018%2F04%2F23%2FHive%E7%94%9F%E4%BA%A7%E4%B8%8A%EF%BC%8C%E5%8E%8B%E7%BC%A9%E5%92%8C%E5%AD%98%E5%82%A8%E7%BB%93%E5%90%88%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B%2F</url>
     <content type="text"><![CDATA[你们Hive生产上，压缩和存储，结合使用了吗？ 案例：原文件大小：19M 1. ORC+Zlip结合12345 create table page_views_orc_zlibROW FORMAT DELIMITED FIELDS TERMINATED BY &quot;\t&quot;STORED AS ORC TBLPROPERTIES(&quot;orc.compress&quot;=&quot;ZLIB&quot;)as select * from page_views; 用ORC+Zlip之后的文件为2.8M 用ORC+Zlip之后的文件为2.8M###### 2. Parquet+gzip结合 12345 set parquet.compression=gzip;create table page_views_parquet_gzipROW FORMAT DELIMITED FIELDS TERMINATED BY &quot;\t&quot;STORED AS PARQUET as select * from page_views;用Parquet+gzip之后的文件为3.9M 3. Parquet+Lzo结合3.1 安装Lzo1234567891011 wget http://www.oberhumer.com/opensource/lzo/download/lzo-2.06.tar.gztar -zxvf lzo-2.06.tar.gzcd lzo-2.06./configure -enable-shared -prefix=/usr/local/hadoop/lzo/make &amp;&amp; make installcp /usr/local/hadoop/lzo/lib/* /usr/lib/cp /usr/local/hadoop/lzo/lib/* /usr/lib64/vi /etc/profileexport PATH=/usr/local//hadoop/lzo/:$PATHexport C_INCLUDE_PATH=/usr/local/hadoop/lzo/include/source /etc/profile 3.2 安装Lzop12345678 wget http://www.lzop.org/download/lzop-1.03.tar.gztar -zxvf lzop-1.03.tar.gzcd lzop-1.03./configure -enable-shared -prefix=/usr/local/hadoop/lzopmake &amp;&amp; make installvi /etc/profileexport LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64source /etc/profile 3.3 软连接1ln -s /usr/local/hadoop/lzop/bin/lzop /usr/bin/lzop 3.4 测试lzop lzop xxx.log 若生成xxx.log.lzo文件，则说明成功3.5 安装Hadoop-LZO12345 git或svn 下载https://github.com/twitter/hadoop-lzocd hadoop-lzomvn clean package -Dmaven.test.skip=true tar -cBf - -C target/native/Linux-amd64-64/lib . | tar -xBvf - -C /opt/software/hadoop/lib/native/cp target/hadoop-lzo-0.4.21-SNAPSHOT.jar /opt/software/hadoop/share/hadoop/common/ 3.6 配置 在core-site.xml配置1234567891011121314151617181920212223242526272829303132&lt;property&gt; &lt;name&gt;io.compression.codecs&lt;/name&gt; &lt;value&gt; org.apache.hadoop.io.compress.GzipCodec, org.apache.hadoop.io.compress.DefaultCodec, org.apache.hadoop.io.compress.BZip2Codec, org.apache.hadoop.io.compress.SnappyCodec, com.hadoop.compression.lzo.LzoCodec, com.hadoop.compression.lzo.LzopCodec &lt;/value&gt;&lt;/property&gt;&lt;property&gt; &lt;name&gt;io.compression.codec.lzo.class&lt;/name&gt; &lt;value&gt;com.hadoop.compression.lzo.LzoCodec&lt;/value&gt;&lt;/property&gt;在mapred-site.xml中配置 &lt;property&gt; &lt;name&gt;mapreduce.output.fileoutputformat.compress&lt;/name&gt; &lt;value&gt;true&lt;/value&gt;&lt;/property&gt;&lt;property&gt; &lt;name&gt;mapreduce.map.output.compress.codec&lt;/name&gt; &lt;value&gt;com.hadoop.compression.lzo.LzoCodec&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;mapred.child.env&lt;/name&gt; &lt;value&gt;LD_LIBRARY_PATH=/usr/local/hadoop/lzo/lib&lt;/value&gt;&lt;/property&gt;在hadoop-env.sh中配置export LD_LIBRARY_PATH=/usr/local/hadoop/lzo/lib 3.7 测试12345678SET hive.exec.compress.output=true; SET mapreduce.output.fileoutputformat.compress.codec=com.hadoop.compression.lzo.lzopCodec;SET mapred.output.compression.codec=com.hadoop.compression.lzo.LzopCodec; create table page_views_parquet_lzo ROW FORMAT DELIMITED FIELDS TERMINATED BY &quot;\t&quot;STORED AS PARQUETTBLPROPERTIES(&quot;parquet.compression&quot;=&quot;lzo&quot;)as select * from page_views; 用Parquet+Lzo(未建立索引)之后的文件为5.9M]]></content>
       <categories>
-        <category>hadoop</category>
+        <category>hive</category>
       </categories>
       <tags>
         <tag>hive</tag>
@@ -70,17 +70,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hadoop常用命令大全]]></title>
-    <url>%2F2018%2F04%2F14%2FHadoop%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8%2F</url>
-    <content type="text"><![CDATA[若泽大数据，Hadoop常用命令大全 1. 单独启动和关闭hadoop服务 功能 命令 启动名称节点 hadoop-daemon.sh start namenode 启动数据节点 hadoop-daemons.sh start datanode slave 启动secondarynamenode hadoop-daemon.sh start secondarynamenode 启动resourcemanager yarn-daemon.sh start resourcemanager 启动nodemanager bin/yarn-daemons.sh start nodemanager 停止数据节点 hadoop-daemons.sh stop datanode 2. 常用的命令 功能 命令 创建目录 hdfs dfs -mkdir /input 查看 hdfs dfs -ls 递归查看 hdfs dfs ls -R 上传 hdfs dfs -put 下载 hdfs dfs -get 删除 hdfs dfs -rm 从本地剪切粘贴到hdfs hdfs fs -moveFromLocal /input/xx.txt /input/xx.txt 从hdfs剪切粘贴到本地 hdfs fs -moveToLocal /input/xx.txt /input/xx.txt 追加一个文件到另一个文件到末尾 hdfs fs -appedToFile ./hello.txt /input/hello.txt 查看文件内容 hdfs fs -cat /input/hello.txt 显示一个文件到末尾 hdfs fs -tail /input/hello.txt 以字符串的形式打印文件的内容 hdfs fs -text /input/hello.txt 修改文件权限 hdfs fs -chmod 666 /input/hello.txt 修改文件所属 hdfs fs -chown ruoze.ruoze /input/hello.txt 从本地文件系统拷贝到hdfs里 hdfs fs -copyFromLocal /input/hello.txt /input/ 从hdfs拷贝到本地 hdfs fs -copyToLocal /input/hello.txt /input/ 从hdfs到一个路径拷贝到另一个路径 hdfs fs -cp /input/xx.txt /output/xx.txt 从hdfs到一个路径移动到另一个路径 hdfs fs -mv /input/xx.txt /output/xx.txt 统计文件系统的可用空间信息 hdfs fs -df -h / 统计文件夹的大小信息 hdfs fs -du -s -h / 统计一个指定目录下的文件节点数量 hadoop fs -count /aaa 设置hdfs的文件副本数量 hadoop fs -setrep 3 /input/xx.txt 总结：一定要学会查看命令帮助1.hadoop命令直接回车查看命令帮助2.hdfs命令、hdfs dfs命令直接回车查看命令帮助3.hadoop fs 等价 hdfs dfs命令，和Linux的命令差不多。]]></content>
-      <categories>
-        <category>其余组件</category>
-      </categories>
-      <tags>
-        <tag>hadoop</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Spark2.2.0 全网最详细的源码编译]]></title>
     <url>%2F2018%2F04%2F14%2FSpark2.2.0%20%E5%85%A8%E7%BD%91%E6%9C%80%E8%AF%A6%E7%BB%86%E7%9A%84%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%2F</url>
     <content type="text"><![CDATA[若泽大数据，Spark2.2.0 全网最详细的源码编译 环境准备 JDK： Spark 2.2.0及以上版本只支持JDK1.8 Maven：3.3.9设置maven环境变量时，需设置maven内存：export MAVEN_OPTS=”-Xmx2g -XX:ReservedCodeCacheSize=512m” Scala：2.11.8 Git 编译下载spark的tar包，并解压12[hadoop@hadoop000 source]$ wget https://d3kbcqa49mib13.cloudfront.net/spark-2.2.0.tgz[hadoop@hadoop000 source]$ tar -xzvf spark-2.2.0.tgz 编辑dev/make-distribution.sh123456789101112131415[hadoop@hadoop000 spark-2.2.0]$ vi dev/make-distribution.sh注释以下内容：#VERSION=$(&quot;$MVN&quot; help:evaluate -Dexpression=project.version $@ 2&gt;/dev/null | grep -v &quot;INFO&quot; | tail -n 1)#SCALA_VERSION=$(&quot;$MVN&quot; help:evaluate -Dexpression=scala.binary.version $@ 2&gt;/dev/null\# | grep -v &quot;INFO&quot;\# | tail -n 1)#SPARK_HADOOP_VERSION=$(&quot;$MVN&quot; help:evaluate -Dexpression=hadoop.version $@ 2&gt;/dev/null\# | grep -v &quot;INFO&quot;\# | tail -n 1)#SPARK_HIVE=$(&quot;$MVN&quot; help:evaluate -Dexpression=project.activeProfiles -pl sql/hive $@ 2&gt;/dev/null\# | grep -v &quot;INFO&quot;\# | fgrep --count &quot;&lt;id&gt;hive&lt;/id&gt;&quot;;\# # Reset exit status to 0, otherwise the script stops here if the last grep finds nothing\# # because we use &quot;set -o pipefail&quot;# echo -n) 添加以下内容：1234VERSION=2.2.0SCALA_VERSION=2.11SPARK_HADOOP_VERSION=2.6.0-cdh5.7.0SPARK_HIVE=1 编辑pom.xml1234567[hadoop@hadoop000 spark-2.2.0]$ vi pom.xml添加在repositorys内&lt;repository&gt; &lt;id&gt;clouders&lt;/id&gt; &lt;name&gt;clouders Repository&lt;/name&gt; &lt;url&gt;https://repository.cloudera.com/artifactory/cloudera-repos/&lt;/url&gt;&lt;/repository&gt; 安装1[hadoop@hadoop000 spark-2.2.0]$ ./dev/make-distribution.sh --name 2.6.0-cdh5.7.0 --tgz -Dhadoop.version=2.6.0-cdh5.7.0 -Phadoop-2.6 -Phive -Phive-thriftserver -Pyarn 稍微等待几小时，网络较好的话，非常快。也可以参考J哥博客：基于CentOS6.4环境编译Spark-2.1.0源码 http://blog.itpub.net/30089851/viewspace-2140779/]]></content>
@@ -91,6 +80,17 @@
         <tag>环境搭建</tag>
         <tag>基础</tag>
         <tag>spark</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hadoop常用命令大全]]></title>
+    <url>%2F2018%2F04%2F14%2FHadoop%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8%2F</url>
+    <content type="text"><![CDATA[若泽大数据，Hadoop常用命令大全 1. 单独启动和关闭hadoop服务 功能 命令 启动名称节点 hadoop-daemon.sh start namenode 启动数据节点 hadoop-daemons.sh start datanode slave 启动secondarynamenode hadoop-daemon.sh start secondarynamenode 启动resourcemanager yarn-daemon.sh start resourcemanager 启动nodemanager bin/yarn-daemons.sh start nodemanager 停止数据节点 hadoop-daemons.sh stop datanode 2. 常用的命令 功能 命令 创建目录 hdfs dfs -mkdir /input 查看 hdfs dfs -ls 递归查看 hdfs dfs ls -R 上传 hdfs dfs -put 下载 hdfs dfs -get 删除 hdfs dfs -rm 从本地剪切粘贴到hdfs hdfs fs -moveFromLocal /input/xx.txt /input/xx.txt 从hdfs剪切粘贴到本地 hdfs fs -moveToLocal /input/xx.txt /input/xx.txt 追加一个文件到另一个文件到末尾 hdfs fs -appedToFile ./hello.txt /input/hello.txt 查看文件内容 hdfs fs -cat /input/hello.txt 显示一个文件到末尾 hdfs fs -tail /input/hello.txt 以字符串的形式打印文件的内容 hdfs fs -text /input/hello.txt 修改文件权限 hdfs fs -chmod 666 /input/hello.txt 修改文件所属 hdfs fs -chown ruoze.ruoze /input/hello.txt 从本地文件系统拷贝到hdfs里 hdfs fs -copyFromLocal /input/hello.txt /input/ 从hdfs拷贝到本地 hdfs fs -copyToLocal /input/hello.txt /input/ 从hdfs到一个路径拷贝到另一个路径 hdfs fs -cp /input/xx.txt /output/xx.txt 从hdfs到一个路径移动到另一个路径 hdfs fs -mv /input/xx.txt /output/xx.txt 统计文件系统的可用空间信息 hdfs fs -df -h / 统计文件夹的大小信息 hdfs fs -du -s -h / 统计一个指定目录下的文件节点数量 hadoop fs -count /aaa 设置hdfs的文件副本数量 hadoop fs -setrep 3 /input/xx.txt 总结：一定要学会查看命令帮助1.hadoop命令直接回车查看命令帮助2.hdfs命令、hdfs dfs命令直接回车查看命令帮助3.hadoop fs 等价 hdfs dfs命令，和Linux的命令差不多。]]></content>
+      <categories>
+        <category>其余组件</category>
+      </categories>
+      <tags>
+        <tag>hadoop</tag>
       </tags>
   </entry>
   <entry>
@@ -113,9 +113,9 @@
         <category>hive</category>
       </categories>
       <tags>
-        <tag>hive</tag>
         <tag>环境搭建</tag>
         <tag>基础</tag>
+        <tag>hive</tag>
       </tags>
   </entry>
   <entry>
@@ -145,6 +145,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[linux常用命令（一）]]></title>
+    <url>%2F2018%2F04%2F01%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4(%E4%B8%80)%2F</url>
+    <content type="text"><![CDATA[Linux最常用实战命令（一） 查看当前目录 pwd 查看IP ifconfig 查看虚拟机ip hostname 主机名字 i 查看主机名映射的IP 切换目录 cd cd ~ 切换家目录（root为/root，普通用户为/home/用户名） cd /filename 以绝对路径切换目录 cd - 返回上一次操作路径，并输出路径 cd ../ 返回上一层目录 清理桌面 clear 显示当前目录文件和文件夹 ls ls -l(ll) 显示详细信息 ls -la 显示详细信息+隐藏文件（以 . 开头，例：.ssh） ls -lh 显示详细信息+文件大小 ls -lrt 显示详细信息+按时间排序 查看文件夹大小 du -sh 命令帮助 man 命令 命令 –help 创建文件夹 mkdir mkdir -p filename1/filename2 递归创建文件夹 创建文件 touch/vi/echo xx&gt;filename 查看文件内容 cat filename 直接打印所有内容 more filename 根据窗口大小进行分页显示 文件编辑 vi vi分为命令行模式，插入模式，尾行模式 命令行模式—&gt;插入模式：按i或a键 插入模式—&gt;命令行模式：按Esc键 命令行模式—&gt;尾行模式：按Shift和:键 插入模式 dd 删除光标所在行 n+dd 删除光标以下的n行 dG 删除光标以下行 gg 第一行第一个字母 G 最后一行第一个字母 shift+$ 该行最后一个字母 尾行模式 q! 强制退出 qw 写入并退出 qw! 强制写入退出 x 退出，如果存在改动，则保存再退出]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Linux常用命令（三）]]></title>
     <url>%2F2018%2F04%2F01%2Flinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%883%EF%BC%89%2F</url>
     <content type="text"><![CDATA[Linux最常用实战命令（三） 用户、用户组 用户 useradd 用户名 添加用户 userdel 用户名 删除用户 id 用户名 查看用户信息 passwd 用户名 修改用户密码 su - 用户名 切换用户 ll /home/ 查看已有的用户 用户组 groupadd 用户组 添加用户组 cat /etc/group 用户组的文件 usermod -a -G 用户组 用户 将用户添加到用户组中 给一个普通用户添加sudo权限 123vi /etc/sudoers #在root ALL=(ALL) ALL 下面添加一行 用户 ALL=(ALL) NOPASSWD:ALL 修改文件权限 chown 修改文件或文件夹的所属用户和用户组 chown -R 用户:用户组 文件夹名 -R 为递归参数，指针对文件夹 chown 用户:用户组 文件名 chmod: 修改文件夹或者文件的权限 chmod -R 700 文件夹名 chmod 700 文件夹名 r =&gt; 4 w =&gt; 2 x =&gt; 1 后台执行命令 &amp; nohup screen 多人合作 screen screen -list 查看会话 screen -S 建立一个后台的会话 screen -r 进入会话 ctrl+a+d 退出会话]]></content>
@@ -160,18 +172,6 @@
     <title><![CDATA[linux常用命令（二）]]></title>
     <url>%2F2018%2F04%2F01%2Flinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%88%E4%BA%8C%EF%BC%89%2F</url>
     <content type="text"><![CDATA[Linux最常用实战命令（二） 实时查看文件内容 tail filename tail -f filename 当文件(名)被修改后，不能监视文件内容 tail -F filename 当文件(名)被修改后，依然可以监视文件内容 复制、移动文件 cp oldfilename newfilename 复制 mv oldfilename newfilename 移动/重命名 echo echo “xxx” 输出 echo “xxx” &gt; filename 覆盖 echo “xxx” &gt;&gt; filename 追加 删除 rm rm -f 强制删除 rm -rf 强制删除文件夹，r 表示递归参数，指针对文件夹及文件夹里面文件 别名 alias alias x=”xxxxxx” 临时引用别名 alias x=”xxxxxx” 配置到环境变量中即为永久生效 查看历史命令 history history 显示出所有历史记录 history n 显示出n条记录 !n 执行第n条记录 管道命令 （ | ） 管道的两边都是命令，左边的命令先执行，执行的结果作为右边命令的输入 查看进程、查看id、端口 ps -ef ｜grep 进程名 查看进程基本信息 netstat -npl｜grep 进程名或进程id 查看服务id和端口 杀死进程 kill kill -9 进程名/pid 强制删除 kill -9 $(pgrep 进程名)：杀死与该进程相关的所有进程 rpm 搜索、卸载 rpm -qa | grep xxx 搜索xxx rpm –nodeps -e xxx 删除xxx –nodeps 不验证包的依赖性 查询 find 路径 -name xxx (推荐) which xxx local xxx 查看磁盘、内存、系统的情况 df -h 查看磁盘大小及其使用情况 free -m 查看内存大小及其使用情况 top 查看系统情况 软连接 ln -s 原始目录 目标目录 压缩、解压 tar -czf 压缩 tar -xzvf 解压 zip 压缩 unzip 解压]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>基础</tag>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[linux常用命令（一）]]></title>
-    <url>%2F2018%2F04%2F01%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4(%E4%B8%80)%2F</url>
-    <content type="text"><![CDATA[Linux最常用实战命令（一） 查看当前目录 pwd 查看IP ifconfig 查看虚拟机ip hostname 主机名字 i 查看主机名映射的IP 切换目录 cd cd ~ 切换家目录（root为/root，普通用户为/home/用户名） cd /filename 以绝对路径切换目录 cd - 返回上一次操作路径，并输出路径 cd ../ 返回上一层目录 清理桌面 clear 显示当前目录文件和文件夹 ls ls -l(ll) 显示详细信息 ls -la 显示详细信息+隐藏文件（以 . 开头，例：.ssh） ls -lh 显示详细信息+文件大小 ls -lrt 显示详细信息+按时间排序 查看文件夹大小 du -sh 命令帮助 man 命令 命令 –help 创建文件夹 mkdir mkdir -p filename1/filename2 递归创建文件夹 创建文件 touch/vi/echo xx&gt;filename 查看文件内容 cat filename 直接打印所有内容 more filename 根据窗口大小进行分页显示 文件编辑 vi vi分为命令行模式，插入模式，尾行模式 命令行模式—&gt;插入模式：按i或a键 插入模式—&gt;命令行模式：按Esc键 命令行模式—&gt;尾行模式：按Shift和:键 插入模式 dd 删除光标所在行 n+dd 删除光标以下的n行 dG 删除光标以下行 gg 第一行第一个字母 G 最后一行第一个字母 shift+$ 该行最后一个字母 尾行模式 q! 强制退出 qw 写入并退出 qw! 强制写入退出 x 退出，如果存在改动，则保存再退出]]></content>
       <categories>
         <category>linux</category>
       </categories>
