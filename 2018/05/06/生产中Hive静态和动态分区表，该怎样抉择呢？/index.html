@@ -96,17 +96,22 @@
 
 
 
-  <meta name="description" content="若泽数据优秀博客汇总">
-<meta name="keywords" content="大数据,hadoop,spark">
-<meta property="og:type" content="website">
-<meta property="og:title" content="若泽大数据 www.ruozedata.com">
-<meta property="og:url" content="http://yoursite.com/categories/spark/index.html">
+  <meta name="description" content="一.需求按照不同部门作为分区，导数据到目标表 二.使用静态分区表来完成1.创建静态分区表：12345678910create table emp_static_partition(empno int, ename string, job string, mgr int, hiredate string, sal double, comm double)PARTITIONED BY(deptno i">
+<meta name="keywords" content="hive">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生产中Hive静态和动态分区表，该怎样抉择呢？">
+<meta property="og:url" content="http://yoursite.com/2018/05/06/生产中Hive静态和动态分区表，该怎样抉择呢？/index.html">
 <meta property="og:site_name" content="若泽大数据 www.ruozedata.com">
-<meta property="og:description" content="若泽数据优秀博客汇总">
+<meta property="og:description" content="一.需求按照不同部门作为分区，导数据到目标表 二.使用静态分区表来完成1.创建静态分区表：12345678910create table emp_static_partition(empno int, ename string, job string, mgr int, hiredate string, sal double, comm double)PARTITIONED BY(deptno i">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/assets/blogImg/0506_1.png">
+<meta property="og:image" content="http://yoursite.com/assets/blogImg/0506_2.png">
+<meta property="og:image" content="http://yoursite.com/assets/blogImg/0506_3.png">
+<meta property="og:updated_time" content="2019-04-20T10:18:38.658Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="若泽大数据 www.ruozedata.com">
-<meta name="twitter:description" content="若泽数据优秀博客汇总">
+<meta name="twitter:title" content="生产中Hive静态和动态分区表，该怎样抉择呢？">
+<meta name="twitter:description" content="一.需求按照不同部门作为分区，导数据到目标表 二.使用静态分区表来完成1.创建静态分区表：12345678910create table emp_static_partition(empno int, ename string, job string, mgr int, hiredate string, sal double, comm double)PARTITIONED BY(deptno i">
+<meta name="twitter:image" content="http://yoursite.com/assets/blogImg/0506_1.png">
 
 
 
@@ -116,7 +121,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/categories/spark/">
+  <link rel="canonical" href="http://yoursite.com/2018/05/06/生产中Hive静态和动态分区表，该怎样抉择呢？/">
 
 
 
@@ -126,7 +131,7 @@
   };
 </script>
 
-  <title>Category: spark | 若泽大数据 www.ruozedata.com</title>
+  <title>生产中Hive静态和动态分区表，该怎样抉择呢？ | 若泽大数据 www.ruozedata.com</title>
   
 
 
@@ -174,7 +179,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -250,7 +255,7 @@
         
         
           
-          <li class="menu-item menu-item-分类 menu-item-active">
+          <li class="menu-item menu-item-分类">
 
     
     
@@ -314,28 +319,6 @@
   
     
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
   
 
   
@@ -381,83 +364,257 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>spark<small>Category</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/06/生产中Hive静态和动态分区表，该怎样抉择呢？/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ruozedata">
+      <meta itemprop="description" content="若泽数据优秀博客汇总">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="若泽大数据 www.ruozedata.com">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2018/04/14/Spark2.2.0 全网最详细的源码编译/" itemprop="url">
-            
-              <span itemprop="name">Spark2.2.0 全网最详细的源码编译</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">生产中Hive静态和动态分区表，该怎样抉择呢？
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-04-14T00:00:00+08:00" content="2018-04-14">
-          04-14
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-05-06 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-06T00:00:00+08:00">2018-05-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-20 18:18:38" itemprop="dateModified" datetime="2019-04-20T18:18:38+08:00">2019-04-20</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hive/" itemprop="url" rel="index"><span itemprop="name">hive</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h6 id="一-需求"><a href="#一-需求" class="headerlink" title="一.需求"></a>一.需求</h6><p>按照不同部门作为分区，导数据到目标表</p>
+<h6 id="二-使用静态分区表来完成"><a href="#二-使用静态分区表来完成" class="headerlink" title="二.使用静态分区表来完成"></a>二.使用静态分区表来完成</h6><p>1.创建静态分区表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">create table emp_static_partition(</span><br><span class="line">empno int, </span><br><span class="line">ename string, </span><br><span class="line">job string, </span><br><span class="line">mgr int, </span><br><span class="line">hiredate string, </span><br><span class="line">sal double, </span><br><span class="line">comm double)</span><br><span class="line">PARTITIONED BY(deptno int)</span><br><span class="line">row format delimited fields terminated by &apos;\t&apos;;</span><br></pre></td></tr></table></figure></p>
+<p>2.插入数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hive&gt;insert into table emp_static_partition partition(deptno=10)</span><br><span class="line">     select empno , ename , job , mgr , hiredate , sal , comm from emp where deptno=10;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a> 
+<p>3.查询数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive&gt;select * from emp_static_partition;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/assets/blogImg/0506_1.png" alt></p>
+<h6 id="三-使用动态分区表来完成"><a href="#三-使用动态分区表来完成" class="headerlink" title="三.使用动态分区表来完成"></a>三.使用动态分区表来完成</h6><p>1.创建动态分区表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">create table emp_dynamic_partition(</span><br><span class="line">empno int, </span><br><span class="line">ename string, </span><br><span class="line">job string, </span><br><span class="line">mgr int, </span><br><span class="line">hiredate string, </span><br><span class="line">sal double, </span><br><span class="line">comm double)</span><br><span class="line">PARTITIONED BY(deptno int)row format delimited fields terminated by &apos;\t&apos;;</span><br></pre></td></tr></table></figure></p>
+<font color="#FF4500">【注意】动态分区表与静态分区表的创建，在语法上是没有任何区别的</font>
 
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2018/04/13/为什么我们生产上要选择Spark On Yarn？/" itemprop="url">
-            
-              <span itemprop="name">为什么我们生产上要选择Spark On Yarn模式？</span>
-            
-          </a>
-        
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-04-13T00:00:00+08:00" content="2018-04-13">
-          04-13
-        </time>
-      </div>
 
-    </header>
-  </article>
+<p>2.插入数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hive&gt;insert into table emp_dynamic_partition partition(deptno)     </span><br><span class="line">select empno , ename , job , mgr , hiredate , sal , comm, deptno from emp;</span><br></pre></td></tr></table></figure></p>
+<font color="#FF4500">【注意】分区的字段名称，写在最后，有几个就写几个 与静态分区相比，不需要where</font>
 
+<p>需要设置属性的值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive&gt;set hive.exec.dynamic.partition.mode=nonstrict；</span><br></pre></td></tr></table></figure></p>
+<p>假如不设置，报错如下:<br><img src="/assets/blogImg/0506_2.png" alt><br>3.查询数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive&gt;select * from emp_dynamic_partition;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/assets/blogImg/0506_3.png" alt></p>
+<p><font color="#FF4500">分区列为deptno，实现了动态分区</font></p>
+<h6 id="四-总结"><a href="#四-总结" class="headerlink" title="四.总结"></a>四.总结</h6><p>在生产上我们更倾向是选择<strong>动态分区</strong>，<br>无需手工指定数据导入的具体分区，<br>而是由select的字段(字段写在最后，有几个写几个)自行决定导出到哪一个分区中， 并自动创建相应的分区，使用上更加方便快捷 ，在生产工作中用的非常多多。</p>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+	加群
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/assets/img/weixin.jpg" alt="ruozedata WeChat Pay">
+        
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hive/" rel="tag"># hive</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/04/5min掌握，Hive的HiveServer2 和JDBC客户端&代码的生产使用/" rel="next" title="5min掌握，Hive的HiveServer2 和JDBC客户端&代码的生产使用">
+                <i class="fa fa-chevron-left"></i> 5min掌握，Hive的HiveServer2 和JDBC客户端&代码的生产使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
 
         </div>
         
@@ -477,8 +634,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -612,6 +778,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#一-需求"><span class="nav-number">1.</span> <span class="nav-text">一.需求</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#二-使用静态分区表来完成"><span class="nav-number">2.</span> <span class="nav-text">二.使用静态分区表来完成</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#三-使用动态分区表来完成"><span class="nav-number">3.</span> <span class="nav-text">三.使用动态分区表来完成</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#四-总结"><span class="nav-number">4.</span> <span class="nav-text">四.总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -759,6 +942,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
 
   
 
@@ -774,6 +961,37 @@
 
   
 
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '53baf2a5ee1c5d4e827f',
+    clientSecret: 'e4d5b4c40ee409e495d0a94c31ee721c0a404bbe',
+    repo: 'blog_issues',
+    owner: 'ruozedata',
+    admin: ['ruozedata'],
+    id: md5(location.pathname),
+    
+      language: 'zh-CN',
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
 
 
   
