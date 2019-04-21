@@ -199,7 +199,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Cambiar a barra de navegación">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -306,7 +306,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Buscar</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
         </li>
       
     </ul>
@@ -329,7 +329,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="Buscando..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -360,6 +360,188 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/08/生产改造Spark1.6源代码，create table语法支持Oracle列表分区/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ruozedata">
+      <meta itemprop="description" content="若泽数据优秀博客汇总">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="若泽大数据 www.ruozedata.com">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/05/08/生产改造Spark1.6源代码，create table语法支持Oracle列表分区/" class="post-title-link" itemprop="url">生产改造Spark1.6源代码，create table语法支持Oracle列表分区</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-05-08 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-08T00:00:00+08:00">2018-05-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-21 21:06:30" itemprop="dateModified" datetime="2019-04-21T21:06:30+08:00">2019-04-21</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/spark/" itemprop="url" rel="index"><span itemprop="name">spark</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <font color="#FF4500"><br></font>
+
+<h5 id="1-需求"><a href="#1-需求" class="headerlink" title="1.需求"></a>1.需求</h5><p>通过Spark SQL JDBC 方法，抽取Oracle表数据。</p>
+<h5 id="2-问题"><a href="#2-问题" class="headerlink" title="2.问题"></a>2.问题</h5><p>大数据开发人员反映，使用效果上列表分区优于散列分区。但Spark SQL JDBC方法只支持数字类型分区，而业务表的列表分区字段是个字符串。目前Oracle表使用列表分区，对省级代码分 区。<br>参考 <a href="http://spark.apache.org/docs/1.6.2/sql-programming-guide.html#jdbc-to-other-databases" target="_blank" rel="noopener">http://spark.apache.org/docs/1.6.2/sql-programming-guide.html#jdbc-to-other-databases</a><br>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/05/08/生产改造Spark1.6源代码，create table语法支持Oracle列表分区/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </p></div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -414,14 +596,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Publicado el</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Creado por: 2018-05-06 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-06T00:00:00+08:00">2018-05-06</time>
+              <time title="Created: 2018-05-06 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-06T00:00:00+08:00">2018-05-06</time>
             
 
             
@@ -436,9 +618,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Editado el</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modificado por: 2019-04-20 18:18:38" itemprop="dateModified" datetime="2019-04-20T18:18:38+08:00">2019-04-20</time>
+                <time title="Modified: 2019-04-20 18:18:38" itemprop="dateModified" datetime="2019-04-20T18:18:38+08:00">2019-04-20</time>
               
             
           </span>
@@ -452,7 +634,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">En</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hive/" itemprop="url" rel="index"><span itemprop="name">hive</span></a></span>
@@ -498,7 +680,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/05/06/生产中Hive静态和动态分区表，该怎样抉择呢？/#more" rel="contents">
-                Leer más &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -595,14 +777,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Publicado el</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Creado por: 2018-05-04 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-04T00:00:00+08:00">2018-05-04</time>
+              <time title="Created: 2018-05-04 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-04T00:00:00+08:00">2018-05-04</time>
             
 
             
@@ -617,9 +799,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Editado el</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modificado por: 2019-04-19 16:28:33" itemprop="dateModified" datetime="2019-04-19T16:28:33+08:00">2019-04-19</time>
+                <time title="Modified: 2019-04-19 16:28:33" itemprop="dateModified" datetime="2019-04-19T16:28:33+08:00">2019-04-19</time>
               
             
           </span>
@@ -633,7 +815,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">En</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hive/" itemprop="url" rel="index"><span itemprop="name">hive</span></a></span>
@@ -679,187 +861,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/05/04/5min掌握，Hive的HiveServer2 和JDBC客户端&代码的生产使用/#more" rel="contents">
-                Leer más &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </p></div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/01/2min快速了解，Hive内部表和外部表/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ruozedata">
-      <meta itemprop="description" content="若泽数据优秀博客汇总">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="若泽大数据 www.ruozedata.com">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/05/01/2min快速了解，Hive内部表和外部表/" class="post-title-link" itemprop="url">2min快速了解，Hive内部表和外部表</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Publicado el</span>
-              
-
-              
-                
-              
-
-              <time title="Creado por: 2018-05-01 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-01T00:00:00+08:00">2018-05-01</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Editado el</span>
-                
-                <time title="Modificado por: 2019-04-19 16:18:11" itemprop="dateModified" datetime="2019-04-19T16:18:11+08:00">2019-04-19</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">En</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hive/" itemprop="url" rel="index"><span itemprop="name">hive</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><font color="#FF4500"><br></font><br>在了解内部表和外部表区别前，<br>我们需要先了解一下<strong>Hive架构</strong> ：</p>
-<p><img src="/assets/blogImg/501_1.png" alt="Hive架构"><br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2018/05/01/2min快速了解，Hive内部表和外部表/#more" rel="contents">
-                Leer más &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -956,14 +958,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Publicado el</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Creado por: 2018-05-01 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-01T00:00:00+08:00">2018-05-01</time>
+              <time title="Created: 2018-05-01 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-01T00:00:00+08:00">2018-05-01</time>
             
 
             
@@ -978,9 +980,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Editado el</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modificado por: 2019-04-17 20:53:08" itemprop="dateModified" datetime="2019-04-17T20:53:08+08:00">2019-04-17</time>
+                <time title="Modified: 2019-04-17 20:53:08" itemprop="dateModified" datetime="2019-04-17T20:53:08+08:00">2019-04-17</time>
               
             
           </span>
@@ -994,7 +996,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">En</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/感悟/" itemprop="url" rel="index"><span itemprop="name">感悟</span></a></span>
@@ -1039,7 +1041,187 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/05/01/谈谈我和大数据的情缘及入门/#more" rel="contents">
-                Leer más &raquo;
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </p></div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/01/2min快速了解，Hive内部表和外部表/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ruozedata">
+      <meta itemprop="description" content="若泽数据优秀博客汇总">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="若泽大数据 www.ruozedata.com">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/05/01/2min快速了解，Hive内部表和外部表/" class="post-title-link" itemprop="url">2min快速了解，Hive内部表和外部表</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-05-01 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-01T00:00:00+08:00">2018-05-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-19 16:18:11" itemprop="dateModified" datetime="2019-04-19T16:18:11+08:00">2019-04-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hive/" itemprop="url" rel="index"><span itemprop="name">hive</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><font color="#FF4500"><br></font><br>在了解内部表和外部表区别前，<br>我们需要先了解一下<strong>Hive架构</strong> ：</p>
+<p><img src="/assets/blogImg/501_1.png" alt="Hive架构"><br>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/05/01/2min快速了解，Hive内部表和外部表/#more" rel="contents">
+                Read more &raquo;
               </a>
             </div>
           
@@ -1136,14 +1318,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Publicado el</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Creado por: 2018-04-27 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-27T00:00:00+08:00">2018-04-27</time>
+              <time title="Created: 2018-04-27 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-27T00:00:00+08:00">2018-04-27</time>
             
 
             
@@ -1158,9 +1340,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Editado el</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modificado por: 2019-04-16 20:35:29" itemprop="dateModified" datetime="2019-04-16T20:35:29+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-16 20:35:29" itemprop="dateModified" datetime="2019-04-16T20:35:29+08:00">2019-04-16</time>
               
             
           </span>
@@ -1174,7 +1356,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">En</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hive/" itemprop="url" rel="index"><span itemprop="name">hive</span></a></span>
@@ -1218,7 +1400,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/04/27/Hive自定义函数(UDF)的部署使用，你会吗？/#more" rel="contents">
-                Leer más &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -1315,14 +1497,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Publicado el</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Creado por: 2018-04-25 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-25T00:00:00+08:00">2018-04-25</time>
+              <time title="Created: 2018-04-25 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-25T00:00:00+08:00">2018-04-25</time>
             
 
             
@@ -1337,9 +1519,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Editado el</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modificado por: 2019-04-16 20:28:35" itemprop="dateModified" datetime="2019-04-16T20:28:35+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-16 20:28:35" itemprop="dateModified" datetime="2019-04-16T20:28:35+08:00">2019-04-16</time>
               
             
           </span>
@@ -1353,7 +1535,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">En</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hive/" itemprop="url" rel="index"><span itemprop="name">hive</span></a></span>
@@ -1397,7 +1579,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/04/25/Hive自定义函数(UDF)的编程开发，你会吗？/#more" rel="contents">
-                Leer más &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -1494,14 +1676,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Publicado el</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Creado por: 2018-04-24 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-24T00:00:00+08:00">2018-04-24</time>
+              <time title="Created: 2018-04-24 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-24T00:00:00+08:00">2018-04-24</time>
             
 
             
@@ -1516,9 +1698,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Editado el</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modificado por: 2019-04-16 20:29:01" itemprop="dateModified" datetime="2019-04-16T20:29:01+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-16 20:29:01" itemprop="dateModified" datetime="2019-04-16T20:29:01+08:00">2019-04-16</time>
               
             
           </span>
@@ -1532,7 +1714,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">En</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hive/" itemprop="url" rel="index"><span itemprop="name">hive</span></a></span>
@@ -1579,7 +1761,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/04/24/Hive DDL，你真的了解吗？/#more" rel="contents">
-                Leer más &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -1676,14 +1858,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Publicado el</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Creado por: 2018-04-23 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-23T00:00:00+08:00">2018-04-23</time>
+              <time title="Created: 2018-04-23 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-23T00:00:00+08:00">2018-04-23</time>
             
 
             
@@ -1698,9 +1880,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Editado el</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modificado por: 2019-04-16 20:39:11" itemprop="dateModified" datetime="2019-04-16T20:39:11+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-16 20:39:11" itemprop="dateModified" datetime="2019-04-16T20:39:11+08:00">2019-04-16</time>
               
             
           </span>
@@ -1714,7 +1896,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">En</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hive/" itemprop="url" rel="index"><span itemprop="name">hive</span></a></span>
@@ -1759,7 +1941,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/04/23/Hive生产上，压缩和存储结合使用案例/#more" rel="contents">
-                Leer más &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -1856,14 +2038,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Publicado el</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Creado por: 2018-04-20 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-20T00:00:00+08:00">2018-04-20</time>
+              <time title="Created: 2018-04-20 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-20T00:00:00+08:00">2018-04-20</time>
             
 
             
@@ -1878,9 +2060,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Editado el</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modificado por: 2019-04-16 20:28:30" itemprop="dateModified" datetime="2019-04-16T20:28:30+08:00">2019-04-16</time>
+                <time title="Modified: 2019-04-16 20:28:30" itemprop="dateModified" datetime="2019-04-16T20:28:30+08:00">2019-04-16</time>
               
             
           </span>
@@ -1894,7 +2076,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">En</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hive/" itemprop="url" rel="index"><span itemprop="name">hive</span></a></span>
@@ -1940,186 +2122,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/04/20/Hive存储格式的生产应用/#more" rel="contents">
-                Leer más &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </p></div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/18/大数据压缩，你们真的了解吗？/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ruozedata">
-      <meta itemprop="description" content="若泽数据优秀博客汇总">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="若泽大数据 www.ruozedata.com">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/04/18/大数据压缩，你们真的了解吗？/" class="post-title-link" itemprop="url">大数据压缩，你们真的了解吗？</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Publicado el</span>
-              
-
-              
-                
-              
-
-              <time title="Creado por: 2018-04-18 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-18T00:00:00+08:00">2018-04-18</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Editado el</span>
-                
-                <time title="Modificado por: 2019-04-15 16:00:44" itemprop="dateModified" datetime="2019-04-15T16:00:44+08:00">2019-04-15</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">En</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hadoop/" itemprop="url" rel="index"><span itemprop="name">hadoop</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>若泽大数据，带你们剖析大数据之压缩！<br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2018/04/18/大数据压缩，你们真的了解吗？/#more" rel="contents">
-                Leer más &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -2167,7 +2170,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Página siguiente"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2209,8 +2212,8 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">21</span>
-                    <span class="site-state-item-name">entradas</span>
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -2239,7 +2242,7 @@
                       
                     
                     <span class="site-state-item-count">5</span>
-                    <span class="site-state-item-name">categorías</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -2279,7 +2282,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -2368,7 +2373,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-user"></i>
     </span>
-    <span class="site-uv" title="Visitantes totales">
+    <span class="site-uv" title="Total Visitors">
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
     </span>
   
@@ -2381,7 +2386,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-eye"></i>
     </span>
-    <span class="site-pv" title="Visitas totales">
+    <span class="site-pv" title="Total Views">
       <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
     </span>
   

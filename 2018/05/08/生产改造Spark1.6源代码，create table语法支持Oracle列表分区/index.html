@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="若泽大数据，Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)">
-<meta name="keywords" content="hadoop,环境搭建,基础">
+  <meta name="description" content="1.需求通过Spark SQL JDBC 方法，抽取Oracle表数据。 2.问题大数据开发人员反映，使用效果上列表分区优于散列分区。但Spark SQL JDBC方法只支持数字类型分区，而业务表的列表分区字段是个字符串。目前Oracle表使用列表分区，对省级代码分 区。参考 http://spark.apache.org/docs/1.6.2/sql-programming-guide.ht">
+<meta name="keywords" content="spark,源码阅读">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)">
-<meta property="og:url" content="http://yoursite.com/2018/04/10/Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)/index.html">
+<meta property="og:title" content="生产改造Spark1.6源代码，create table语法支持Oracle列表分区">
+<meta property="og:url" content="http://yoursite.com/2018/05/08/生产改造Spark1.6源代码，create table语法支持Oracle列表分区/index.html">
 <meta property="og:site_name" content="若泽大数据 www.ruozedata.com">
-<meta property="og:description" content="若泽大数据，Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)">
+<meta property="og:description" content="1.需求通过Spark SQL JDBC 方法，抽取Oracle表数据。 2.问题大数据开发人员反映，使用效果上列表分区优于散列分区。但Spark SQL JDBC方法只支持数字类型分区，而业务表的列表分区字段是个字符串。目前Oracle表使用列表分区，对省级代码分 区。参考 http://spark.apache.org/docs/1.6.2/sql-programming-guide.ht">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-15T07:49:46.211Z">
+<meta property="og:updated_time" content="2019-04-21T13:06:30.224Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)">
-<meta name="twitter:description" content="若泽大数据，Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)">
+<meta name="twitter:title" content="生产改造Spark1.6源代码，create table语法支持Oracle列表分区">
+<meta name="twitter:description" content="1.需求通过Spark SQL JDBC 方法，抽取Oracle表数据。 2.问题大数据开发人员反映，使用效果上列表分区优于散列分区。但Spark SQL JDBC方法只支持数字类型分区，而业务表的列表分区字段是个字符串。目前Oracle表使用列表分区，对省级代码分 区。参考 http://spark.apache.org/docs/1.6.2/sql-programming-guide.ht">
 
 
 
@@ -117,7 +117,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2018/04/10/Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)/">
+  <link rel="canonical" href="http://yoursite.com/2018/05/08/生产改造Spark1.6源代码，create table语法支持Oracle列表分区/">
 
 
 
@@ -127,7 +127,7 @@
   };
 </script>
 
-  <title>Hadoop全网最详细的伪分布式部署(MapReduce+Yarn) | 若泽大数据 www.ruozedata.com</title>
+  <title>生产改造Spark1.6源代码，create table语法支持Oracle列表分区 | 若泽大数据 www.ruozedata.com</title>
   
 
 
@@ -376,7 +376,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/10/Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/08/生产改造Spark1.6源代码，create table语法支持Oracle列表分区/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ruozedata">
@@ -393,7 +393,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)
+          <h1 class="post-title" itemprop="name headline">生产改造Spark1.6源代码，create table语法支持Oracle列表分区
 
               
             
@@ -419,7 +419,7 @@
                 
               
 
-              <time title="Created: 2018-04-10 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-10T00:00:00+08:00">2018-04-10</time>
+              <time title="Created: 2018-05-08 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-08T00:00:00+08:00">2018-05-08</time>
             
 
             
@@ -436,7 +436,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-15 15:49:46" itemprop="dateModified" datetime="2019-04-15T15:49:46+08:00">2019-04-15</time>
+                <time title="Modified: 2019-04-21 21:06:30" itemprop="dateModified" datetime="2019-04-21T21:06:30+08:00">2019-04-21</time>
               
             
           </span>
@@ -453,7 +453,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hadoop/" itemprop="url" rel="index"><span itemprop="name">hadoop</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/spark/" itemprop="url" rel="index"><span itemprop="name">spark</span></a></span>
 
                 
                 
@@ -495,22 +495,17 @@
       
 
       
-        <p>若泽大数据，Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)<br><a id="more"></a> </p>
-<ol>
-<li><p>修改mapred-site.xml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[hadoop@hadoop000 ~]# cd /opt/software/hadoop/etc/hadoop</span><br><span class="line"></span><br><span class="line">[hadoop@hadoop000 hadoop]# cp mapred-site.xml.template  mapred-site.xml</span><br><span class="line"></span><br><span class="line">[hadoop@hadoop000 hadoop]# vi mapred-site.xml</span><br><span class="line"></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line"></span><br><span class="line">	&lt;property&gt;</span><br><span class="line"></span><br><span class="line">		&lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">		&lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">	&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改yarn-site.xml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[hadoop@hadoop000 hadoop]# vi yarn-site.xml</span><br><span class="line"></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line"></span><br><span class="line">	&lt;property&gt;</span><br><span class="line"></span><br><span class="line">		&lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">      		&lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  	&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[hadoop@hadoop000 hadoop]# cd ../../</span><br><span class="line"></span><br><span class="line">[hadoop@hadoop000 hadoop]# sbin/start-yarn.sh</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>关闭</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[hadoop@hadoop000 hadoop]# sbin/stop-yarn.sh</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+        <font color="#FF4500"><br></font>
 
+<h5 id="1-需求"><a href="#1-需求" class="headerlink" title="1.需求"></a>1.需求</h5><p>通过Spark SQL JDBC 方法，抽取Oracle表数据。</p>
+<h5 id="2-问题"><a href="#2-问题" class="headerlink" title="2.问题"></a>2.问题</h5><p>大数据开发人员反映，使用效果上列表分区优于散列分区。但Spark SQL JDBC方法只支持数字类型分区，而业务表的列表分区字段是个字符串。目前Oracle表使用列表分区，对省级代码分 区。<br>参考 <a href="http://spark.apache.org/docs/1.6.2/sql-programming-guide.html#jdbc-to-other-databases" target="_blank" rel="noopener">http://spark.apache.org/docs/1.6.2/sql-programming-guide.html#jdbc-to-other-databases</a><br><a id="more"></a> </p>
+<h5 id="3-Oracle的分区"><a href="#3-Oracle的分区" class="headerlink" title="3.Oracle的分区"></a>3.Oracle的分区</h5><h6 id="3-1列表分区"><a href="#3-1列表分区" class="headerlink" title="3.1列表分区:"></a>3.1列表分区:</h6><p>该分区的特点是某列的值只有几个，基于这样的特点我们可以采用列表分区。<br>例一:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE PROBLEM_TICKETS</span><br><span class="line">(</span><br><span class="line">PROBLEM_ID NUMBER(7) NOT NULL PRIMARY KEY, DESCRIPTION VARCHAR2(2000),</span><br><span class="line">CUSTOMER_ID NUMBER(7) NOT NULL, DATE_ENTERED DATE NOT NULL,</span><br><span class="line">STATUS VARCHAR2(20)</span><br><span class="line">)</span><br><span class="line">PARTITION BY LIST (STATUS)</span><br><span class="line">(</span><br><span class="line">PARTITION PROB_ACTIVE VALUES (&apos;ACTIVE&apos;) TABLESPACE PROB_TS01,</span><br><span class="line">PARTITION PROB_INACTIVE VALUES (&apos;INACTIVE&apos;) TABLESPACE PROB_TS02</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<h6 id="3-2散列分区"><a href="#3-2散列分区" class="headerlink" title="3.2散列分区:"></a>3.2散列分区:</h6><p>这类分区是在列值上使用散列算法，以确定将行放入哪个分区中。当列的值没有合适的条件时，建议使用散列分区。 散列分区为通过指定分区编号来均匀分布数据的一种分区类型，因为通过在I/O设备上进行散列分区，使得这些分区大小一致。<br>例一:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE HASH_TABLE</span><br><span class="line">(</span><br><span class="line">COL NUMBER(8),</span><br><span class="line">INF VARCHAR2(100) </span><br><span class="line">)</span><br><span class="line">PARTITION BY HASH (COL)</span><br><span class="line">(</span><br><span class="line">PARTITION PART01 TABLESPACE HASH_TS01, </span><br><span class="line">PARTITION PART02 TABLESPACE HASH_TS02, </span><br><span class="line">PARTITION PART03 TABLESPACE HASH_TS03</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<h5 id="4-改造"><a href="#4-改造" class="headerlink" title="4.改造"></a>4.改造</h5><p>蓝色代码是改造Spark源代码,加课程顾问领取PDF。</p>
+<h6 id="1-Spark-SQL-JDBC的建表脚本中需要加入列表分区配置项。"><a href="#1-Spark-SQL-JDBC的建表脚本中需要加入列表分区配置项。" class="headerlink" title="1) Spark SQL JDBC的建表脚本中需要加入列表分区配置项。"></a>1) Spark SQL JDBC的建表脚本中需要加入列表分区配置项。</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">CREATE TEMPORARY TABLE TBLS_IN</span><br><span class="line">USING org.apache.spark.sql.jdbc OPTIONS (</span><br><span class="line">driver &quot;com.mysql.jdbc.Driver&quot;,</span><br><span class="line">url &quot;jdbc:mysql://spark1:3306/hivemetastore&quot;, dbtable &quot;TBLS&quot;,</span><br><span class="line">fetchSize &quot;1000&quot;,</span><br><span class="line">partitionColumn &quot;TBL_ID&quot;,</span><br><span class="line">numPartitions &quot;null&quot;,</span><br><span class="line">lowerBound &quot;null&quot;,</span><br><span class="line">upperBound &quot;null&quot;,</span><br><span class="line">user &quot;hive2user&quot;,</span><br><span class="line">password &quot;hive2user&quot;,</span><br><span class="line">partitionInRule &quot;1|15,16,18,19|20,21&quot;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h6 id="2-程序入口org-apache-spark-sql-execution-datasources-jdbc-DefaultSource，方法createRelation"><a href="#2-程序入口org-apache-spark-sql-execution-datasources-jdbc-DefaultSource，方法createRelation" class="headerlink" title="2)程序入口org.apache.spark.sql.execution.datasources.jdbc.DefaultSource，方法createRelation"></a>2)程序入口org.apache.spark.sql.execution.datasources.jdbc.DefaultSource，方法createRelation</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">override def createRelation(</span><br><span class="line">sqlContext: SQLContext,</span><br><span class="line">parameters: Map[String, String]): BaseRelation = &#123;</span><br><span class="line">val url = parameters.getOrElse(&quot;url&quot;, sys.error(&quot;Option &apos;url&apos; not specified&quot;))</span><br><span class="line">val table = parameters.getOrElse(&quot;dbtable&quot;, sys.error(&quot;Option &apos;dbtable&apos; not specified&quot;)) val partitionColumn = parameters.getOrElse(&quot;partitionColumn&quot;, null)</span><br><span class="line">var lowerBound = parameters.getOrElse(&quot;lowerBound&quot;, null)</span><br><span class="line">var upperBound = parameters.getOrElse(&quot;upperBound&quot;, null) var numPartitions = parameters.getOrElse(&quot;numPartitions&quot;, null)</span><br><span class="line"></span><br><span class="line">// add partition in rule</span><br><span class="line">val partitionInRule = parameters.getOrElse(&quot;partitionInRule&quot;, null)</span><br><span class="line">// validind all the partition in rule </span><br><span class="line">if (partitionColumn != null</span><br><span class="line">&amp;&amp; (lowerBound == null || upperBound == null || numPartitions == null)</span><br><span class="line">&amp;&amp; partitionInRule == null </span><br><span class="line">)&#123;</span><br><span class="line">   sys.error(&quot;Partitioning incompletely specified&quot;) </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">val partitionInfo = </span><br><span class="line">if (partitionColumn == null) &#123; </span><br><span class="line">    null</span><br><span class="line">&#125; else &#123;</span><br><span class="line"></span><br><span class="line">	val inPartitions = if(&quot;null&quot;.equals(numPartitions))&#123;</span><br><span class="line">	val inGroups = partitionInRule.split(&quot;\\|&quot;) numPartitions = inGroups.length.toString lowerBound = &quot;0&quot;</span><br><span class="line">	upperBound = &quot;0&quot;</span><br><span class="line">	inGroups &#125;</span><br><span class="line">	else&#123;</span><br><span class="line">	Array[String]() </span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	JDBCPartitioningInfo( partitionColumn, </span><br><span class="line">	lowerBound.toLong, </span><br><span class="line">	upperBound.toLong, </span><br><span class="line">	numPartitions.toInt, </span><br><span class="line">	inPartitions)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">val parts = JDBCRelation.columnPartition(partitionInfo)</span><br><span class="line">val properties = new Properties() // Additional properties that we will pass to getConnection parameters.foreach(kv =&gt; properties.setProperty(kv._1, kv._2))</span><br><span class="line">// parameters is immutable</span><br><span class="line">if(numPartitions != null)&#123;</span><br><span class="line">properties.put(&quot;numPartitions&quot; , numPartitions) &#125;</span><br><span class="line">JDBCRelation(url, table, parts, properties)(sqlContext)</span><br><span class="line"></span><br><span class="line"> &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="3-org-apache-spark-sql-execution-datasources-jdbc-JDBCRelation，方法columnPartition"><a href="#3-org-apache-spark-sql-execution-datasources-jdbc-JDBCRelation，方法columnPartition" class="headerlink" title="3)org.apache.spark.sql.execution.datasources.jdbc.JDBCRelation，方法columnPartition"></a>3)org.apache.spark.sql.execution.datasources.jdbc.JDBCRelation，方法columnPartition</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">def columnPartition(partitioning: JDBCPartitioningInfo): Array[Partition] = &#123;</span><br><span class="line">if (partitioning == null) return Array[Partition](JDBCPartition(null, 0))</span><br><span class="line">val column = partitioning.column</span><br><span class="line">var i: Int = 0</span><br><span class="line">var ans = new ArrayBuffer[Partition]()</span><br><span class="line"></span><br><span class="line">// partition by long if(partitioning.inPartitions.length == 0)&#123;</span><br><span class="line"></span><br><span class="line">val numPartitions = partitioning.numPartitions</span><br><span class="line">if (numPartitions == 1) return Array[Partition](JDBCPartition(null, 0)) // Overflow and silliness can happen if you subtract then divide.</span><br><span class="line">// Here we get a little roundoff, but that&apos;s (hopefully) OK.</span><br><span class="line">val stride: Long = (partitioning.upperBound / numPartitions</span><br><span class="line"></span><br><span class="line">- partitioning.lowerBound / numPartitions)</span><br><span class="line">var currentValue: Long = partitioning.lowerBound</span><br><span class="line">while (i &lt; numPartitions) &#123;</span><br><span class="line">val lowerBound = if (i != 0) s&quot;$column &gt;= $currentValue&quot; else null</span><br><span class="line">currentValue += stride</span><br><span class="line">val upperBound = if (i != numPartitions - 1) s&quot;$column &lt; $currentValue&quot; else null val whereClause =</span><br><span class="line"></span><br><span class="line">if (upperBound == null) &#123; </span><br><span class="line">  lowerBound</span><br><span class="line"></span><br><span class="line">&#125; else if (lowerBound == null) &#123; </span><br><span class="line">  upperBound</span><br><span class="line"></span><br><span class="line">&#125; else &#123;</span><br><span class="line">  s&quot;$lowerBound AND $upperBound&quot; </span><br><span class="line">&#125;</span><br><span class="line">  ans += JDBCPartition(whereClause, i)</span><br><span class="line">   i= i+ 1 &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// partition by in </span><br><span class="line">else&#123;</span><br><span class="line">    while(i &lt; partitioning.inPartitions.length)&#123;</span><br><span class="line">           val inContent = partitioning.inPartitions(i)</span><br><span class="line">           val whereClause = s&quot;$column in ($inContent)&quot; </span><br><span class="line">           ans += JDBCPartition(whereClause, i)</span><br><span class="line">           i= i+ 1</span><br><span class="line">     &#125; </span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ans.toArray </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="4-对外方法org-apache-spark-sql-SQLContext-方法jdbc"><a href="#4-对外方法org-apache-spark-sql-SQLContext-方法jdbc" class="headerlink" title="4)对外方法org.apache.spark.sql.SQLContext , 方法jdbc"></a>4)对外方法org.apache.spark.sql.SQLContext , 方法jdbc</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def jdbc(</span><br><span class="line">url: String,</span><br><span class="line">table: String,</span><br><span class="line">columnName: String,</span><br><span class="line">lowerBound: Long,</span><br><span class="line">upperBound: Long,</span><br><span class="line">numPartitions: Int,</span><br><span class="line">inPartitions: Array[String] = Array[String]()</span><br><span class="line"></span><br><span class="line">): DataFrame = &#123;</span><br><span class="line">read.jdbc(url, table, columnName, lowerBound, upperBound, numPartitions, inPartitions ,new Properties)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -557,11 +552,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hadoop/" rel="tag"># hadoop</a>
+            <a href="/tags/spark/" rel="tag"># spark</a>
           
-            <a href="/tags/环境搭建/" rel="tag"># 环境搭建</a>
-          
-            <a href="/tags/基础/" rel="tag"># 基础</a>
+            <a href="/tags/源码阅读/" rel="tag"># 源码阅读</a>
           
         </div>
       
@@ -574,8 +567,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/08/Hadoop全网最详细的伪分布式部署(HDFS)/" rel="next" title="Hadoop全网最详细的伪分布式部署(HDFS)">
-                <i class="fa fa-chevron-left"></i> Hadoop全网最详细的伪分布式部署(HDFS)
+              <a href="/2018/05/06/生产中Hive静态和动态分区表，该怎样抉择呢？/" rel="next" title="生产中Hive静态和动态分区表，该怎样抉择呢？">
+                <i class="fa fa-chevron-left"></i> 生产中Hive静态和动态分区表，该怎样抉择呢？
               </a>
             
           </div>
@@ -583,10 +576,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/11/Hive全网最详细的编译及部署/" rel="prev" title="Hive全网最详细的编译及部署">
-                Hive全网最详细的编译及部署 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -634,8 +623,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -771,6 +769,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-需求"><span class="nav-number">1.</span> <span class="nav-text">1.需求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-问题"><span class="nav-number">2.</span> <span class="nav-text">2.问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-Oracle的分区"><span class="nav-number">3.</span> <span class="nav-text">3.Oracle的分区</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1列表分区"><span class="nav-number">3.1.</span> <span class="nav-text">3.1列表分区:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-2散列分区"><span class="nav-number">3.2.</span> <span class="nav-text">3.2散列分区:</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-改造"><span class="nav-number">4.</span> <span class="nav-text">4.改造</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-Spark-SQL-JDBC的建表脚本中需要加入列表分区配置项。"><span class="nav-number">4.1.</span> <span class="nav-text">1) Spark SQL JDBC的建表脚本中需要加入列表分区配置项。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-程序入口org-apache-spark-sql-execution-datasources-jdbc-DefaultSource，方法createRelation"><span class="nav-number">4.2.</span> <span class="nav-text">2)程序入口org.apache.spark.sql.execution.datasources.jdbc.DefaultSource，方法createRelation</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-org-apache-spark-sql-execution-datasources-jdbc-JDBCRelation，方法columnPartition"><span class="nav-number">4.3.</span> <span class="nav-text">3)org.apache.spark.sql.execution.datasources.jdbc.JDBCRelation，方法columnPartition</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-对外方法org-apache-spark-sql-SQLContext-方法jdbc"><span class="nav-number">4.4.</span> <span class="nav-text">4)对外方法org.apache.spark.sql.SQLContext , 方法jdbc</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
