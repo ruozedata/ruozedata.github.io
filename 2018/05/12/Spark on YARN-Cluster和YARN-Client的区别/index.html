@@ -96,21 +96,21 @@
 
 
 
-  <meta name="description" content="一. YARN-Cluster和YARN-Client的区别（1）SparkContext初始化不同，这也导致了Driver所在位置的不同，YarnCluster的Driver是在集群的某一台NM上，但是Yarn-Client就是在driver所在的机器上；（2）而Driver会和Executors进行通信，这也导致了Yarn_cluster在提交App之后可以关闭Client，而Yarn">
+  <meta name="description" content="一. YARN-Cluster和YARN-Client的区别（1）SparkContext初始化不同，这也导致了Driver所在位置的不同，YarnCluster的Driver是在集群的某一台NM上，但是Yarn-Client就是在driver所在的机器上；（2）而Driver会和Executors进行通信，这也导致了Yarn_cluster在提交App之后可以关闭Client，而Yarn-Cli">
 <meta name="keywords" content="架构,spark">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark on YARN-Cluster和YARN-Client的区别">
 <meta property="og:url" content="http://yoursite.com/2018/05/12/Spark on YARN-Cluster和YARN-Client的区别/index.html">
 <meta property="og:site_name" content="若泽大数据 www.ruozedata.com">
-<meta property="og:description" content="一. YARN-Cluster和YARN-Client的区别（1）SparkContext初始化不同，这也导致了Driver所在位置的不同，YarnCluster的Driver是在集群的某一台NM上，但是Yarn-Client就是在driver所在的机器上；（2）而Driver会和Executors进行通信，这也导致了Yarn_cluster在提交App之后可以关闭Client，而Yarn">
+<meta property="og:description" content="一. YARN-Cluster和YARN-Client的区别（1）SparkContext初始化不同，这也导致了Driver所在位置的不同，YarnCluster的Driver是在集群的某一台NM上，但是Yarn-Client就是在driver所在的机器上；（2）而Driver会和Executors进行通信，这也导致了Yarn_cluster在提交App之后可以关闭Client，而Yarn-Cli">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/assets/blogImg/512_1.png">
 <meta property="og:image" content="http://yoursite.com/assets/blogImg/512_2.png">
 <meta property="og:image" content="http://yoursite.com/assets/blogImg/512_3.png">
-<meta property="og:updated_time" content="2019-04-22T15:16:17.108Z">
+<meta property="og:updated_time" content="2019-04-22T15:23:47.011Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark on YARN-Cluster和YARN-Client的区别">
-<meta name="twitter:description" content="一. YARN-Cluster和YARN-Client的区别（1）SparkContext初始化不同，这也导致了Driver所在位置的不同，YarnCluster的Driver是在集群的某一台NM上，但是Yarn-Client就是在driver所在的机器上；（2）而Driver会和Executors进行通信，这也导致了Yarn_cluster在提交App之后可以关闭Client，而Yarn">
+<meta name="twitter:description" content="一. YARN-Cluster和YARN-Client的区别（1）SparkContext初始化不同，这也导致了Driver所在位置的不同，YarnCluster的Driver是在集群的某一台NM上，但是Yarn-Client就是在driver所在的机器上；（2）而Driver会和Executors进行通信，这也导致了Yarn_cluster在提交App之后可以关闭Client，而Yarn-Cli">
 <meta name="twitter:image" content="http://yoursite.com/assets/blogImg/512_1.png">
 
 
@@ -440,7 +440,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-22 23:16:17" itemprop="dateModified" datetime="2019-04-22T23:16:17+08:00">2019-04-22</time>
+                <time title="Modified: 2019-04-22 23:23:47" itemprop="dateModified" datetime="2019-04-22T23:23:47+08:00">2019-04-22</time>
               
             
           </span>
@@ -499,10 +499,7 @@
       
 
       
-        <a id="more"></a> 
-<font color="#FF4500"><br></font>
-
-<h5 id="一-YARN-Cluster和YARN-Client的区别"><a href="#一-YARN-Cluster和YARN-Client的区别" class="headerlink" title="一. YARN-Cluster和YARN-Client的区别"></a>一. YARN-Cluster和YARN-Client的区别</h5><p><img src="/assets/blogImg/512_1.png" alt><br>（1）SparkContext初始化不同，这也导致了Driver所在位置的不同，YarnCluster的Driver是在集群的某一台NM上，但是Yarn-Client就是在driver所在的机器上；<br>（2）而Driver会和Executors进行通信，这也导致了Yarn_cluster在提交App之后可以关闭Client，而Yarn-Client不可以；<br>（3）最后再来说应用场景，Yarn-Cluster适合生产环境，Yarn-Client适合交互和调试。</p>
+        <h5 id="一-YARN-Cluster和YARN-Client的区别"><a href="#一-YARN-Cluster和YARN-Client的区别" class="headerlink" title="一. YARN-Cluster和YARN-Client的区别"></a>一. YARN-Cluster和YARN-Client的区别</h5><p><img src="/assets/blogImg/512_1.png" alt><br>（1）SparkContext初始化不同，这也导致了Driver所在位置的不同，YarnCluster的Driver是在集群的某一台NM上，但是Yarn-Client就是在driver所在的机器上；<br>（2）而Driver会和Executors进行通信，这也导致了Yarn_cluster在提交App之后可以关闭Client，而Yarn-Client不可以；<br>（3）最后再来说应用场景，Yarn-Cluster适合生产环境，Yarn-Client适合交互和调试。<br><a id="more"></a> </p>
 <h5 id="二-yarn-client-模式"><a href="#二-yarn-client-模式" class="headerlink" title="二. yarn client 模式"></a>二. yarn client 模式</h5><p><img src="/assets/blogImg/512_2.png" alt></p>
 <p><font color="#FF4200">yarn-client  模式的话 ，把 客户端关掉的话 ，是不能提交任务的 。<br></font></p>
 <h5 id="三-yarn-cluster-模式"><a href="#三-yarn-cluster-模式" class="headerlink" title="三.yarn  cluster 模式"></a>三.yarn  cluster 模式</h5><p><img src="/assets/blogImg/512_3.png" alt></p>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-04-22T15:16:17.108Z</updated>
+  <updated>2019-04-22T15:23:47.011Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,19 +21,13 @@
     <link href="http://yoursite.com/2018/05/12/Spark%20on%20YARN-Cluster%E5%92%8CYARN-Client%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
     <id>http://yoursite.com/2018/05/12/Spark on YARN-Cluster和YARN-Client的区别/</id>
     <published>2018-05-11T16:00:00.000Z</published>
-    <updated>2019-04-22T15:16:17.108Z</updated>
+    <updated>2019-04-22T15:23:47.011Z</updated>
     
-    <content type="html"><![CDATA[<a id="more"></a> <font color="#FF4500"><br></font><h5 id="一-YARN-Cluster和YARN-Client的区别"><a href="#一-YARN-Cluster和YARN-Client的区别" class="headerlink" title="一. YARN-Cluster和YARN-Client的区别"></a>一. YARN-Cluster和YARN-Client的区别</h5><p><img src="/assets/blogImg/512_1.png" alt><br>（1）SparkContext初始化不同，这也导致了Driver所在位置的不同，YarnCluster的Driver是在集群的某一台NM上，但是Yarn-Client就是在driver所在的机器上；<br>（2）而Driver会和Executors进行通信，这也导致了Yarn_cluster在提交App之后可以关闭Client，而Yarn-Client不可以；<br>（3）最后再来说应用场景，Yarn-Cluster适合生产环境，Yarn-Client适合交互和调试。</p><h5 id="二-yarn-client-模式"><a href="#二-yarn-client-模式" class="headerlink" title="二. yarn client 模式"></a>二. yarn client 模式</h5><p><img src="/assets/blogImg/512_2.png" alt></p><p><font color="#FF4200">yarn-client  模式的话 ，把 客户端关掉的话 ，是不能提交任务的 。<br></font></p><h5 id="三-yarn-cluster-模式"><a href="#三-yarn-cluster-模式" class="headerlink" title="三.yarn  cluster 模式"></a>三.yarn  cluster 模式</h5><p><img src="/assets/blogImg/512_3.png" alt></p><p><font color="#FF4200">yarn-cluster 模式的话， client 关闭是可以提交任务的 ，<br></font></p><h5 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h5><p><strong>1.spark-shell/spark-sql 只支持 yarn-client模式；<br>2.spark-submit对于两种模式都支持。</strong></p>]]></content>
+    <content type="html"><![CDATA[<h5 id="一-YARN-Cluster和YARN-Client的区别"><a href="#一-YARN-Cluster和YARN-Client的区别" class="headerlink" title="一. YARN-Cluster和YARN-Client的区别"></a>一. YARN-Cluster和YARN-Client的区别</h5><p><img src="/assets/blogImg/512_1.png" alt><br>（1）SparkContext初始化不同，这也导致了Driver所在位置的不同，YarnCluster的Driver是在集群的某一台NM上，但是Yarn-Client就是在driver所在的机器上；<br>（2）而Driver会和Executors进行通信，这也导致了Yarn_cluster在提交App之后可以关闭Client，而Yarn-Client不可以；<br>（3）最后再来说应用场景，Yarn-Cluster适合生产环境，Yarn-Client适合交互和调试。<br><a id="more"></a> </p><h5 id="二-yarn-client-模式"><a href="#二-yarn-client-模式" class="headerlink" title="二. yarn client 模式"></a>二. yarn client 模式</h5><p><img src="/assets/blogImg/512_2.png" alt></p><p><font color="#FF4200">yarn-client  模式的话 ，把 客户端关掉的话 ，是不能提交任务的 。<br></font></p><h5 id="三-yarn-cluster-模式"><a href="#三-yarn-cluster-模式" class="headerlink" title="三.yarn  cluster 模式"></a>三.yarn  cluster 模式</h5><p><img src="/assets/blogImg/512_3.png" alt></p><p><font color="#FF4200">yarn-cluster 模式的话， client 关闭是可以提交任务的 ，<br></font></p><h5 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h5><p><strong>1.spark-shell/spark-sql 只支持 yarn-client模式；<br>2.spark-submit对于两种模式都支持。</strong></p>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt; 
-&lt;font color=&quot;#FF4500&quot;&gt;&lt;br&gt;&lt;/font&gt;
-
-&lt;h5 id=&quot;一-YARN-Cluster和YARN-Client的区别&quot;&gt;&lt;a href=&quot;#一-YARN-Cluster和YARN-Client的区别&quot; class=
-      
+      &lt;h5 id=&quot;一-YARN-Cluster和YARN-Client的区别&quot;&gt;&lt;a href=&quot;#一-YARN-Cluster和YARN-Client的区别&quot; class=&quot;headerlink&quot; title=&quot;一. YARN-Cluster和YARN-Client的区别&quot;&gt;&lt;/a&gt;一. YARN-Cluster和YARN-Client的区别&lt;/h5&gt;&lt;p&gt;&lt;img src=&quot;/assets/blogImg/512_1.png&quot; alt&gt;&lt;br&gt;（1）SparkContext初始化不同，这也导致了Driver所在位置的不同，YarnCluster的Driver是在集群的某一台NM上，但是Yarn-Client就是在driver所在的机器上；&lt;br&gt;（2）而Driver会和Executors进行通信，这也导致了Yarn_cluster在提交App之后可以关闭Client，而Yarn-Client不可以；&lt;br&gt;（3）最后再来说应用场景，Yarn-Cluster适合生产环境，Yarn-Client适合交互和调试。&lt;br&gt;
     
     </summary>
     
