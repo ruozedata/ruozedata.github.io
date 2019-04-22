@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-04-21T13:06:30.224Z</updated>
+  <updated>2019-04-22T15:16:17.108Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spark on YARN-Cluster和YARN-Client的区别</title>
+    <link href="http://yoursite.com/2018/05/12/Spark%20on%20YARN-Cluster%E5%92%8CYARN-Client%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>http://yoursite.com/2018/05/12/Spark on YARN-Cluster和YARN-Client的区别/</id>
+    <published>2018-05-11T16:00:00.000Z</published>
+    <updated>2019-04-22T15:16:17.108Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a> <font color="#FF4500"><br></font><h5 id="一-YARN-Cluster和YARN-Client的区别"><a href="#一-YARN-Cluster和YARN-Client的区别" class="headerlink" title="一. YARN-Cluster和YARN-Client的区别"></a>一. YARN-Cluster和YARN-Client的区别</h5><p><img src="/assets/blogImg/512_1.png" alt><br>（1）SparkContext初始化不同，这也导致了Driver所在位置的不同，YarnCluster的Driver是在集群的某一台NM上，但是Yarn-Client就是在driver所在的机器上；<br>（2）而Driver会和Executors进行通信，这也导致了Yarn_cluster在提交App之后可以关闭Client，而Yarn-Client不可以；<br>（3）最后再来说应用场景，Yarn-Cluster适合生产环境，Yarn-Client适合交互和调试。</p><h5 id="二-yarn-client-模式"><a href="#二-yarn-client-模式" class="headerlink" title="二. yarn client 模式"></a>二. yarn client 模式</h5><p><img src="/assets/blogImg/512_2.png" alt></p><p><font color="#FF4200">yarn-client  模式的话 ，把 客户端关掉的话 ，是不能提交任务的 。<br></font></p><h5 id="三-yarn-cluster-模式"><a href="#三-yarn-cluster-模式" class="headerlink" title="三.yarn  cluster 模式"></a>三.yarn  cluster 模式</h5><p><img src="/assets/blogImg/512_3.png" alt></p><p><font color="#FF4200">yarn-cluster 模式的话， client 关闭是可以提交任务的 ，<br></font></p><h5 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h5><p><strong>1.spark-shell/spark-sql 只支持 yarn-client模式；<br>2.spark-submit对于两种模式都支持。</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt; 
+&lt;font color=&quot;#FF4500&quot;&gt;&lt;br&gt;&lt;/font&gt;
+
+&lt;h5 id=&quot;一-YARN-Cluster和YARN-Client的区别&quot;&gt;&lt;a href=&quot;#一-YARN-Cluster和YARN-Client的区别&quot; class=
+      
+    
+    </summary>
+    
+      <category term="spark" scheme="http://yoursite.com/categories/spark/"/>
+    
+    
+      <category term="架构" scheme="http://yoursite.com/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+      <category term="spark" scheme="http://yoursite.com/tags/spark/"/>
+    
+  </entry>
   
   <entry>
     <title>生产改造Spark1.6源代码，create table语法支持Oracle列表分区</title>
@@ -96,7 +126,7 @@
     <link href="http://yoursite.com/2018/05/01/%E8%B0%88%E8%B0%88%E6%88%91%E5%92%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E6%83%85%E7%BC%98%E5%8F%8A%E5%85%A5%E9%97%A8/"/>
     <id>http://yoursite.com/2018/05/01/谈谈我和大数据的情缘及入门/</id>
     <published>2018-04-30T16:00:00.000Z</published>
-    <updated>2019-04-17T12:53:08.597Z</updated>
+    <updated>2019-04-22T15:17:30.696Z</updated>
     
     <content type="html"><![CDATA[<p> &#8195;当年我是做C#+Java软件开发，然后考取OCP来了上海，立志要做一名DBA。只记得当年试用期刚过时，阴差阳错轮到我负责公司的大数据平台这块，刚开始很痛苦，一个陌生的行业，一个讨论的小伙伴都没有，一份现成资料都没有，心情焦虑。后来我调整心态，从DB转移到对大数据的研究，决定啃下这块硬骨头，把它嚼碎，把它消化吸收。</p><p> &#8195;由于当时公司都是CDH环境，刚开始安装卡了很久都过不去，后面选择在线安装，很慢，有时需要1天。后来安装HDFS ,YARN,HIVE组件，不过对它们不理解，不明白，有时很困惑。这样的过程大概持续三个月了。<br> <a id="more"></a><br> &#8195;后来看了很多博文，都是Apache Hadoop版本搭建，于是我先试试用Apache Hadoop搭建部署单节点和集群，然后配置HA，最后我发现自己比较喜欢这种方式，因为我能了解其配置参数，配置文件和常规命令等等，再回头去对比CDH安装HDFS服务，真是太爽了，因为Apache Hadoop版本有真正体验感，这时我就迅速调整方向 : 先Apache版本，再CDH。</p><p> &#8195;由于公司项目环境，推进自己实在太慢，于是我在网上看各种相关视频教程；加n种群，在群里潜水，看水友们提的问题自己会不会，不会就去查资料，会就帮助他们一起研究学习进步。</p><p>&#8195;<strong>后来这样的进度太慢了</strong>，因为很多群都是打广告，潜水，没有真正的技术讨论氛围，于是我迅速调整方向，自己建个QQ群，慢慢招兵买马，和管理员们一起去管理，在过去的两年里我也学到了很多知识和认识和我一样前进的小伙伴们，现在也有很多已成为friends。</p><p>&#8195;每当夜晚，我就会深深思考仅凭公司项目,网上免费课程视频，QQ群等，还是不够的，于是我开始咨询培训机构的课程，在这里提醒各位小伙伴们，报班一定要擦亮眼睛，选择老师很重要，真心很重要，许多培训机构的老师都是Java转的，讲的是全是基础，根本没有企业项目实战经验；还有不要跟风，一定看仔细看清楚课程是否符合当前的你。</p><p> &#8195;这时还是远远不够的，于是我开始每天上下班地铁上看技术博客，积极分享。<strong>然后再申请博客，写博文，写总结，坚持每次做完一次实验就将博文，梳理好，写好，这样久而久之，知识点就慢慢夯实积累了。</strong></p><p> &#8195;再着后面就开始受邀几大培训机构做公开课，再一次将知识点梳理了，也认识了新的小伙伴们，我们有着相同的方向和目标，我们尽情的讨论着大数据的知识点，慢慢朝着我们心目中的目标而努力着！</p><p><strong>以上基本就是我和大数据的情缘，下面我来谈谈我对大数据入门的感悟。</strong><br><strong>1. 心态要端正。</strong><br>既然想要从事这行，那么一定要下定决心，当然付出是肯定大大的，不光光是毛爷爷，而更多的付出是自己的那一份坚持，凡事贵在坚持，真真体现在这里。<br>后来我将我老婆从化工实验室分析员转行，做Python爬虫和数据分析，当然这个主要还是靠她的那份坚持。</p><p><strong>2. 心目中要有计划。</strong><br>先学习Linux和Shell，再学习数据库和SQL，再学习Java和Scala，<br>然后学习Apache Haoop、Hive、Kafka、Spark，朝大数据研发或开发而努力着。</p><p><strong>3. 各种方式学习。</strong><br>QQ群，博客，上下班看技术文章，选择好的老师和课程培训，</p><p><font color="#FF4500"><br>(擦亮眼睛，很多视频，很多大数据老师都是瞎扯的，最终总结一句话，不在企业上班的教大数据都是耍流氓的。)</font><br>可以加速自己前进的马拉松里程，其实一般都要看大家怎么衡量培训这个事的，time和money的抉择，以及快速jump后的高薪。</p><p><strong>4. 项目经验。</strong><br>很多小白都没有项目经验也没有面试经验和技巧，屡屡面试以失败告终，<br>这时大家可以找你们熟悉的小伙伴们的，让他给你培训他的项目，这样就有了，当然可以直接互联网搜索一个就行，不过一般很难有完整的。<br>而面试，就看看其他人面试分享，学习他人。</p><p><strong>最后，总结一句话，坚持才是最重要的。<br>最后，总结一句话，坚持才是最重要的。<br>最后，总结一句话，坚持才是最重要的。</strong></p>]]></content>
     
@@ -284,28 +314,6 @@
   </entry>
   
   <entry>
-    <title>Hadoop常用命令大全</title>
-    <link href="http://yoursite.com/2018/04/14/Hadoop%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/"/>
-    <id>http://yoursite.com/2018/04/14/Hadoop常用命令大全/</id>
-    <published>2018-04-13T16:00:00.000Z</published>
-    <updated>2019-04-19T08:21:24.763Z</updated>
-    
-    <content type="html"><![CDATA[<p>若泽大数据，Hadoop常用命令大全<br><a id="more"></a> </p><h6 id="1-单独启动和关闭hadoop服务"><a href="#1-单独启动和关闭hadoop服务" class="headerlink" title="1. 单独启动和关闭hadoop服务"></a><strong>1. 单独启动和关闭hadoop服务</strong></h6><table><thead><tr><th>功能</th><th style="text-align:center">命令</th></tr></thead><tbody><tr><td><strong>启动名称节点</strong></td><td style="text-align:center">hadoop-daemon.sh start namenode</td></tr><tr><td><strong>启动数据节点</strong></td><td style="text-align:center">hadoop-daemons.sh start datanode slave</td></tr><tr><td><strong>启动secondarynamenode</strong></td><td style="text-align:center">hadoop-daemon.sh start secondarynamenode</td></tr><tr><td><strong>启动resourcemanager</strong></td><td style="text-align:center">yarn-daemon.sh start resourcemanager</td></tr><tr><td><strong>启动nodemanager</strong></td><td style="text-align:center">bin/yarn-daemons.sh start nodemanager</td></tr><tr><td><strong>停止数据节点</strong></td><td style="text-align:center">hadoop-daemons.sh stop datanode</td></tr></tbody></table><h6 id="2-常用的命令"><a href="#2-常用的命令" class="headerlink" title="2. 常用的命令"></a><strong>2. 常用的命令</strong></h6><table><thead><tr><th>功能</th><th style="text-align:center">命令</th></tr></thead><tbody><tr><td><strong>创建目录</strong></td><td style="text-align:center">hdfs dfs -mkdir /input</td></tr><tr><td><strong>查看</strong></td><td style="text-align:center">hdfs dfs  -ls</td></tr><tr><td><strong>递归查看</strong></td><td style="text-align:center">hdfs dfs ls -R</td></tr><tr><td><strong>上传</strong></td><td style="text-align:center">hdfs dfs -put </td></tr><tr><td><strong>下载</strong></td><td style="text-align:center">hdfs dfs -get </td></tr><tr><td><strong>删除</strong></td><td style="text-align:center">hdfs dfs -rm</td></tr><tr><td><strong>从本地剪切粘贴到hdfs</strong></td><td style="text-align:center">hdfs fs -moveFromLocal /input/xx.txt /input/xx.txt</td></tr><tr><td><strong>从hdfs剪切粘贴到本地</strong></td><td style="text-align:center">hdfs fs -moveToLocal /input/xx.txt /input/xx.txt</td></tr><tr><td><strong>追加一个文件到另一个文件到末尾</strong></td><td style="text-align:center">hdfs fs -appedToFile ./hello.txt /input/hello.txt</td></tr><tr><td><strong>查看文件内容</strong></td><td style="text-align:center">hdfs fs -cat /input/hello.txt</td></tr><tr><td><strong>显示一个文件到末尾</strong></td><td style="text-align:center">hdfs fs -tail /input/hello.txt</td></tr><tr><td><strong>以字符串的形式打印文件的内容</strong></td><td style="text-align:center">hdfs fs -text /input/hello.txt</td></tr><tr><td><strong>修改文件权限</strong></td><td style="text-align:center">hdfs fs -chmod 666 /input/hello.txt</td></tr><tr><td><strong>修改文件所属</strong></td><td style="text-align:center">hdfs fs -chown ruoze.ruoze  /input/hello.txt</td></tr><tr><td><strong>从本地文件系统拷贝到hdfs里</strong></td><td style="text-align:center">hdfs fs -copyFromLocal /input/hello.txt /input/</td></tr><tr><td><strong>从hdfs拷贝到本地</strong></td><td style="text-align:center">hdfs fs -copyToLocal /input/hello.txt /input/</td></tr><tr><td><strong>从hdfs到一个路径拷贝到另一个路径</strong></td><td style="text-align:center">hdfs fs -cp /input/xx.txt /output/xx.txt</td></tr><tr><td><strong>从hdfs到一个路径移动到另一个路径</strong></td><td style="text-align:center">hdfs fs -mv /input/xx.txt /output/xx.txt</td></tr><tr><td><strong>统计文件系统的可用空间信息</strong></td><td style="text-align:center">hdfs fs -df -h /</td></tr><tr><td><strong>统计文件夹的大小信息</strong></td><td style="text-align:center">hdfs fs -du -s -h /</td></tr><tr><td><strong>统计一个指定目录下的文件节点数量</strong></td><td style="text-align:center">hadoop  fs -count /aaa</td></tr><tr><td><strong>设置hdfs的文件副本数量</strong></td><td style="text-align:center">hadoop fs -setrep 3 /input/xx.txt</td></tr></tbody></table><h5 id="总结：一定要学会查看命令帮助"><a href="#总结：一定要学会查看命令帮助" class="headerlink" title="总结：一定要学会查看命令帮助"></a>总结：一定要学会查看命令帮助</h5><p><strong>1.hadoop命令直接回车查看命令帮助<br>2.hdfs命令、hdfs dfs命令直接回车查看命令帮助<br>3.hadoop fs 等价 hdfs dfs命令，和Linux的命令差不多。</strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;若泽大数据，Hadoop常用命令大全&lt;br&gt;
-    
-    </summary>
-    
-      <category term="hadoop" scheme="http://yoursite.com/categories/hadoop/"/>
-    
-    
-      <category term="hadoop" scheme="http://yoursite.com/tags/hadoop/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Spark2.2.0 全网最详细的源码编译</title>
     <link href="http://yoursite.com/2018/04/14/Spark2.2.0%20%E5%85%A8%E7%BD%91%E6%9C%80%E8%AF%A6%E7%BB%86%E7%9A%84%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/"/>
     <id>http://yoursite.com/2018/04/14/Spark2.2.0 全网最详细的源码编译/</id>
@@ -328,6 +336,28 @@
       <category term="基础" scheme="http://yoursite.com/tags/%E5%9F%BA%E7%A1%80/"/>
     
       <category term="spark" scheme="http://yoursite.com/tags/spark/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hadoop常用命令大全</title>
+    <link href="http://yoursite.com/2018/04/14/Hadoop%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/"/>
+    <id>http://yoursite.com/2018/04/14/Hadoop常用命令大全/</id>
+    <published>2018-04-13T16:00:00.000Z</published>
+    <updated>2019-04-19T08:21:24.763Z</updated>
+    
+    <content type="html"><![CDATA[<p>若泽大数据，Hadoop常用命令大全<br><a id="more"></a> </p><h6 id="1-单独启动和关闭hadoop服务"><a href="#1-单独启动和关闭hadoop服务" class="headerlink" title="1. 单独启动和关闭hadoop服务"></a><strong>1. 单独启动和关闭hadoop服务</strong></h6><table><thead><tr><th>功能</th><th style="text-align:center">命令</th></tr></thead><tbody><tr><td><strong>启动名称节点</strong></td><td style="text-align:center">hadoop-daemon.sh start namenode</td></tr><tr><td><strong>启动数据节点</strong></td><td style="text-align:center">hadoop-daemons.sh start datanode slave</td></tr><tr><td><strong>启动secondarynamenode</strong></td><td style="text-align:center">hadoop-daemon.sh start secondarynamenode</td></tr><tr><td><strong>启动resourcemanager</strong></td><td style="text-align:center">yarn-daemon.sh start resourcemanager</td></tr><tr><td><strong>启动nodemanager</strong></td><td style="text-align:center">bin/yarn-daemons.sh start nodemanager</td></tr><tr><td><strong>停止数据节点</strong></td><td style="text-align:center">hadoop-daemons.sh stop datanode</td></tr></tbody></table><h6 id="2-常用的命令"><a href="#2-常用的命令" class="headerlink" title="2. 常用的命令"></a><strong>2. 常用的命令</strong></h6><table><thead><tr><th>功能</th><th style="text-align:center">命令</th></tr></thead><tbody><tr><td><strong>创建目录</strong></td><td style="text-align:center">hdfs dfs -mkdir /input</td></tr><tr><td><strong>查看</strong></td><td style="text-align:center">hdfs dfs  -ls</td></tr><tr><td><strong>递归查看</strong></td><td style="text-align:center">hdfs dfs ls -R</td></tr><tr><td><strong>上传</strong></td><td style="text-align:center">hdfs dfs -put </td></tr><tr><td><strong>下载</strong></td><td style="text-align:center">hdfs dfs -get </td></tr><tr><td><strong>删除</strong></td><td style="text-align:center">hdfs dfs -rm</td></tr><tr><td><strong>从本地剪切粘贴到hdfs</strong></td><td style="text-align:center">hdfs fs -moveFromLocal /input/xx.txt /input/xx.txt</td></tr><tr><td><strong>从hdfs剪切粘贴到本地</strong></td><td style="text-align:center">hdfs fs -moveToLocal /input/xx.txt /input/xx.txt</td></tr><tr><td><strong>追加一个文件到另一个文件到末尾</strong></td><td style="text-align:center">hdfs fs -appedToFile ./hello.txt /input/hello.txt</td></tr><tr><td><strong>查看文件内容</strong></td><td style="text-align:center">hdfs fs -cat /input/hello.txt</td></tr><tr><td><strong>显示一个文件到末尾</strong></td><td style="text-align:center">hdfs fs -tail /input/hello.txt</td></tr><tr><td><strong>以字符串的形式打印文件的内容</strong></td><td style="text-align:center">hdfs fs -text /input/hello.txt</td></tr><tr><td><strong>修改文件权限</strong></td><td style="text-align:center">hdfs fs -chmod 666 /input/hello.txt</td></tr><tr><td><strong>修改文件所属</strong></td><td style="text-align:center">hdfs fs -chown ruoze.ruoze  /input/hello.txt</td></tr><tr><td><strong>从本地文件系统拷贝到hdfs里</strong></td><td style="text-align:center">hdfs fs -copyFromLocal /input/hello.txt /input/</td></tr><tr><td><strong>从hdfs拷贝到本地</strong></td><td style="text-align:center">hdfs fs -copyToLocal /input/hello.txt /input/</td></tr><tr><td><strong>从hdfs到一个路径拷贝到另一个路径</strong></td><td style="text-align:center">hdfs fs -cp /input/xx.txt /output/xx.txt</td></tr><tr><td><strong>从hdfs到一个路径移动到另一个路径</strong></td><td style="text-align:center">hdfs fs -mv /input/xx.txt /output/xx.txt</td></tr><tr><td><strong>统计文件系统的可用空间信息</strong></td><td style="text-align:center">hdfs fs -df -h /</td></tr><tr><td><strong>统计文件夹的大小信息</strong></td><td style="text-align:center">hdfs fs -du -s -h /</td></tr><tr><td><strong>统计一个指定目录下的文件节点数量</strong></td><td style="text-align:center">hadoop  fs -count /aaa</td></tr><tr><td><strong>设置hdfs的文件副本数量</strong></td><td style="text-align:center">hadoop fs -setrep 3 /input/xx.txt</td></tr></tbody></table><h5 id="总结：一定要学会查看命令帮助"><a href="#总结：一定要学会查看命令帮助" class="headerlink" title="总结：一定要学会查看命令帮助"></a>总结：一定要学会查看命令帮助</h5><p><strong>1.hadoop命令直接回车查看命令帮助<br>2.hdfs命令、hdfs dfs命令直接回车查看命令帮助<br>3.hadoop fs 等价 hdfs dfs命令，和Linux的命令差不多。</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;若泽大数据，Hadoop常用命令大全&lt;br&gt;
+    
+    </summary>
+    
+      <category term="hadoop" scheme="http://yoursite.com/categories/hadoop/"/>
+    
+    
+      <category term="hadoop" scheme="http://yoursite.com/tags/hadoop/"/>
     
   </entry>
   
@@ -469,30 +499,6 @@
     <summary type="html">
     
       &lt;p&gt;Linux最常用实战命令（三）&lt;br&gt;
-    
-    </summary>
-    
-      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
-    
-    
-      <category term="基础" scheme="http://yoursite.com/tags/%E5%9F%BA%E7%A1%80/"/>
-    
-      <category term="linux" scheme="http://yoursite.com/tags/linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>linux常用命令（一）</title>
-    <link href="http://yoursite.com/2018/04/01/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4(%E4%B8%80)/"/>
-    <id>http://yoursite.com/2018/04/01/Linux常用命令(一)/</id>
-    <published>2018-03-31T16:00:00.000Z</published>
-    <updated>2019-04-15T07:49:59.571Z</updated>
-    
-    <content type="html"><![CDATA[<p>Linux最常用实战命令（一）<br><a id="more"></a> </p><ol><li><p>查看当前目录    pwd</p></li><li><p>查看IP</p></li></ol><ul><li><p>ifconfig    查看虚拟机ip </p></li><li><p>hostname    主机名字</p><ul><li>i    查看主机名映射的IP</li></ul></li></ul><ol start="3"><li>切换目录    cd</li></ol><ul><li><p>cd ~    切换家目录（root为/root，普通用户为/home/用户名）</p></li><li><p>cd /filename    以绝对路径切换目录</p></li><li><p>cd -    返回上一次操作路径，并输出路径</p></li><li><p>cd ../    返回上一层目录</p></li></ul><ol start="4"><li><p>清理桌面    clear</p></li><li><p>显示当前目录文件和文件夹  ls</p></li></ol><ul><li><p>ls -l(ll)   显示详细信息</p></li><li><p>ls -la    显示详细信息+隐藏文件（以 . 开头，例：.ssh）</p></li><li><p>ls -lh    显示详细信息+文件大小</p></li><li><p>ls -lrt    显示详细信息+按时间排序</p></li></ul><ol start="6"><li><p>查看文件夹大小    du -sh</p></li><li><p>命令帮助</p></li></ol><ul><li><p>man 命令</p></li><li><p>命令 –help</p></li></ul><ol start="8"><li>创建文件夹    mkdir</li></ol><ul><li>mkdir -p filename1/filename2    递归创建文件夹</li></ul><ol start="9"><li><p>创建文件    touch/vi/echo xx&gt;filename</p></li><li><p>查看文件内容</p></li></ol><ul><li><p>cat filename    直接打印所有内容</p></li><li><p>more filename    根据窗口大小进行分页显示</p></li></ul><ol start="11"><li>文件编辑 vi</li></ol><ul><li><p>vi分为命令行模式，插入模式，尾行模式</p></li><li><p>命令行模式—&gt;插入模式：按i或a键</p></li><li><p>插入模式—&gt;命令行模式：按Esc键</p></li><li><p>命令行模式—&gt;尾行模式：按Shift和:键</p><p>  插入模式</p><ul><li><p>dd    删除光标所在行</p></li><li><p>n+dd    删除光标以下的n行</p></li><li><p>dG    删除光标以下行</p></li><li><p>gg    第一行第一个字母</p></li><li><p>G    最后一行第一个字母</p></li><li><p>shift+$    该行最后一个字母</p><p>尾行模式</p></li><li><p>q!    强制退出</p></li><li><p>qw    写入并退出</p></li><li><p>qw!    强制写入退出</p></li><li><p>x    退出，如果存在改动，则保存再退出</p></li></ul></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Linux最常用实战命令（一）&lt;br&gt;
     
     </summary>
     

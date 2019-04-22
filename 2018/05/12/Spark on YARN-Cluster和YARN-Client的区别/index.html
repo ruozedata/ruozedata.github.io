@@ -96,20 +96,22 @@
 
 
 
-  <meta name="description" content="在了解内部表和外部表区别前，我们需要先了解一下Hive架构 ：">
-<meta name="keywords" content="hive,主题">
+  <meta name="description" content="一. YARN-Cluster和YARN-Client的区别（1）SparkContext初始化不同，这也导致了Driver所在位置的不同，YarnCluster的Driver是在集群的某一台NM上，但是Yarn-Client就是在driver所在的机器上；（2）而Driver会和Executors进行通信，这也导致了Yarn_cluster在提交App之后可以关闭Client，而Yarn">
+<meta name="keywords" content="架构,spark">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2min快速了解，Hive内部表和外部表">
-<meta property="og:url" content="http://yoursite.com/2018/05/01/2min快速了解，Hive内部表和外部表/index.html">
+<meta property="og:title" content="Spark on YARN-Cluster和YARN-Client的区别">
+<meta property="og:url" content="http://yoursite.com/2018/05/12/Spark on YARN-Cluster和YARN-Client的区别/index.html">
 <meta property="og:site_name" content="若泽大数据 www.ruozedata.com">
-<meta property="og:description" content="在了解内部表和外部表区别前，我们需要先了解一下Hive架构 ：">
+<meta property="og:description" content="一. YARN-Cluster和YARN-Client的区别（1）SparkContext初始化不同，这也导致了Driver所在位置的不同，YarnCluster的Driver是在集群的某一台NM上，但是Yarn-Client就是在driver所在的机器上；（2）而Driver会和Executors进行通信，这也导致了Yarn_cluster在提交App之后可以关闭Client，而Yarn">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/assets/blogImg/501_1.png">
-<meta property="og:updated_time" content="2019-04-19T08:18:11.171Z">
+<meta property="og:image" content="http://yoursite.com/assets/blogImg/512_1.png">
+<meta property="og:image" content="http://yoursite.com/assets/blogImg/512_2.png">
+<meta property="og:image" content="http://yoursite.com/assets/blogImg/512_3.png">
+<meta property="og:updated_time" content="2019-04-22T15:16:17.108Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2min快速了解，Hive内部表和外部表">
-<meta name="twitter:description" content="在了解内部表和外部表区别前，我们需要先了解一下Hive架构 ：">
-<meta name="twitter:image" content="http://yoursite.com/assets/blogImg/501_1.png">
+<meta name="twitter:title" content="Spark on YARN-Cluster和YARN-Client的区别">
+<meta name="twitter:description" content="一. YARN-Cluster和YARN-Client的区别（1）SparkContext初始化不同，这也导致了Driver所在位置的不同，YarnCluster的Driver是在集群的某一台NM上，但是Yarn-Client就是在driver所在的机器上；（2）而Driver会和Executors进行通信，这也导致了Yarn_cluster在提交App之后可以关闭Client，而Yarn">
+<meta name="twitter:image" content="http://yoursite.com/assets/blogImg/512_1.png">
 
 
 
@@ -119,7 +121,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2018/05/01/2min快速了解，Hive内部表和外部表/">
+  <link rel="canonical" href="http://yoursite.com/2018/05/12/Spark on YARN-Cluster和YARN-Client的区别/">
 
 
 
@@ -129,7 +131,7 @@
   };
 </script>
 
-  <title>2min快速了解，Hive内部表和外部表 | 若泽大数据 www.ruozedata.com</title>
+  <title>Spark on YARN-Cluster和YARN-Client的区别 | 若泽大数据 www.ruozedata.com</title>
   
 
 
@@ -378,7 +380,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/01/2min快速了解，Hive内部表和外部表/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/12/Spark on YARN-Cluster和YARN-Client的区别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ruozedata">
@@ -395,7 +397,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">2min快速了解，Hive内部表和外部表
+          <h1 class="post-title" itemprop="name headline">Spark on YARN-Cluster和YARN-Client的区别
 
               
             
@@ -421,7 +423,7 @@
                 
               
 
-              <time title="Created: 2018-05-01 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-01T00:00:00+08:00">2018-05-01</time>
+              <time title="Created: 2018-05-12 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-12T00:00:00+08:00">2018-05-12</time>
             
 
             
@@ -438,7 +440,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-19 16:18:11" itemprop="dateModified" datetime="2019-04-19T16:18:11+08:00">2019-04-19</time>
+                <time title="Modified: 2019-04-22 23:16:17" itemprop="dateModified" datetime="2019-04-22T23:16:17+08:00">2019-04-22</time>
               
             
           </span>
@@ -455,7 +457,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hive/" itemprop="url" rel="index"><span itemprop="name">hive</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/spark/" itemprop="url" rel="index"><span itemprop="name">spark</span></a></span>
 
                 
                 
@@ -497,50 +499,15 @@
       
 
       
-        <p><font color="#FF4500"><br></font><br>在了解内部表和外部表区别前，<br>我们需要先了解一下<strong>Hive架构</strong> ：</p>
-<p><img src="/assets/blogImg/501_1.png" alt="Hive架构"><br><a id="more"></a><br>大家可以简单看一下这个架构图，我介绍其中要点：<br>Hive的数据分为两种，<strong>一种为普通数据，一种为元数据。</strong></p>
-<ol>
-<li>元数据存储着表的基本信息，增删改查记录，类似于Hadoop架构中的namespace。普通数据就是表中的详细数据。</li>
-<li>Hive的元数据默认存储在derby中，但大多数情况下存储在MySQL中。普通数据如架构图所示存储在hdfs中。</li>
-</ol>
-<p>下面我们来介绍表的两种类型：内部表和外部表</p>
-<ol>
-<li><p>内部表（MANAGED）：hive在hdfs中存在默认的存储路径，即default数据库。之后创建的数据库及表，如果没有指定路径应都在/user/hive/warehouse下，所以在该路径下的表为内部表。</p>
-</li>
-<li><p>外部表（EXTERNAL）：指定了/user/hive/warehouse以外路径所创建的表<br>而内部表和外部表的主要区别就是 </p>
-<ul>
-<li>内部表：当删除内部表时，MySQL的元数据和HDFS上的普通数据都会删除 ；</li>
-<li>外部表：当删除外部表时，MySQL的元数据会被删除，HDFS上的数据不会被删除；</li>
-</ul>
-</li>
-</ol>
-<h6 id="1-准备数据-按tab键制表符作为字段分割符"><a href="#1-准备数据-按tab键制表符作为字段分割符" class="headerlink" title="1.准备数据:  按tab键制表符作为字段分割符"></a>1.准备数据:  按tab键制表符作为字段分割符</h6><pre><code>cat /tmp/ruozedata.txt
-1   jepson  32  110
-2   ruoze   22  112
-3   www.ruozedata.com   18  120
-</code></pre><h6 id="2-内部表测试："><a href="#2-内部表测试：" class="headerlink" title="2.内部表测试："></a>2.内部表测试：</h6><ol>
-<li><p>在Hive里面创建一个表：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; create table ruozedata(id int,</span><br><span class="line">    &gt; name string,</span><br><span class="line">    &gt; age int,</span><br><span class="line">    &gt; tele string)</span><br><span class="line">    &gt; ROW FORMAT DELIMITED</span><br><span class="line">    &gt; FIELDS TERMINATED BY &apos;\t&apos;</span><br><span class="line">    &gt; STORED AS TEXTFILE;</span><br><span class="line">OK</span><br><span class="line">Time taken: 0.759 seconds</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>这样我们就在Hive里面创建了一张普通的表，现在给这个表导入数据：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">load data local inpath &apos;/tmp/ruozedata.txt&apos; into table ruozedata;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>内部表删除</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; drop table ruozedata;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h6 id="3-外部表测试"><a href="#3-外部表测试" class="headerlink" title="3.外部表测试:"></a>3.外部表测试:</h6><ol>
-<li>创建外部表多了external关键字说明以及hdfs上location ‘/hive/external’<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; create external table exter_ruozedata(</span><br><span class="line">    &gt; id int,</span><br><span class="line">    &gt; name string,</span><br><span class="line">    &gt; age int,</span><br><span class="line">    &gt; tel string)</span><br><span class="line">    &gt; location &apos;/hive/external&apos;;</span><br><span class="line">OK</span><br><span class="line">Time taken: 0.098 seconds</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>创建外部表，需要在创建表的时候加上external关键字，同时指定外部表存放数据的路径<br>（当然，你也可以不指定外部表的存放路径，这样Hive将 在HDFS上的/user/hive/warehouse/文件夹下以外部表的表名创建一个文件夹，并将属于这个表的数据存放在这里）</p>
-<ol start="2">
-<li><p>外部表导入数据和内部表一样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">load data local inpath &apos;/tmp/ruozedata.txt&apos; into table exter_ruozedata;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除外部表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; drop table exter_ruozedata;</span><br></pre></td></tr></table></figure></li>
-</ol>
+        <a id="more"></a> 
+<font color="#FF4500"><br></font>
+
+<h5 id="一-YARN-Cluster和YARN-Client的区别"><a href="#一-YARN-Cluster和YARN-Client的区别" class="headerlink" title="一. YARN-Cluster和YARN-Client的区别"></a>一. YARN-Cluster和YARN-Client的区别</h5><p><img src="/assets/blogImg/512_1.png" alt><br>（1）SparkContext初始化不同，这也导致了Driver所在位置的不同，YarnCluster的Driver是在集群的某一台NM上，但是Yarn-Client就是在driver所在的机器上；<br>（2）而Driver会和Executors进行通信，这也导致了Yarn_cluster在提交App之后可以关闭Client，而Yarn-Client不可以；<br>（3）最后再来说应用场景，Yarn-Cluster适合生产环境，Yarn-Client适合交互和调试。</p>
+<h5 id="二-yarn-client-模式"><a href="#二-yarn-client-模式" class="headerlink" title="二. yarn client 模式"></a>二. yarn client 模式</h5><p><img src="/assets/blogImg/512_2.png" alt></p>
+<p><font color="#FF4200">yarn-client  模式的话 ，把 客户端关掉的话 ，是不能提交任务的 。<br></font></p>
+<h5 id="三-yarn-cluster-模式"><a href="#三-yarn-cluster-模式" class="headerlink" title="三.yarn  cluster 模式"></a>三.yarn  cluster 模式</h5><p><img src="/assets/blogImg/512_3.png" alt></p>
+<p><font color="#FF4200">yarn-cluster 模式的话， client 关闭是可以提交任务的 ，<br></font></p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h5><p><strong>1.spark-shell/spark-sql 只支持 yarn-client模式；<br>2.spark-submit对于两种模式都支持。</strong></p>
 
       
     </div>
@@ -588,9 +555,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hive/" rel="tag"># hive</a>
+            <a href="/tags/架构/" rel="tag"># 架构</a>
           
-            <a href="/tags/主题/" rel="tag"># 主题</a>
+            <a href="/tags/spark/" rel="tag"># spark</a>
           
         </div>
       
@@ -603,8 +570,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/27/Hive自定义函数(UDF)的部署使用，你会吗？/" rel="next" title="Hive自定义函数(UDF)的部署使用，你会吗？">
-                <i class="fa fa-chevron-left"></i> Hive自定义函数(UDF)的部署使用，你会吗？
+              <a href="/2018/05/08/生产改造Spark1.6源代码，create table语法支持Oracle列表分区/" rel="next" title="生产改造Spark1.6源代码，create table语法支持Oracle列表分区">
+                <i class="fa fa-chevron-left"></i> 生产改造Spark1.6源代码，create table语法支持Oracle列表分区
               </a>
             
           </div>
@@ -612,10 +579,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/01/谈谈我和大数据的情缘及入门/" rel="prev" title="谈谈我和大数据的情缘及入门">
-                谈谈我和大数据的情缘及入门 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -820,7 +783,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-准备数据-按tab键制表符作为字段分割符"><span class="nav-number">1.</span> <span class="nav-text">1.准备数据:  按tab键制表符作为字段分割符</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-内部表测试："><span class="nav-number">2.</span> <span class="nav-text">2.内部表测试：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-外部表测试"><span class="nav-number">3.</span> <span class="nav-text">3.外部表测试:</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#一-YARN-Cluster和YARN-Client的区别"><span class="nav-number">1.</span> <span class="nav-text">一. YARN-Cluster和YARN-Client的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二-yarn-client-模式"><span class="nav-number">2.</span> <span class="nav-text">二. yarn client 模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三-yarn-cluster-模式"><span class="nav-number">3.</span> <span class="nav-text">三.yarn  cluster 模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结:</span></a></li></ol></div>
             
 
           </div>
