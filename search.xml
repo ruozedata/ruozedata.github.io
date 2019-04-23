@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[大数据之实时数据源同步中间件--生产上Canal与Maxwell颠峰对决]]></title>
+    <url>%2F2018%2F05%2F14%2F%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B9%8B%E5%AE%9E%E6%97%B6%E6%95%B0%E6%8D%AE%E6%BA%90%E5%90%8C%E6%AD%A5%E4%B8%AD%E9%97%B4%E4%BB%B6--%E7%94%9F%E4%BA%A7%E4%B8%8ACanal%E4%B8%8EMaxwell%E9%A2%A0%E5%B3%B0%E5%AF%B9%E5%86%B3%2F</url>
+    <content type="text"><![CDATA[一.数据源同步中间件：Canalhttps://github.com/alibaba/canalhttps://github.com/Hackeruncle/syncClient Maxwellhttps://github.com/zendesk/maxwell 二.架构使用MySQL —- 中间件 mcp —&gt;KAFKA—&gt;?—&gt;存储HBASE/KUDU/Cassandra 增量的a.全量 bootstrapb.增量 1.对比 Canal(服务端) Maxwell(服务端+客户端) 语言 Java Java 活跃度 活跃 活跃 HA 支持 定制 但是支持断点还原功能 数据落地 定制 落地到kafka 分区 支持 支持 bootstrap(引导) 不支持 支持 数据格式 格式自由 json(格式固定) spark json–&gt;DF 文档 较详细 较详细 随机读 支持 支持 个人选择Maxwell a.服务端+客户端一体，轻量级的b.支持断点还原功能+bootstrap+jsonCan do SELECT * from table (bootstrapping) initial loads of a table.supports automatic position recover on master promotionflexible partitioning schemes for Kakfa - by database, table, primary key, or columnMaxwell pulls all this off by acting as a full mysql replica, including a SQL parser for create/alter/drop statements (nope, there was no other way). 2.官网解读B站视频 3.部署3.1 MySQL Installhttps://github.com/Hackeruncle/MySQL/blob/master/MySQL%205.6.23%20Install.txthttps://ke.qq.com/course/262452?tuin=11cffd50 3.2 修改12345678910111213141516171819202122$ vi /etc/my.cnf[mysqld]binlog_format=row$ service mysql start3.3 创建Maxwell的db和用户mysql&gt; create database maxwell;Query OK, 1 row affected (0.03 sec)mysql&gt; GRANT ALL on maxwell.* to &apos;maxwell&apos;@&apos;%&apos; identified by &apos;ruozedata&apos;;Query OK, 0 rows affected (0.00 sec)mysql&gt; GRANT SELECT, REPLICATION CLIENT, REPLICATION SLAVE on *.* to &apos;maxwell&apos;@&apos;%&apos;;Query OK, 0 rows affected (0.00 sec)mysql&gt; flush privileges;Query OK, 0 rows affected (0.00 sec)mysql&gt; 3.4解压1[root@hadoop000 software]# tar -xzvf maxwell-1.14.4.tar.gz 3.5测试STDOUT:123bin/maxwell --user=&apos;maxwell&apos; \--password=&apos;ruozedata&apos; --host=&apos;127.0.0.1&apos; \--producer=stdout 测试1：insert sql：12mysql&gt; insert into ruozedata(id,name,age,address) values(999,&apos;jepson&apos;,18,&apos;www.ruozedata.com&apos;);Query OK, 1 row affected (0.03 sec) maxwell输出：123456789101112131415161718&#123; &quot;database&quot;: &quot;ruozedb&quot;, &quot;table&quot;: &quot;ruozedata&quot;, &quot;type&quot;: &quot;insert&quot;, &quot;ts&quot;: 1525959044, &quot;xid&quot;: 201, &quot;commit&quot;: true, &quot;data&quot;: &#123; &quot;id&quot;: 999, &quot;name&quot;: &quot;jepson&quot;, &quot;age&quot;: 18, &quot;address&quot;: &quot;www.ruozedata.com&quot;, &quot;createtime&quot;: &quot;2018-05-10 13:30:44&quot;, &quot;creuser&quot;: null, &quot;updatetime&quot;: &quot;2018-05-10 13:30:44&quot;, &quot;updateuser&quot;: null &#125;&#125; 测试1：update sql:1mysql&gt; update ruozedata set age=29 where id=999; 问题: ROW，你觉得binlog更新几个字段？ maxwell输出：12345678910111213141516171819202122&#123; &quot;database&quot;: &quot;ruozedb&quot;, &quot;table&quot;: &quot;ruozedata&quot;, &quot;type&quot;: &quot;update&quot;, &quot;ts&quot;: 1525959208, &quot;xid&quot;: 255, &quot;commit&quot;: true, &quot;data&quot;: &#123; &quot;id&quot;: 999, &quot;name&quot;: &quot;jepson&quot;, &quot;age&quot;: 29, &quot;address&quot;: &quot;www.ruozedata.com&quot;, &quot;createtime&quot;: &quot;2018-05-10 13:30:44&quot;, &quot;creuser&quot;: null, &quot;updatetime&quot;: &quot;2018-05-10 13:33:28&quot;, &quot;updateuser&quot;: null &#125;, &quot;old&quot;: &#123; &quot;age&quot;: 18, &quot;updatetime&quot;: &quot;2018-05-10 13:30:44&quot; &#125;&#125; 4.其他注意点和新特性4.1 kafka_version 版本Using kafka version: 0.11.0.1 0.10jar:12345678[root@hadoop000 kafka-clients]# lltotal 4000-rw-r--r--. 1 ruoze games 746207 May 8 06:34 kafka-clients-0.10.0.1.jar-rw-r--r--. 1 ruoze games 951041 May 8 06:35 kafka-clients-0.10.2.1.jar-rw-r--r--. 1 ruoze games 1419544 May 8 06:35 kafka-clients-0.11.0.1.jar-rw-r--r--. 1 ruoze games 324016 May 8 06:34 kafka-clients-0.8.2.2.jar-rw-r--r--. 1 ruoze games 641408 May 8 06:34 kafka-clients-0.9.0.1.jar[root@hadoop000 kafka-clients]#]]></content>
+      <categories>
+        <category>其他组件</category>
+      </categories>
+      <tags>
+        <tag>maxwell</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Spark on YARN-Cluster和YARN-Client的区别]]></title>
     <url>%2F2018%2F05%2F12%2FSpark%20on%20YARN-Cluster%E5%92%8CYARN-Client%E7%9A%84%E5%8C%BA%E5%88%AB%2F</url>
     <content type="text"><![CDATA[一. YARN-Cluster和YARN-Client的区别（1）SparkContext初始化不同，这也导致了Driver所在位置的不同，YarnCluster的Driver是在集群的某一台NM上，但是Yarn-Client就是在driver所在的机器上；（2）而Driver会和Executors进行通信，这也导致了Yarn_cluster在提交App之后可以关闭Client，而Yarn-Client不可以；（3）最后再来说应用场景，Yarn-Cluster适合生产环境，Yarn-Client适合交互和调试。 二. yarn client 模式 yarn-client 模式的话 ，把 客户端关掉的话 ，是不能提交任务的 。 三.yarn cluster 模式 yarn-cluster 模式的话， client 关闭是可以提交任务的 ， 总结:1.spark-shell/spark-sql 只支持 yarn-client模式；2.spark-submit对于两种模式都支持。]]></content>
@@ -47,17 +58,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[谈谈我和大数据的情缘及入门]]></title>
-    <url>%2F2018%2F05%2F01%2F%E8%B0%88%E8%B0%88%E6%88%91%E5%92%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E6%83%85%E7%BC%98%E5%8F%8A%E5%85%A5%E9%97%A8%2F</url>
-    <content type="text"><![CDATA[&#8195;当年我是做C#+Java软件开发，然后考取OCP来了上海，立志要做一名DBA。只记得当年试用期刚过时，阴差阳错轮到我负责公司的大数据平台这块，刚开始很痛苦，一个陌生的行业，一个讨论的小伙伴都没有，一份现成资料都没有，心情焦虑。后来我调整心态，从DB转移到对大数据的研究，决定啃下这块硬骨头，把它嚼碎，把它消化吸收。 &#8195;由于当时公司都是CDH环境，刚开始安装卡了很久都过不去，后面选择在线安装，很慢，有时需要1天。后来安装HDFS ,YARN,HIVE组件，不过对它们不理解，不明白，有时很困惑。这样的过程大概持续三个月了。 &#8195;后来看了很多博文，都是Apache Hadoop版本搭建，于是我先试试用Apache Hadoop搭建部署单节点和集群，然后配置HA，最后我发现自己比较喜欢这种方式，因为我能了解其配置参数，配置文件和常规命令等等，再回头去对比CDH安装HDFS服务，真是太爽了，因为Apache Hadoop版本有真正体验感，这时我就迅速调整方向 : 先Apache版本，再CDH。 &#8195;由于公司项目环境，推进自己实在太慢，于是我在网上看各种相关视频教程；加n种群，在群里潜水，看水友们提的问题自己会不会，不会就去查资料，会就帮助他们一起研究学习进步。 &#8195;后来这样的进度太慢了，因为很多群都是打广告，潜水，没有真正的技术讨论氛围，于是我迅速调整方向，自己建个QQ群，慢慢招兵买马，和管理员们一起去管理，在过去的两年里我也学到了很多知识和认识和我一样前进的小伙伴们，现在也有很多已成为friends。 &#8195;每当夜晚，我就会深深思考仅凭公司项目,网上免费课程视频，QQ群等，还是不够的，于是我开始咨询培训机构的课程，在这里提醒各位小伙伴们，报班一定要擦亮眼睛，选择老师很重要，真心很重要，许多培训机构的老师都是Java转的，讲的是全是基础，根本没有企业项目实战经验；还有不要跟风，一定看仔细看清楚课程是否符合当前的你。 &#8195;这时还是远远不够的，于是我开始每天上下班地铁上看技术博客，积极分享。然后再申请博客，写博文，写总结，坚持每次做完一次实验就将博文，梳理好，写好，这样久而久之，知识点就慢慢夯实积累了。 &#8195;再着后面就开始受邀几大培训机构做公开课，再一次将知识点梳理了，也认识了新的小伙伴们，我们有着相同的方向和目标，我们尽情的讨论着大数据的知识点，慢慢朝着我们心目中的目标而努力着！ 以上基本就是我和大数据的情缘，下面我来谈谈我对大数据入门的感悟。1. 心态要端正。既然想要从事这行，那么一定要下定决心，当然付出是肯定大大的，不光光是毛爷爷，而更多的付出是自己的那一份坚持，凡事贵在坚持，真真体现在这里。后来我将我老婆从化工实验室分析员转行，做Python爬虫和数据分析，当然这个主要还是靠她的那份坚持。 2. 心目中要有计划。先学习Linux和Shell，再学习数据库和SQL，再学习Java和Scala，然后学习Apache Haoop、Hive、Kafka、Spark，朝大数据研发或开发而努力着。 3. 各种方式学习。QQ群，博客，上下班看技术文章，选择好的老师和课程培训， (擦亮眼睛，很多视频，很多大数据老师都是瞎扯的，最终总结一句话，不在企业上班的教大数据都是耍流氓的。)可以加速自己前进的马拉松里程，其实一般都要看大家怎么衡量培训这个事的，time和money的抉择，以及快速jump后的高薪。 4. 项目经验。很多小白都没有项目经验也没有面试经验和技巧，屡屡面试以失败告终，这时大家可以找你们熟悉的小伙伴们的，让他给你培训他的项目，这样就有了，当然可以直接互联网搜索一个就行，不过一般很难有完整的。而面试，就看看其他人面试分享，学习他人。 最后，总结一句话，坚持才是最重要的。最后，总结一句话，坚持才是最重要的。最后，总结一句话，坚持才是最重要的。]]></content>
-      <categories>
-        <category>感悟</category>
-      </categories>
-      <tags>
-        <tag>人生感悟</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[2min快速了解，Hive内部表和外部表]]></title>
     <url>%2F2018%2F05%2F01%2F2min%E5%BF%AB%E9%80%9F%E4%BA%86%E8%A7%A3%EF%BC%8CHive%E5%86%85%E9%83%A8%E8%A1%A8%E5%92%8C%E5%A4%96%E9%83%A8%E8%A1%A8%2F</url>
     <content type="text"><![CDATA[在了解内部表和外部表区别前，我们需要先了解一下Hive架构 ： 大家可以简单看一下这个架构图，我介绍其中要点：Hive的数据分为两种，一种为普通数据，一种为元数据。 元数据存储着表的基本信息，增删改查记录，类似于Hadoop架构中的namespace。普通数据就是表中的详细数据。 Hive的元数据默认存储在derby中，但大多数情况下存储在MySQL中。普通数据如架构图所示存储在hdfs中。 下面我们来介绍表的两种类型：内部表和外部表 内部表（MANAGED）：hive在hdfs中存在默认的存储路径，即default数据库。之后创建的数据库及表，如果没有指定路径应都在/user/hive/warehouse下，所以在该路径下的表为内部表。 外部表（EXTERNAL）：指定了/user/hive/warehouse以外路径所创建的表而内部表和外部表的主要区别就是 内部表：当删除内部表时，MySQL的元数据和HDFS上的普通数据都会删除 ； 外部表：当删除外部表时，MySQL的元数据会被删除，HDFS上的数据不会被删除； 1.准备数据: 按tab键制表符作为字段分割符cat /tmp/ruozedata.txt 1 jepson 32 110 2 ruoze 22 112 3 www.ruozedata.com 18 120 2.内部表测试： 在Hive里面创建一个表： 123456789hive&gt; create table ruozedata(id int, &gt; name string, &gt; age int, &gt; tele string) &gt; ROW FORMAT DELIMITED &gt; FIELDS TERMINATED BY &apos;\t&apos; &gt; STORED AS TEXTFILE;OKTime taken: 0.759 seconds 这样我们就在Hive里面创建了一张普通的表，现在给这个表导入数据： 1load data local inpath &apos;/tmp/ruozedata.txt&apos; into table ruozedata; 内部表删除 1hive&gt; drop table ruozedata; 3.外部表测试: 创建外部表多了external关键字说明以及hdfs上location ‘/hive/external’12345678hive&gt; create external table exter_ruozedata( &gt; id int, &gt; name string, &gt; age int, &gt; tel string) &gt; location &apos;/hive/external&apos;;OKTime taken: 0.098 seconds 创建外部表，需要在创建表的时候加上external关键字，同时指定外部表存放数据的路径（当然，你也可以不指定外部表的存放路径，这样Hive将 在HDFS上的/user/hive/warehouse/文件夹下以外部表的表名创建一个文件夹，并将属于这个表的数据存放在这里） 外部表导入数据和内部表一样： 1load data local inpath &apos;/tmp/ruozedata.txt&apos; into table exter_ruozedata; 删除外部表 1hive&gt; drop table exter_ruozedata;]]></content>
@@ -67,6 +67,17 @@
       <tags>
         <tag>hive</tag>
         <tag>主题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[谈谈我和大数据的情缘及入门]]></title>
+    <url>%2F2018%2F05%2F01%2F%E8%B0%88%E8%B0%88%E6%88%91%E5%92%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E6%83%85%E7%BC%98%E5%8F%8A%E5%85%A5%E9%97%A8%2F</url>
+    <content type="text"><![CDATA[&#8195;当年我是做C#+Java软件开发，然后考取OCP来了上海，立志要做一名DBA。只记得当年试用期刚过时，阴差阳错轮到我负责公司的大数据平台这块，刚开始很痛苦，一个陌生的行业，一个讨论的小伙伴都没有，一份现成资料都没有，心情焦虑。后来我调整心态，从DB转移到对大数据的研究，决定啃下这块硬骨头，把它嚼碎，把它消化吸收。 &#8195;由于当时公司都是CDH环境，刚开始安装卡了很久都过不去，后面选择在线安装，很慢，有时需要1天。后来安装HDFS ,YARN,HIVE组件，不过对它们不理解，不明白，有时很困惑。这样的过程大概持续三个月了。 &#8195;后来看了很多博文，都是Apache Hadoop版本搭建，于是我先试试用Apache Hadoop搭建部署单节点和集群，然后配置HA，最后我发现自己比较喜欢这种方式，因为我能了解其配置参数，配置文件和常规命令等等，再回头去对比CDH安装HDFS服务，真是太爽了，因为Apache Hadoop版本有真正体验感，这时我就迅速调整方向 : 先Apache版本，再CDH。 &#8195;由于公司项目环境，推进自己实在太慢，于是我在网上看各种相关视频教程；加n种群，在群里潜水，看水友们提的问题自己会不会，不会就去查资料，会就帮助他们一起研究学习进步。 &#8195;后来这样的进度太慢了，因为很多群都是打广告，潜水，没有真正的技术讨论氛围，于是我迅速调整方向，自己建个QQ群，慢慢招兵买马，和管理员们一起去管理，在过去的两年里我也学到了很多知识和认识和我一样前进的小伙伴们，现在也有很多已成为friends。 &#8195;每当夜晚，我就会深深思考仅凭公司项目,网上免费课程视频，QQ群等，还是不够的，于是我开始咨询培训机构的课程，在这里提醒各位小伙伴们，报班一定要擦亮眼睛，选择老师很重要，真心很重要，许多培训机构的老师都是Java转的，讲的是全是基础，根本没有企业项目实战经验；还有不要跟风，一定看仔细看清楚课程是否符合当前的你。 &#8195;这时还是远远不够的，于是我开始每天上下班地铁上看技术博客，积极分享。然后再申请博客，写博文，写总结，坚持每次做完一次实验就将博文，梳理好，写好，这样久而久之，知识点就慢慢夯实积累了。 &#8195;再着后面就开始受邀几大培训机构做公开课，再一次将知识点梳理了，也认识了新的小伙伴们，我们有着相同的方向和目标，我们尽情的讨论着大数据的知识点，慢慢朝着我们心目中的目标而努力着！ 以上基本就是我和大数据的情缘，下面我来谈谈我对大数据入门的感悟。1. 心态要端正。既然想要从事这行，那么一定要下定决心，当然付出是肯定大大的，不光光是毛爷爷，而更多的付出是自己的那一份坚持，凡事贵在坚持，真真体现在这里。后来我将我老婆从化工实验室分析员转行，做Python爬虫和数据分析，当然这个主要还是靠她的那份坚持。 2. 心目中要有计划。先学习Linux和Shell，再学习数据库和SQL，再学习Java和Scala，然后学习Apache Haoop、Hive、Kafka、Spark，朝大数据研发或开发而努力着。 3. 各种方式学习。QQ群，博客，上下班看技术文章，选择好的老师和课程培训， (擦亮眼睛，很多视频，很多大数据老师都是瞎扯的，最终总结一句话，不在企业上班的教大数据都是耍流氓的。)可以加速自己前进的马拉松里程，其实一般都要看大家怎么衡量培训这个事的，time和money的抉择，以及快速jump后的高薪。 4. 项目经验。很多小白都没有项目经验也没有面试经验和技巧，屡屡面试以失败告终，这时大家可以找你们熟悉的小伙伴们的，让他给你培训他的项目，这样就有了，当然可以直接互联网搜索一个就行，不过一般很难有完整的。而面试，就看看其他人面试分享，学习他人。 最后，总结一句话，坚持才是最重要的。最后，总结一句话，坚持才是最重要的。最后，总结一句话，坚持才是最重要的。]]></content>
+      <categories>
+        <category>感悟</category>
+      </categories>
+      <tags>
+        <tag>人生感悟</tag>
       </tags>
   </entry>
   <entry>
@@ -111,8 +122,8 @@
       </categories>
       <tags>
         <tag>hive</tag>
-        <tag>压缩格式</tag>
         <tag>案例</tag>
+        <tag>压缩格式</tag>
       </tags>
   </entry>
   <entry>
@@ -182,9 +193,9 @@
         <category>hive</category>
       </categories>
       <tags>
+        <tag>hive</tag>
         <tag>环境搭建</tag>
         <tag>基础</tag>
-        <tag>hive</tag>
       </tags>
   </entry>
   <entry>
