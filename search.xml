@@ -122,8 +122,8 @@
       </categories>
       <tags>
         <tag>hive</tag>
-        <tag>案例</tag>
         <tag>压缩格式</tag>
+        <tag>案例</tag>
       </tags>
   </entry>
   <entry>
@@ -150,6 +150,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Hadoop常用命令大全]]></title>
+    <url>%2F2018%2F04%2F14%2FHadoop%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8%2F</url>
+    <content type="text"><![CDATA[若泽大数据，Hadoop常用命令大全 1. 单独启动和关闭hadoop服务 功能 命令 启动名称节点 hadoop-daemon.sh start namenode 启动数据节点 hadoop-daemons.sh start datanode slave 启动secondarynamenode hadoop-daemon.sh start secondarynamenode 启动resourcemanager yarn-daemon.sh start resourcemanager 启动nodemanager bin/yarn-daemons.sh start nodemanager 停止数据节点 hadoop-daemons.sh stop datanode 2. 常用的命令 功能 命令 创建目录 hdfs dfs -mkdir /input 查看 hdfs dfs -ls 递归查看 hdfs dfs ls -R 上传 hdfs dfs -put 下载 hdfs dfs -get 删除 hdfs dfs -rm 从本地剪切粘贴到hdfs hdfs fs -moveFromLocal /input/xx.txt /input/xx.txt 从hdfs剪切粘贴到本地 hdfs fs -moveToLocal /input/xx.txt /input/xx.txt 追加一个文件到另一个文件到末尾 hdfs fs -appedToFile ./hello.txt /input/hello.txt 查看文件内容 hdfs fs -cat /input/hello.txt 显示一个文件到末尾 hdfs fs -tail /input/hello.txt 以字符串的形式打印文件的内容 hdfs fs -text /input/hello.txt 修改文件权限 hdfs fs -chmod 666 /input/hello.txt 修改文件所属 hdfs fs -chown ruoze.ruoze /input/hello.txt 从本地文件系统拷贝到hdfs里 hdfs fs -copyFromLocal /input/hello.txt /input/ 从hdfs拷贝到本地 hdfs fs -copyToLocal /input/hello.txt /input/ 从hdfs到一个路径拷贝到另一个路径 hdfs fs -cp /input/xx.txt /output/xx.txt 从hdfs到一个路径移动到另一个路径 hdfs fs -mv /input/xx.txt /output/xx.txt 统计文件系统的可用空间信息 hdfs fs -df -h / 统计文件夹的大小信息 hdfs fs -du -s -h / 统计一个指定目录下的文件节点数量 hadoop fs -count /aaa 设置hdfs的文件副本数量 hadoop fs -setrep 3 /input/xx.txt 总结：一定要学会查看命令帮助1.hadoop命令直接回车查看命令帮助2.hdfs命令、hdfs dfs命令直接回车查看命令帮助3.hadoop fs 等价 hdfs dfs命令，和Linux的命令差不多。]]></content>
+      <categories>
+        <category>hadoop</category>
+      </categories>
+      <tags>
+        <tag>hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Spark2.2.0 全网最详细的源码编译]]></title>
     <url>%2F2018%2F04%2F14%2FSpark2.2.0%20%E5%85%A8%E7%BD%91%E6%9C%80%E8%AF%A6%E7%BB%86%E7%9A%84%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%2F</url>
     <content type="text"><![CDATA[若泽大数据，Spark2.2.0 全网最详细的源码编译 环境准备 JDK： Spark 2.2.0及以上版本只支持JDK1.8 Maven：3.3.9设置maven环境变量时，需设置maven内存：export MAVEN_OPTS=”-Xmx2g -XX:ReservedCodeCacheSize=512m” Scala：2.11.8 Git 编译下载spark的tar包，并解压12[hadoop@hadoop000 source]$ wget https://d3kbcqa49mib13.cloudfront.net/spark-2.2.0.tgz[hadoop@hadoop000 source]$ tar -xzvf spark-2.2.0.tgz 编辑dev/make-distribution.sh123456789101112131415[hadoop@hadoop000 spark-2.2.0]$ vi dev/make-distribution.sh注释以下内容：#VERSION=$(&quot;$MVN&quot; help:evaluate -Dexpression=project.version $@ 2&gt;/dev/null | grep -v &quot;INFO&quot; | tail -n 1)#SCALA_VERSION=$(&quot;$MVN&quot; help:evaluate -Dexpression=scala.binary.version $@ 2&gt;/dev/null\# | grep -v &quot;INFO&quot;\# | tail -n 1)#SPARK_HADOOP_VERSION=$(&quot;$MVN&quot; help:evaluate -Dexpression=hadoop.version $@ 2&gt;/dev/null\# | grep -v &quot;INFO&quot;\# | tail -n 1)#SPARK_HIVE=$(&quot;$MVN&quot; help:evaluate -Dexpression=project.activeProfiles -pl sql/hive $@ 2&gt;/dev/null\# | grep -v &quot;INFO&quot;\# | fgrep --count &quot;&lt;id&gt;hive&lt;/id&gt;&quot;;\# # Reset exit status to 0, otherwise the script stops here if the last grep finds nothing\# # because we use &quot;set -o pipefail&quot;# echo -n) 添加以下内容：1234VERSION=2.2.0SCALA_VERSION=2.11SPARK_HADOOP_VERSION=2.6.0-cdh5.7.0SPARK_HIVE=1 编辑pom.xml1234567[hadoop@hadoop000 spark-2.2.0]$ vi pom.xml添加在repositorys内&lt;repository&gt; &lt;id&gt;clouders&lt;/id&gt; &lt;name&gt;clouders Repository&lt;/name&gt; &lt;url&gt;https://repository.cloudera.com/artifactory/cloudera-repos/&lt;/url&gt;&lt;/repository&gt; 安装1[hadoop@hadoop000 spark-2.2.0]$ ./dev/make-distribution.sh --name 2.6.0-cdh5.7.0 --tgz -Dhadoop.version=2.6.0-cdh5.7.0 -Phadoop-2.6 -Phive -Phive-thriftserver -Pyarn 稍微等待几小时，网络较好的话，非常快。也可以参考J哥博客：基于CentOS6.4环境编译Spark-2.1.0源码 http://blog.itpub.net/30089851/viewspace-2140779/]]></content>
@@ -160,17 +171,6 @@
         <tag>环境搭建</tag>
         <tag>基础</tag>
         <tag>spark</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hadoop常用命令大全]]></title>
-    <url>%2F2018%2F04%2F14%2FHadoop%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8%2F</url>
-    <content type="text"><![CDATA[若泽大数据，Hadoop常用命令大全 1. 单独启动和关闭hadoop服务 功能 命令 启动名称节点 hadoop-daemon.sh start namenode 启动数据节点 hadoop-daemons.sh start datanode slave 启动secondarynamenode hadoop-daemon.sh start secondarynamenode 启动resourcemanager yarn-daemon.sh start resourcemanager 启动nodemanager bin/yarn-daemons.sh start nodemanager 停止数据节点 hadoop-daemons.sh stop datanode 2. 常用的命令 功能 命令 创建目录 hdfs dfs -mkdir /input 查看 hdfs dfs -ls 递归查看 hdfs dfs ls -R 上传 hdfs dfs -put 下载 hdfs dfs -get 删除 hdfs dfs -rm 从本地剪切粘贴到hdfs hdfs fs -moveFromLocal /input/xx.txt /input/xx.txt 从hdfs剪切粘贴到本地 hdfs fs -moveToLocal /input/xx.txt /input/xx.txt 追加一个文件到另一个文件到末尾 hdfs fs -appedToFile ./hello.txt /input/hello.txt 查看文件内容 hdfs fs -cat /input/hello.txt 显示一个文件到末尾 hdfs fs -tail /input/hello.txt 以字符串的形式打印文件的内容 hdfs fs -text /input/hello.txt 修改文件权限 hdfs fs -chmod 666 /input/hello.txt 修改文件所属 hdfs fs -chown ruoze.ruoze /input/hello.txt 从本地文件系统拷贝到hdfs里 hdfs fs -copyFromLocal /input/hello.txt /input/ 从hdfs拷贝到本地 hdfs fs -copyToLocal /input/hello.txt /input/ 从hdfs到一个路径拷贝到另一个路径 hdfs fs -cp /input/xx.txt /output/xx.txt 从hdfs到一个路径移动到另一个路径 hdfs fs -mv /input/xx.txt /output/xx.txt 统计文件系统的可用空间信息 hdfs fs -df -h / 统计文件夹的大小信息 hdfs fs -du -s -h / 统计一个指定目录下的文件节点数量 hadoop fs -count /aaa 设置hdfs的文件副本数量 hadoop fs -setrep 3 /input/xx.txt 总结：一定要学会查看命令帮助1.hadoop命令直接回车查看命令帮助2.hdfs命令、hdfs dfs命令直接回车查看命令帮助3.hadoop fs 等价 hdfs dfs命令，和Linux的命令差不多。]]></content>
-      <categories>
-        <category>hadoop</category>
-      </categories>
-      <tags>
-        <tag>hadoop</tag>
       </tags>
   </entry>
   <entry>
@@ -237,9 +237,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Linux常用命令（三）]]></title>
-    <url>%2F2018%2F04%2F01%2Flinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%883%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[Linux最常用实战命令（三） 用户、用户组 用户 useradd 用户名 添加用户 userdel 用户名 删除用户 id 用户名 查看用户信息 passwd 用户名 修改用户密码 su - 用户名 切换用户 ll /home/ 查看已有的用户 用户组 groupadd 用户组 添加用户组 cat /etc/group 用户组的文件 usermod -a -G 用户组 用户 将用户添加到用户组中 给一个普通用户添加sudo权限 123vi /etc/sudoers #在root ALL=(ALL) ALL 下面添加一行 用户 ALL=(ALL) NOPASSWD:ALL 修改文件权限 chown 修改文件或文件夹的所属用户和用户组 chown -R 用户:用户组 文件夹名 -R 为递归参数，指针对文件夹 chown 用户:用户组 文件名 chmod: 修改文件夹或者文件的权限 chmod -R 700 文件夹名 chmod 700 文件夹名 r =&gt; 4 w =&gt; 2 x =&gt; 1 后台执行命令 &amp; nohup screen 多人合作 screen screen -list 查看会话 screen -S 建立一个后台的会话 screen -r 进入会话 ctrl+a+d 退出会话]]></content>
+    <title><![CDATA[linux常用命令（一）]]></title>
+    <url>%2F2018%2F04%2F01%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4(%E4%B8%80)%2F</url>
+    <content type="text"><![CDATA[Linux最常用实战命令（一） 查看当前目录 pwd 查看IP ifconfig 查看虚拟机ip hostname 主机名字 i 查看主机名映射的IP 切换目录 cd cd ~ 切换家目录（root为/root，普通用户为/home/用户名） cd /filename 以绝对路径切换目录 cd - 返回上一次操作路径，并输出路径 cd ../ 返回上一层目录 清理桌面 clear 显示当前目录文件和文件夹 ls ls -l(ll) 显示详细信息 ls -la 显示详细信息+隐藏文件（以 . 开头，例：.ssh） ls -lh 显示详细信息+文件大小 ls -lrt 显示详细信息+按时间排序 查看文件夹大小 du -sh 命令帮助 man 命令 命令 –help 创建文件夹 mkdir mkdir -p filename1/filename2 递归创建文件夹 创建文件 touch/vi/echo xx&gt;filename 查看文件内容 cat filename 直接打印所有内容 more filename 根据窗口大小进行分页显示 文件编辑 vi vi分为命令行模式，插入模式，尾行模式 命令行模式—&gt;插入模式：按i或a键 插入模式—&gt;命令行模式：按Esc键 命令行模式—&gt;尾行模式：按Shift和:键 插入模式 dd 删除光标所在行 n+dd 删除光标以下的n行 dG 删除光标以下行 gg 第一行第一个字母 G 最后一行第一个字母 shift+$ 该行最后一个字母 尾行模式 q! 强制退出 qw 写入并退出 qw! 强制写入退出 x 退出，如果存在改动，则保存再退出]]></content>
       <categories>
         <category>linux</category>
       </categories>
@@ -249,9 +249,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[linux常用命令（一）]]></title>
-    <url>%2F2018%2F04%2F01%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4(%E4%B8%80)%2F</url>
-    <content type="text"><![CDATA[Linux最常用实战命令（一） 查看当前目录 pwd 查看IP ifconfig 查看虚拟机ip hostname 主机名字 i 查看主机名映射的IP 切换目录 cd cd ~ 切换家目录（root为/root，普通用户为/home/用户名） cd /filename 以绝对路径切换目录 cd - 返回上一次操作路径，并输出路径 cd ../ 返回上一层目录 清理桌面 clear 显示当前目录文件和文件夹 ls ls -l(ll) 显示详细信息 ls -la 显示详细信息+隐藏文件（以 . 开头，例：.ssh） ls -lh 显示详细信息+文件大小 ls -lrt 显示详细信息+按时间排序 查看文件夹大小 du -sh 命令帮助 man 命令 命令 –help 创建文件夹 mkdir mkdir -p filename1/filename2 递归创建文件夹 创建文件 touch/vi/echo xx&gt;filename 查看文件内容 cat filename 直接打印所有内容 more filename 根据窗口大小进行分页显示 文件编辑 vi vi分为命令行模式，插入模式，尾行模式 命令行模式—&gt;插入模式：按i或a键 插入模式—&gt;命令行模式：按Esc键 命令行模式—&gt;尾行模式：按Shift和:键 插入模式 dd 删除光标所在行 n+dd 删除光标以下的n行 dG 删除光标以下行 gg 第一行第一个字母 G 最后一行第一个字母 shift+$ 该行最后一个字母 尾行模式 q! 强制退出 qw 写入并退出 qw! 强制写入退出 x 退出，如果存在改动，则保存再退出]]></content>
+    <title><![CDATA[Linux常用命令（三）]]></title>
+    <url>%2F2018%2F04%2F01%2Flinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%883%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[Linux最常用实战命令（三） 用户、用户组 用户 useradd 用户名 添加用户 userdel 用户名 删除用户 id 用户名 查看用户信息 passwd 用户名 修改用户密码 su - 用户名 切换用户 ll /home/ 查看已有的用户 用户组 groupadd 用户组 添加用户组 cat /etc/group 用户组的文件 usermod -a -G 用户组 用户 将用户添加到用户组中 给一个普通用户添加sudo权限 123vi /etc/sudoers #在root ALL=(ALL) ALL 下面添加一行 用户 ALL=(ALL) NOPASSWD:ALL 修改文件权限 chown 修改文件或文件夹的所属用户和用户组 chown -R 用户:用户组 文件夹名 -R 为递归参数，指针对文件夹 chown 用户:用户组 文件名 chmod: 修改文件夹或者文件的权限 chmod -R 700 文件夹名 chmod 700 文件夹名 r =&gt; 4 w =&gt; 2 x =&gt; 1 后台执行命令 &amp; nohup screen 多人合作 screen screen -list 查看会话 screen -S 建立一个后台的会话 screen -r 进入会话 ctrl+a+d 退出会话]]></content>
       <categories>
         <category>linux</category>
       </categories>
