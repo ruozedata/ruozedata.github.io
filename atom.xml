@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-04-24T12:40:46.962Z</updated>
+  <updated>2019-04-25T14:51:30.678Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spark不得不理解的重要概念——从源码角度看RDD</title>
+    <link href="http://yoursite.com/2018/05/20/Spark%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%90%86%E8%A7%A3%E7%9A%84%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5%E2%80%94%E2%80%94%E4%BB%8E%E6%BA%90%E7%A0%81%E8%A7%92%E5%BA%A6%E7%9C%8BRDD/"/>
+    <id>http://yoursite.com/2018/05/20/Spark不得不理解的重要概念——从源码角度看RDD/</id>
+    <published>2018-05-19T16:00:00.000Z</published>
+    <updated>2019-04-25T14:51:30.678Z</updated>
+    
+    <content type="html"><![CDATA[<font color="#FF4500"><br></font><h4 id="1-RDD是什么"><a href="#1-RDD是什么" class="headerlink" title="1.RDD是什么"></a>1.RDD是什么</h4><p>   Resilient Distributed Dataset（弹性分布式数据集），是一个能够并行操作不可变的分区元素的集合</p><h4 id="2-RDD五大特性"><a href="#2-RDD五大特性" class="headerlink" title="2.RDD五大特性"></a>2.RDD五大特性</h4><a id="more"></a> <ol><li><p>A list of partitions<br>每个rdd有多个分区<br>protected def getPartitions: Array[Partition]</p></li><li><p>A function for computing each split<br>计算作用到每个分区<br>def compute(split: Partition, context: TaskContext): Iterator[T]</p></li><li><p>A list of dependencies on other RDDs<br>rdd之间存在依赖（RDD的血缘关系）如：<br>RDDA=&gt;RDDB=&gt;RDDC=&gt;RDDD<br>protected def getDependencies: Seq[Dependency[_]] = deps</p></li><li><p>Optionally, a Partitioner for key-value RDDs (e.g. to say that the RDD is hash-partitioned)<br>可选，默认哈希的分区<br>@transient val partitioner: Option[Partitioner] = None</p></li><li><p>Optionally, a list of preferred locations to compute each split on (e.g. block locations foran HDFS file)<br>计算每个分区的最优执行位置，尽量实现数据本地化，减少IO（这往往是理想状态）<br>protected def getPreferredLocations(split: Partition): Seq[String] = Nil</p></li></ol><p>源码来自github。</p><h4 id="3-如何创建RDD"><a href="#3-如何创建RDD" class="headerlink" title="3.如何创建RDD"></a>3.如何创建RDD</h4><p>创建RDD有两种方式 parallelize() 和textfile()，其中parallelize可接收集合类，主要作为测试用。textfile可读取文件系统，是常用的一种方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">parallelize()</span><br><span class="line">    def parallelize[T: ClassTag](    </span><br><span class="line">        seq: Seq[T],   </span><br><span class="line">        numSlices: Int = defaultParallelism): RDD[T] = withScope &#123;</span><br><span class="line">        assertNotStopped()</span><br><span class="line">        new ParallelCollectionRDD[T](this, seq, numSlices, Map[Int, Seq[String]]())</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">textfile（）</span><br><span class="line">  def textFile(</span><br><span class="line">      path: String,</span><br><span class="line">      minPartitions: Int = defaultMinPartitions): RDD[String] = withScope &#123;</span><br><span class="line">      assertNotStopped()</span><br><span class="line">      hadoopFile(path, classOf[TextInputFormat], </span><br><span class="line">                       classOf[LongWritable], classOf[Text],</span><br><span class="line">      minPartitions).map(pair =&gt; pair._2.toString).setName(path)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p><p><strong>源码总结：<br>1）.取_2是因为数据为（key（偏移量），value（数据））</strong></p><h4 id="4-常见的transformation和action"><a href="#4-常见的transformation和action" class="headerlink" title="4.常见的transformation和action"></a>4.常见的transformation和action</h4><p>由于比较简单，大概说一下常用的用处，不做代码测试</p><p>transformation</p><ul><li>Map：对数据集的每一个元素进行操作</li><li>FlatMap：先对数据集进行扁平化处理，然后再Map</li><li>Filter：对数据进行过滤，为true则通过</li><li>destinct：去重操作</li></ul><p>action</p><ul><li>reduce：对数据进行聚集</li><li>reduceBykey：对key值相同的进行操作</li><li>collect：没有效果的action，但是很有用</li><li>saveAstextFile：数据存入文件系统</li><li>foreach：对每个元素进行func的操作</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;font color=&quot;#FF4500&quot;&gt;&lt;br&gt;&lt;/font&gt;
+
+&lt;h4 id=&quot;1-RDD是什么&quot;&gt;&lt;a href=&quot;#1-RDD是什么&quot; class=&quot;headerlink&quot; title=&quot;1.RDD是什么&quot;&gt;&lt;/a&gt;1.RDD是什么&lt;/h4&gt;&lt;p&gt;   Resilient Distributed Dataset（弹性分布式数据集），是一个能够并行操作不可变的分区元素的集合&lt;/p&gt;
+&lt;h4 id=&quot;2-RDD五大特性&quot;&gt;&lt;a href=&quot;#2-RDD五大特性&quot; class=&quot;headerlink&quot; title=&quot;2.RDD五大特性&quot;&gt;&lt;/a&gt;2.RDD五大特性&lt;/h4&gt;
+    
+    </summary>
+    
+      <category term="Spark" scheme="http://yoursite.com/categories/Spark/"/>
+    
+    
+      <category term="spark" scheme="http://yoursite.com/tags/spark/"/>
+    
+  </entry>
   
   <entry>
     <title>美味不用等大数据面试题(201804月)</title>
@@ -186,29 +211,6 @@
   </entry>
   
   <entry>
-    <title>谈谈我和大数据的情缘及入门</title>
-    <link href="http://yoursite.com/2018/05/01/%E8%B0%88%E8%B0%88%E6%88%91%E5%92%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E6%83%85%E7%BC%98%E5%8F%8A%E5%85%A5%E9%97%A8/"/>
-    <id>http://yoursite.com/2018/05/01/谈谈我和大数据的情缘及入门/</id>
-    <published>2018-04-30T16:00:00.000Z</published>
-    <updated>2019-04-24T10:33:17.752Z</updated>
-    
-    <content type="html"><![CDATA[<p> &#8195;当年我是做C#+Java软件开发，然后考取OCP来了上海，立志要做一名DBA。只记得当年试用期刚过时，阴差阳错轮到我负责公司的大数据平台这块，刚开始很痛苦，一个陌生的行业，一个讨论的小伙伴都没有，一份现成资料都没有，心情焦虑。后来我调整心态，从DB转移到对大数据的研究，决定啃下这块硬骨头，把它嚼碎，把它消化吸收。</p><p> &#8195;由于当时公司都是CDH环境，刚开始安装卡了很久都过不去，后面选择在线安装，很慢，有时需要1天。后来安装HDFS ,YARN,HIVE组件，不过对它们不理解，不明白，有时很困惑。这样的过程大概持续三个月了。<br> <a id="more"></a><br> &#8195;后来看了很多博文，都是Apache Hadoop版本搭建，于是我先试试用Apache Hadoop搭建部署单节点和集群，然后配置HA，最后我发现自己比较喜欢这种方式，因为我能了解其配置参数，配置文件和常规命令等等，再回头去对比CDH安装HDFS服务，真是太爽了，因为Apache Hadoop版本有真正体验感，这时我就迅速调整方向 : 先Apache版本，再CDH。</p><p> &#8195;由于公司项目环境，推进自己实在太慢，于是我在网上看各种相关视频教程；加n种群，在群里潜水，看水友们提的问题自己会不会，不会就去查资料，会就帮助他们一起研究学习进步。</p><p>&#8195;<strong>后来这样的进度太慢了</strong>，因为很多群都是打广告，潜水，没有真正的技术讨论氛围，于是我迅速调整方向，自己建个QQ群，慢慢招兵买马，和管理员们一起去管理，在过去的两年里我也学到了很多知识和认识和我一样前进的小伙伴们，现在也有很多已成为friends。</p><p>&#8195;每当夜晚，我就会深深思考仅凭公司项目,网上免费课程视频，QQ群等，还是不够的，于是我开始咨询培训机构的课程，在这里提醒各位小伙伴们，报班一定要擦亮眼睛，选择老师很重要，真心很重要，许多培训机构的老师都是Java转的，讲的是全是基础，根本没有企业项目实战经验；还有不要跟风，一定看仔细看清楚课程是否符合当前的你。</p><p> &#8195;这时还是远远不够的，于是我开始每天上下班地铁上看技术博客，积极分享。<strong>然后再申请博客，写博文，写总结，坚持每次做完一次实验就将博文，梳理好，写好，这样久而久之，知识点就慢慢夯实积累了。</strong></p><p> &#8195;再着后面就开始受邀几大培训机构做公开课，再一次将知识点梳理了，也认识了新的小伙伴们，我们有着相同的方向和目标，我们尽情的讨论着大数据的知识点，慢慢朝着我们心目中的目标而努力着！</p><p><strong>以上基本就是我和大数据的情缘，下面我来谈谈我对大数据入门的感悟。</strong><br><strong>1. 心态要端正。</strong><br>既然想要从事这行，那么一定要下定决心，当然付出是肯定大大的，不光光是毛爷爷，而更多的付出是自己的那一份坚持，凡事贵在坚持，真真体现在这里。<br>后来我将我老婆从化工实验室分析员转行，做Python爬虫和数据分析，当然这个主要还是靠她的那份坚持。</p><p><strong>2. 心目中要有计划。</strong><br>先学习Linux和Shell，再学习数据库和SQL，再学习Java和Scala，<br>然后学习Apache Haoop、Hive、Kafka、Spark，朝大数据研发或开发而努力着。</p><p><strong>3. 各种方式学习。</strong><br>QQ群，博客，上下班看技术文章，选择好的老师和课程培训，</p><p><font color="#FF4500"><br>(擦亮眼睛，很多视频，很多大数据老师都是瞎扯的，最终总结一句话，不在企业上班的教大数据都是耍流氓的。)</font><br>可以加速自己前进的马拉松里程，其实一般都要看大家怎么衡量培训这个事的，time和money的抉择，以及快速jump后的高薪。</p><p><strong>4. 项目经验。</strong><br>很多小白都没有项目经验也没有面试经验和技巧，屡屡面试以失败告终，<br>这时大家可以找你们熟悉的小伙伴们的，让他给你培训他的项目，这样就有了，当然可以直接互联网搜索一个就行，不过一般很难有完整的。<br>而面试，就看看其他人面试分享，学习他人。</p><p><strong>最后，总结一句话，坚持才是最重要的。<br>最后，总结一句话，坚持才是最重要的。<br>最后，总结一句话，坚持才是最重要的。</strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt; &amp;#8195;当年我是做C#+Java软件开发，然后考取OCP来了上海，立志要做一名DBA。只记得当年试用期刚过时，阴差阳错轮到我负责公司的大数据平台这块，刚开始很痛苦，一个陌生的行业，一个讨论的小伙伴都没有，一份现成资料都没有，心情焦虑。后来我调整心态，从DB转移到对大数据的研究，决定啃下这块硬骨头，把它嚼碎，把它消化吸收。&lt;/p&gt;
-&lt;p&gt; &amp;#8195;由于当时公司都是CDH环境，刚开始安装卡了很久都过不去，后面选择在线安装，很慢，有时需要1天。后来安装HDFS ,YARN,HIVE组件，不过对它们不理解，不明白，有时很困惑。这样的过程大概持续三个月了。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="感想" scheme="http://yoursite.com/categories/%E6%84%9F%E6%83%B3/"/>
-    
-    
-      <category term="人生感悟" scheme="http://yoursite.com/tags/%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/"/>
-    
-  </entry>
-  
-  <entry>
     <title>2min快速了解，Hive内部表和外部表</title>
     <link href="http://yoursite.com/2018/05/01/2min%E5%BF%AB%E9%80%9F%E4%BA%86%E8%A7%A3%EF%BC%8CHive%E5%86%85%E9%83%A8%E8%A1%A8%E5%92%8C%E5%A4%96%E9%83%A8%E8%A1%A8/"/>
     <id>http://yoursite.com/2018/05/01/2min快速了解，Hive内部表和外部表/</id>
@@ -230,6 +232,29 @@
       <category term="hive" scheme="http://yoursite.com/tags/hive/"/>
     
       <category term="主题" scheme="http://yoursite.com/tags/%E4%B8%BB%E9%A2%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>谈谈我和大数据的情缘及入门</title>
+    <link href="http://yoursite.com/2018/05/01/%E8%B0%88%E8%B0%88%E6%88%91%E5%92%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E6%83%85%E7%BC%98%E5%8F%8A%E5%85%A5%E9%97%A8/"/>
+    <id>http://yoursite.com/2018/05/01/谈谈我和大数据的情缘及入门/</id>
+    <published>2018-04-30T16:00:00.000Z</published>
+    <updated>2019-04-24T10:33:17.752Z</updated>
+    
+    <content type="html"><![CDATA[<p> &#8195;当年我是做C#+Java软件开发，然后考取OCP来了上海，立志要做一名DBA。只记得当年试用期刚过时，阴差阳错轮到我负责公司的大数据平台这块，刚开始很痛苦，一个陌生的行业，一个讨论的小伙伴都没有，一份现成资料都没有，心情焦虑。后来我调整心态，从DB转移到对大数据的研究，决定啃下这块硬骨头，把它嚼碎，把它消化吸收。</p><p> &#8195;由于当时公司都是CDH环境，刚开始安装卡了很久都过不去，后面选择在线安装，很慢，有时需要1天。后来安装HDFS ,YARN,HIVE组件，不过对它们不理解，不明白，有时很困惑。这样的过程大概持续三个月了。<br> <a id="more"></a><br> &#8195;后来看了很多博文，都是Apache Hadoop版本搭建，于是我先试试用Apache Hadoop搭建部署单节点和集群，然后配置HA，最后我发现自己比较喜欢这种方式，因为我能了解其配置参数，配置文件和常规命令等等，再回头去对比CDH安装HDFS服务，真是太爽了，因为Apache Hadoop版本有真正体验感，这时我就迅速调整方向 : 先Apache版本，再CDH。</p><p> &#8195;由于公司项目环境，推进自己实在太慢，于是我在网上看各种相关视频教程；加n种群，在群里潜水，看水友们提的问题自己会不会，不会就去查资料，会就帮助他们一起研究学习进步。</p><p>&#8195;<strong>后来这样的进度太慢了</strong>，因为很多群都是打广告，潜水，没有真正的技术讨论氛围，于是我迅速调整方向，自己建个QQ群，慢慢招兵买马，和管理员们一起去管理，在过去的两年里我也学到了很多知识和认识和我一样前进的小伙伴们，现在也有很多已成为friends。</p><p>&#8195;每当夜晚，我就会深深思考仅凭公司项目,网上免费课程视频，QQ群等，还是不够的，于是我开始咨询培训机构的课程，在这里提醒各位小伙伴们，报班一定要擦亮眼睛，选择老师很重要，真心很重要，许多培训机构的老师都是Java转的，讲的是全是基础，根本没有企业项目实战经验；还有不要跟风，一定看仔细看清楚课程是否符合当前的你。</p><p> &#8195;这时还是远远不够的，于是我开始每天上下班地铁上看技术博客，积极分享。<strong>然后再申请博客，写博文，写总结，坚持每次做完一次实验就将博文，梳理好，写好，这样久而久之，知识点就慢慢夯实积累了。</strong></p><p> &#8195;再着后面就开始受邀几大培训机构做公开课，再一次将知识点梳理了，也认识了新的小伙伴们，我们有着相同的方向和目标，我们尽情的讨论着大数据的知识点，慢慢朝着我们心目中的目标而努力着！</p><p><strong>以上基本就是我和大数据的情缘，下面我来谈谈我对大数据入门的感悟。</strong><br><strong>1. 心态要端正。</strong><br>既然想要从事这行，那么一定要下定决心，当然付出是肯定大大的，不光光是毛爷爷，而更多的付出是自己的那一份坚持，凡事贵在坚持，真真体现在这里。<br>后来我将我老婆从化工实验室分析员转行，做Python爬虫和数据分析，当然这个主要还是靠她的那份坚持。</p><p><strong>2. 心目中要有计划。</strong><br>先学习Linux和Shell，再学习数据库和SQL，再学习Java和Scala，<br>然后学习Apache Haoop、Hive、Kafka、Spark，朝大数据研发或开发而努力着。</p><p><strong>3. 各种方式学习。</strong><br>QQ群，博客，上下班看技术文章，选择好的老师和课程培训，</p><p><font color="#FF4500"><br>(擦亮眼睛，很多视频，很多大数据老师都是瞎扯的，最终总结一句话，不在企业上班的教大数据都是耍流氓的。)</font><br>可以加速自己前进的马拉松里程，其实一般都要看大家怎么衡量培训这个事的，time和money的抉择，以及快速jump后的高薪。</p><p><strong>4. 项目经验。</strong><br>很多小白都没有项目经验也没有面试经验和技巧，屡屡面试以失败告终，<br>这时大家可以找你们熟悉的小伙伴们的，让他给你培训他的项目，这样就有了，当然可以直接互联网搜索一个就行，不过一般很难有完整的。<br>而面试，就看看其他人面试分享，学习他人。</p><p><strong>最后，总结一句话，坚持才是最重要的。<br>最后，总结一句话，坚持才是最重要的。<br>最后，总结一句话，坚持才是最重要的。</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt; &amp;#8195;当年我是做C#+Java软件开发，然后考取OCP来了上海，立志要做一名DBA。只记得当年试用期刚过时，阴差阳错轮到我负责公司的大数据平台这块，刚开始很痛苦，一个陌生的行业，一个讨论的小伙伴都没有，一份现成资料都没有，心情焦虑。后来我调整心态，从DB转移到对大数据的研究，决定啃下这块硬骨头，把它嚼碎，把它消化吸收。&lt;/p&gt;
+&lt;p&gt; &amp;#8195;由于当时公司都是CDH环境，刚开始安装卡了很久都过不去，后面选择在线安装，很慢，有时需要1天。后来安装HDFS ,YARN,HIVE组件，不过对它们不理解，不明白，有时很困惑。这样的过程大概持续三个月了。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="感想" scheme="http://yoursite.com/categories/%E6%84%9F%E6%83%B3/"/>
+    
+    
+      <category term="人生感悟" scheme="http://yoursite.com/tags/%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/"/>
     
   </entry>
   
@@ -472,32 +497,6 @@
       <category term="基础" scheme="http://yoursite.com/tags/%E5%9F%BA%E7%A1%80/"/>
     
       <category term="hive" scheme="http://yoursite.com/tags/hive/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)</title>
-    <link href="http://yoursite.com/2018/04/10/Hadoop%E5%85%A8%E7%BD%91%E6%9C%80%E8%AF%A6%E7%BB%86%E7%9A%84%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2(MapReduce+Yarn)/"/>
-    <id>http://yoursite.com/2018/04/10/Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)/</id>
-    <published>2018-04-09T16:00:00.000Z</published>
-    <updated>2019-04-24T10:35:13.082Z</updated>
-    
-    <content type="html"><![CDATA[<p>若泽大数据，Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)<br><a id="more"></a> </p><ol><li><p>修改mapred-site.xml</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[hadoop@hadoop000 ~]# cd /opt/software/hadoop/etc/hadoop</span><br><span class="line"></span><br><span class="line">[hadoop@hadoop000 hadoop]# cp mapred-site.xml.template  mapred-site.xml</span><br><span class="line"></span><br><span class="line">[hadoop@hadoop000 hadoop]# vi mapred-site.xml</span><br><span class="line"></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line"></span><br><span class="line">&lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">&lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></li><li><p>修改yarn-site.xml</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[hadoop@hadoop000 hadoop]# vi yarn-site.xml</span><br><span class="line"></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line"></span><br><span class="line">&lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">      &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></li><li><p>启动</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[hadoop@hadoop000 hadoop]# cd ../../</span><br><span class="line"></span><br><span class="line">[hadoop@hadoop000 hadoop]# sbin/start-yarn.sh</span><br></pre></td></tr></table></figure></li><li><p>关闭</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[hadoop@hadoop000 hadoop]# sbin/stop-yarn.sh</span><br></pre></td></tr></table></figure></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;若泽大数据，Hadoop全网最详细的伪分布式部署(MapReduce+Yarn)&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Hadoop" scheme="http://yoursite.com/categories/Hadoop/"/>
-    
-    
-      <category term="hadoop" scheme="http://yoursite.com/tags/hadoop/"/>
-    
-      <category term="环境搭建" scheme="http://yoursite.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
-    
-      <category term="基础" scheme="http://yoursite.com/tags/%E5%9F%BA%E7%A1%80/"/>
     
   </entry>
   
