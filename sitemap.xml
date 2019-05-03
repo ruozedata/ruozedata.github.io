@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/11/10/%E6%9C%80%E5%85%A8%E7%9A%84Flink%E9%83%A8%E7%BD%B2%E5%8F%8A%E5%BC%80%E5%8F%91%E6%A1%88%E4%BE%8B(KafkaSource+SinkToMySQL)/</loc>
+    
+    <lastmod>2019-05-03T01:16:55.785Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/05/21/Spark%20%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</loc>
     
     <lastmod>2019-04-29T12:59:01.981Z</lastmod>
