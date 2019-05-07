@@ -96,22 +96,18 @@
 
 
 
-  <meta name="description" content="Spark发布了最新的版本spark-2.4.2根据官网介绍，此版本对于使用spark2.4的用户来说帮助是巨大的 版本介绍Spark2.4.2是一个包含稳定性修复的维护版本。 此版本基于Spark2.4维护分支。 我们强烈建议所有2.4用户升级到此稳定版本。">
-<meta name="keywords" content="spark">
+  <meta name="description" content="一、行式数据库和列式数据库的对比1、存储比较行式数据库存储在hdfs上式按行进行存储的，一个block存储一或多行数据。而列式数据库在hdfs上则是按照列进行存储，一个block可能有一列或多列数据。 2、压缩比较">
+<meta name="keywords" content="hive">
 <meta property="og:type" content="article">
-<meta property="og:title" content="spark2.4.2详细介绍">
-<meta property="og:url" content="http://yoursite.com/2019/04/23/spark2.4.2详细介绍/index.html">
+<meta property="og:title" content="从Hive中的stored as file_foramt看hive调优">
+<meta property="og:url" content="http://yoursite.com/2018/05/30/从Hive中的stored as file_foramt看hive调优/index.html">
 <meta property="og:site_name" content="若泽大数据 www.ruozedata.com">
-<meta property="og:description" content="Spark发布了最新的版本spark-2.4.2根据官网介绍，此版本对于使用spark2.4的用户来说帮助是巨大的 版本介绍Spark2.4.2是一个包含稳定性修复的维护版本。 此版本基于Spark2.4维护分支。 我们强烈建议所有2.4用户升级到此稳定版本。">
+<meta property="og:description" content="一、行式数据库和列式数据库的对比1、存储比较行式数据库存储在hdfs上式按行进行存储的，一个block存储一或多行数据。而列式数据库在hdfs上则是按照列进行存储，一个block可能有一列或多列数据。 2、压缩比较">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/assets/blogImg/spark2.4.2_1.jpg">
-<meta property="og:image" content="http://yoursite.com/assets/blogImg/spark2.4.2_2.jpg">
-<meta property="og:image" content="http://yoursite.com/assets/blogImg/spark2.4.2_3.jpg">
-<meta property="og:updated_time" content="2019-04-26T08:32:14.033Z">
+<meta property="og:updated_time" content="2019-05-07T14:48:20.998Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="spark2.4.2详细介绍">
-<meta name="twitter:description" content="Spark发布了最新的版本spark-2.4.2根据官网介绍，此版本对于使用spark2.4的用户来说帮助是巨大的 版本介绍Spark2.4.2是一个包含稳定性修复的维护版本。 此版本基于Spark2.4维护分支。 我们强烈建议所有2.4用户升级到此稳定版本。">
-<meta name="twitter:image" content="http://yoursite.com/assets/blogImg/spark2.4.2_1.jpg">
+<meta name="twitter:title" content="从Hive中的stored as file_foramt看hive调优">
+<meta name="twitter:description" content="一、行式数据库和列式数据库的对比1、存储比较行式数据库存储在hdfs上式按行进行存储的，一个block存储一或多行数据。而列式数据库在hdfs上则是按照列进行存储，一个block可能有一列或多列数据。 2、压缩比较">
 
 
 
@@ -121,7 +117,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/04/23/spark2.4.2详细介绍/">
+  <link rel="canonical" href="http://yoursite.com/2018/05/30/从Hive中的stored as file_foramt看hive调优/">
 
 
 
@@ -131,7 +127,7 @@
   };
 </script>
 
-  <title>spark2.4.2详细介绍 | 若泽大数据 www.ruozedata.com</title>
+  <title>从Hive中的stored as file_foramt看hive调优 | 若泽大数据 www.ruozedata.com</title>
   
 
 
@@ -380,7 +376,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/23/spark2.4.2详细介绍/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/30/从Hive中的stored as file_foramt看hive调优/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ruozedata">
@@ -397,7 +393,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">spark2.4.2详细介绍
+          <h1 class="post-title" itemprop="name headline">从Hive中的stored as file_foramt看hive调优
 
               
             
@@ -425,7 +421,7 @@
                 
               
 
-              <time title="Erstellt: 2019-04-23 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-23T00:00:00+08:00">2019-04-23</time>
+              <time title="Erstellt: 2018-05-30 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-30T00:00:00+08:00">2018-05-30</time>
             
 
             
@@ -442,7 +438,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-04-26 16:32:14" itemprop="dateModified" datetime="2019-04-26T16:32:14+08:00">2019-04-26</time>
+                <time title="Geändert am: 2019-05-07 22:48:20" itemprop="dateModified" datetime="2019-05-07T22:48:20+08:00">2019-05-07</time>
               
             
           </span>
@@ -459,7 +455,7 @@
                 <span class="post-meta-item-text">in</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Spark/" itemprop="url" rel="index"><span itemprop="name">Spark</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hive/" itemprop="url" rel="index"><span itemprop="name">Hive</span></a></span>
 
                 
                 
@@ -501,120 +497,36 @@
       
 
       
-        <p>Spark发布了最新的版本spark-2.4.2<br>根据官网介绍，此版本对于使用spark2.4的用户来说帮助是巨大的</p>
-<h4 id="版本介绍"><a href="#版本介绍" class="headerlink" title="版本介绍"></a>版本介绍</h4><p><img src="/assets/blogImg/spark2.4.2_1.jpg" alt="enter description here"><br>Spark2.4.2是一个包含稳定性修复的维护版本。 此版本基于Spark2.4维护分支。<font color="#FF4500"> <strong>我们强烈建议所有2.4用户升级到此稳定版本。</strong></font><br><a id="more"></a> </p>
-<h4 id="显著的变化"><a href="#显著的变化" class="headerlink" title="显著的变化"></a>显著的变化</h4><p><img src="/assets/blogImg/spark2.4.2_2.jpg" alt="enter description here"></p>
-<ul>
-<li>SPARK-27419：在spark2.4中将spark.executor.heartbeatInterval设置为小于1秒的值时，它将始终失败。 因为该值将转换为0，心跳将始终超时，并最终终止执行程序。</li>
-<li>还原SPARK-25250：可能导致作业永久挂起，在2.4.2中还原。</li>
-</ul>
-<h4 id="详细更改"><a href="#详细更改" class="headerlink" title="详细更改"></a>详细更改</h4><p><img src="/assets/blogImg/spark2.4.2_3.jpg" alt="enter description here"></p>
-<h6 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h6><table>
-<thead>
-<tr>
-<th>issues</th>
-<th>内容摘要</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://issues.apache.org/jira/browse/SPARK-26961" target="_blank" rel="noopener">[ SPARK-26961 ]</a></td>
-<td>在Spark Driver中发现Java死锁</td>
-</tr>
-<tr>
-<td><a href="https://issues.apache.org/jira/browse/SPARK-26998" target="_blank" rel="noopener">[ SPARK-26998 ]</a></td>
-<td>在Standalone模式下执行’ps -ef’程序进程,输出spark.ssl.keyStorePassword的明文</td>
-</tr>
-<tr>
-<td><a href="https://issues.apache.org/jira/browse/SPARK-27216" target="_blank" rel="noopener">[ SPARK-27216 ]</a></td>
-<td>将RoaringBitmap升级到0.7.45以修复Kryo不安全的ser / dser问题</td>
-</tr>
-<tr>
-<td><a href="https://issues.apache.org/jira/browse/SPARK-27244" target="_blank" rel="noopener">[ SPARK-27244 ]</a></td>
-<td>使用选项logConf = true时密码将以conf的明文形式记录</td>
-</tr>
-<tr>
-<td><a href="https://issues.apache.org/jira/browse/SPARK-27267" target="_blank" rel="noopener">[ SPARK-27267 ]</a></td>
-<td>用Snappy 1.1.7.1解压、压缩空序列化数据时失败</td>
-</tr>
-<tr>
-<td><a href="https://issues.apache.org/jira/browse/SPARK-27275" target="_blank" rel="noopener">[ SPARK-27275 ]</a></td>
-<td>EncryptedMessage.transferTo中的潜在损坏</td>
-</tr>
-<tr>
-<td><a href="https://issues.apache.org/jira/browse/SPARK-27301" target="_blank" rel="noopener">[ SPARK-27301 ]</a></td>
-<td>DStreamCheckpointData因文件系统已缓存而无法清理</td>
-</tr>
-<tr>
-<td><a href="https://issues.apache.org/jira/browse/SPARK-27338" target="_blank" rel="noopener">[ SPARK-27338 ]</a></td>
-<td>TaskMemoryManager和UnsafeExternalSorter $ SpillableIterator之间的死锁</td>
-</tr>
-<tr>
-<td><a href="https://issues.apache.org/jira/browse/SPARK-27351" target="_blank" rel="noopener">[ SPARK-27351 ]</a></td>
-<td>在仅使用空值列的AggregateEstimation之后的错误outputRows估计</td>
-</tr>
-<tr>
-<td><a href="https://issues.apache.org/jira/browse/SPARK-27390" target="_blank" rel="noopener">[ SPARK-27390 ]</a></td>
-<td>修复包名称不匹配</td>
-</tr>
-<tr>
-<td><a href="https://issues.apache.org/jira/browse/SPARK-27394" target="_blank" rel="noopener">[ SPARK-27394 ]</a></td>
-<td>当没有任务开始或结束时，UI 的陈旧性可能持续数分钟或数小时</td>
-</tr>
-<tr>
-<td><a href="https://issues.apache.org/jira/browse/SPARK-27403" target="_blank" rel="noopener">[ SPARK-27403 ]</a></td>
-<td>修复updateTableStats以使用新统计信息或无更新表统计信息</td>
-</tr>
-<tr>
-<td><a href="https://issues.apache.org/jira/browse/SPARK-27406" target="_blank" rel="noopener">[ SPARK-27406 ]</a></td>
-<td>当两台机器具有不同的Oops大小时，UnsafeArrayData序列化会中断</td>
-</tr>
-<tr>
-<td><a href="https://issues.apache.org/jira/browse/SPARK-27419" target="_blank" rel="noopener">[ SPARK-27419 ]</a></td>
-<td>将spark.executor.heartbeatInterval设置为小于1秒的值时，它将始终失败</td>
-</tr>
-<tr>
-<td><a href="https://issues.apache.org/jira/browse/SPARK-27453" target="_blank" rel="noopener">[ SPARK-27453 ]</a></td>
-<td>DSV1静默删除DataFrameWriter.partitionBy</td>
-</tr>
-</tbody>
-</table>
-<h6 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h6><table>
-<thead>
-<tr>
-<th>issues</th>
-<th>内容摘要</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://issues.apache.org/jira/browse/SPARK-27346" target="_blank" rel="noopener">[ SPARK-27346 ]</a></td>
-<td>松开在ExpressionInfo的’examples’字段中换行断言条件</td>
-</tr>
-<tr>
-<td><a href="https://issues.apache.org/jira/browse/SPARK-27358" target="_blank" rel="noopener">[ SPARK-27358 ]</a></td>
-<td>将jquery更新为1.12.x以获取安全修复程序</td>
-</tr>
-<tr>
-<td><a href="https://issues.apache.org/jira/browse/SPARK-27479" target="_blank" rel="noopener">[ SPARK-27479 ]</a></td>
-<td>隐藏“org.apache.spark.util.kvstore”的API文档</td>
-</tr>
-</tbody>
-</table>
-<h6 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h6><table>
-<thead>
-<tr>
-<th>issues</th>
-<th>内容摘要</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://issues.apache.org/jira/browse/SPARK-27382" target="_blank" rel="noopener">[ SPARK-27382 ]</a></td>
-<td>在HiveExternalCatalogVersionsSuite中更新Spark 2.4.x测试</td>
-</tr>
-</tbody>
-</table>
+        <h4 id="一、行式数据库和列式数据库的对比"><a href="#一、行式数据库和列式数据库的对比" class="headerlink" title="一、行式数据库和列式数据库的对比"></a>一、行式数据库和列式数据库的对比</h4><h5 id="1、存储比较"><a href="#1、存储比较" class="headerlink" title="1、存储比较"></a>1、存储比较</h5><p>行式数据库存储在hdfs上式按行进行存储的，一个block存储一或多行数据。而列式数据库在hdfs上则是按照列进行存储，一个block可能有一列或多列数据。</p>
+<h5 id="2、压缩比较"><a href="#2、压缩比较" class="headerlink" title="2、压缩比较"></a>2、压缩比较</h5><a id="more"></a> 
+<p>对于行式数据库，必然按行压缩，当一行中有多个字段，各个字段对应的数据类型可能不一致，压缩性能压缩比就比较差。</p>
+<p>对于列式数据库，必然按列压缩，每一列对应的是相同数据类型的数据，故列式数据库的压缩性能要强于行式数据库。</p>
+<h5 id="3、查询比较"><a href="#3、查询比较" class="headerlink" title="3、查询比较"></a>3、查询比较</h5><p>假设执行的查询操作是：select id,name from table_emp;</p>
+<p>对于行式数据库，它要遍历一整张表将每一行中的id,name字段拼接再展现出来，这样需要查询的数据量就比较大，效率低。</p>
+<p>对于列式数据库，它只需找到对应的id,name字段的列展现出来即可，需要查询的数据量小，效率高。</p>
+<p>假设执行的查询操作是：select *  from table_emp;</p>
+<p>对于这种查询整个表全部信息的操作，由于列式数据库需要将分散的行进行重新组合，行式数据库效率就高于列式数据库。</p>
+<p><strong><font color="#FF4500">但是，在大数据领域，进行全表查询的场景少之又少，进而我们使用较多的还是列式数据库及列式储存。</font></strong></p>
+<h4 id="二、stored-as-file-format-详解"><a href="#二、stored-as-file-format-详解" class="headerlink" title="二、stored as file_format 详解"></a>二、stored as file_format 详解</h4><h5 id="1、建一张表时，可以使用“stored-as-file-format”来指定该表数据的存储格式，hive中，表的默认存储格式为TextFile。"><a href="#1、建一张表时，可以使用“stored-as-file-format”来指定该表数据的存储格式，hive中，表的默认存储格式为TextFile。" class="headerlink" title="1、建一张表时，可以使用“stored as file_format”来指定该表数据的存储格式，hive中，表的默认存储格式为TextFile。"></a>1、建一张表时，可以使用“stored as file_format”来指定该表数据的存储格式，hive中，表的默认存储格式为TextFile。</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE tt (</span><br><span class="line">id int,</span><br><span class="line">name string</span><br><span class="line">) ROW FORMAT DELIMITED FIELDS TERMINATED BY &quot;\t&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">CREATE TABLE tt2 (</span><br><span class="line">id int,</span><br><span class="line">name string</span><br><span class="line">) ROW FORMAT DELIMITED FIELDS TERMINATED BY &quot;\t&quot; STORED AS TEXTFILE;</span><br><span class="line"></span><br><span class="line">CREATE TABLE tt3 (</span><br><span class="line">id int,</span><br><span class="line">name string</span><br><span class="line">) ROW FORMAT DELIMITED FIELDS TERMINATED BY &quot;\t&quot;</span><br><span class="line">STORED AS </span><br><span class="line">INPUTFORMAT &apos;org.apache.hadoop.mapred.TextInputFormat&apos;</span><br><span class="line">OUTPUTFORMAT &apos;org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat&apos;;</span><br><span class="line"></span><br><span class="line">#以上三种方式存储的格式都是TEXTFILE。</span><br></pre></td></tr></table></figure>
+<h5 id="2、TEXTFILE、SEQUENCEFILE、RCFILE、ORC等四种储存格式及它们对于hive在存储数据和查询数据时性能的优劣比较"><a href="#2、TEXTFILE、SEQUENCEFILE、RCFILE、ORC等四种储存格式及它们对于hive在存储数据和查询数据时性能的优劣比较" class="headerlink" title="2、TEXTFILE、SEQUENCEFILE、RCFILE、ORC等四种储存格式及它们对于hive在存储数据和查询数据时性能的优劣比较"></a>2、TEXTFILE、SEQUENCEFILE、RCFILE、ORC等四种储存格式及它们对于hive在存储数据和查询数据时性能的优劣比较</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">file_format:</span><br><span class="line">  | SEQUENCEFILE</span><br><span class="line">  | TEXTFILE    -- (Default, depending on hive.default.fileformat configuration)</span><br><span class="line">  | RCFILE      -- (Note: Available in Hive 0.6.0 and later)</span><br><span class="line">  | ORC         -- (Note: Available in Hive 0.11.0 and later)</span><br><span class="line">  | PARQUET     -- (Note: Available in Hive 0.13.0 and later)</span><br><span class="line">  | AVRO        -- (Note: Available in Hive 0.14.0 and later)</span><br><span class="line">  | INPUTFORMAT input_format_classname OUTPUTFORMAT output_format_classname</span><br></pre></td></tr></table></figure>
+<p><strong>TEXTFILE:</strong> 只是hive中表数据默认的存储格式，它将所有类型的数据都存储为String类型，不便于数据的解析，但它却比较通用。不具备随机读写的能力。支持压缩。</p>
+<p><strong>SEQUENCEFILE:</strong> 这种储存格式比TEXTFILE格式多了头部、标识、信息长度等信息，这些信息使得其具备随机读写的能力。支持压缩，但压缩的是value。（存储相同的数据，SEQUENCEFILE比TEXTFILE略大）</p>
+<p><strong>RCFILE（Record Columnar File）:</strong> 现在水平上划分为很多个Row Group,每个Row Group默认大小4MB，Row Group内部再按列存储信息。由facebook开源，比标准行式存储节约10%的空间。</p>
+<p><strong>ORC:</strong> 优化过后的RCFile,现在水平上划分为多个Stripes,再在Stripe中按列存储。每个Stripe由一个Index Data、一个Row Data、一个Stripe Footer组成。每个Stripes的大小为250MB，每个Index Data记录的是整型数据最大值最小值、字符串数据前后缀信息，每个列的位置等等诸如此类的信息。这就使得查询十分得高效，默认每一万行数据建立一个Index Data。ORC存储大小为TEXTFILE的40%左右，使用压缩则可以进一步将这个数字降到10%~20%。</p>
+<p><strong>ORC这种文件格式可以作用于表或者表的分区，可以通过以下几种方式进行指定：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE ... STORED AS ORC</span><br><span class="line">ALTER TABLE ... [PARTITION partition_spec] SET FILEFORMAT ORC</span><br><span class="line">SET hive.default.fileformat=Orc</span><br></pre></td></tr></table></figure></p>
+<p>The parameters are all placed in the TBLPROPERTIES (see Create Table). They are:</p>
+<p>Key|Default|Notes<br>|-|-|-|<br>orc.compress|ZLIB|high level compression (one of NONE, ZLIB, SNAPPY)<br>|orc.compress.size|262,144|number of bytes in each compression chunk<br>|orc.stripe.size|67,108,864|number of bytes in each stripe<br>|orc.row.index.stride|10,000|number of rows between index entries (must be &gt;= 1000)<br>|orc.create.index|true|whether to create row indexes<br>|orc.bloom.filter.columns    |””|    comma separated list of column names for which bloom filter should be created<br>|orc.bloom.filter.fpp|    0.05|    false positive probability for bloom filter (must &gt;0.0 and &lt;1.0)</p>
+<p>示例：创建带压缩的ORC存储表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create table Addresses (</span><br><span class="line">  name string,</span><br><span class="line">  street string,</span><br><span class="line">  city string,</span><br><span class="line">  state string,</span><br><span class="line">  zip int</span><br><span class="line">) stored as orc tblproperties (&quot;orc.compress&quot;=&quot;NONE&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>PARQUET: 存储大小为TEXTFILE的60%~70%，压缩后在20%~30%之间。</p>
+<hr>
+<p>注意：</p>
+<ol>
+<li><p>不同的存储格式不仅表现在存储空间上的不同，对于数据的查询，效率也不一样。因为对于不同的存储格式，执行相同的查询操作，他们访问的数据量大小是不一样的。    </p>
+</li>
+<li><p>如果要使用TEXTFILE作为hive表数据的存储格式，则必须先存在一张相同数据的存储格式为TEXTFILE的表table_t0,然后在建表时使用“insert into table table_stored_file_ORC select <em> from table_t0;”创建。或者使用”create table as select </em>from table_t0;”创建。</p>
+</li>
+</ol>
+<hr>
 
       
     </div>
@@ -662,7 +574,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/spark/" rel="tag"># spark</a>
+            <a href="/tags/hive/" rel="tag"># hive</a>
           
         </div>
       
@@ -675,8 +587,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/20/我司Kafka+Flink+MySQL生产完整案例代码/" rel="next" title="我司Kafka+Flink+MySQL生产完整案例代码">
-                <i class="fa fa-chevron-left"></i> 我司Kafka+Flink+MySQL生产完整案例代码
+              <a href="/2018/05/29/Spark之序列化在生产中的应用/" rel="next" title="Spark之序列化在生产中的应用">
+                <i class="fa fa-chevron-left"></i> Spark之序列化在生产中的应用
               </a>
             
           </div>
@@ -684,6 +596,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/10/最全的Flink部署及开发案例(KafkaSource+SinkToMySQL)/" rel="prev" title="最全的Flink部署及开发案例(KafkaSource+SinkToMySQL)">
+                最全的Flink部署及开发案例(KafkaSource+SinkToMySQL) <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -937,7 +853,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#版本介绍"><span class="nav-number">1.</span> <span class="nav-text">版本介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#显著的变化"><span class="nav-number">2.</span> <span class="nav-text">显著的变化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#详细更改"><span class="nav-number">3.</span> <span class="nav-text">详细更改</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#BUG"><span class="nav-number">3.0.1.</span> <span class="nav-text">BUG</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#改进"><span class="nav-number">3.0.2.</span> <span class="nav-text">改进</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#工作"><span class="nav-number">3.0.3.</span> <span class="nav-text">工作</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、行式数据库和列式数据库的对比"><span class="nav-number">1.</span> <span class="nav-text">一、行式数据库和列式数据库的对比</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、存储比较"><span class="nav-number">1.1.</span> <span class="nav-text">1、存储比较</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、压缩比较"><span class="nav-number">1.2.</span> <span class="nav-text">2、压缩比较</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、查询比较"><span class="nav-number">1.3.</span> <span class="nav-text">3、查询比较</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、stored-as-file-format-详解"><span class="nav-number">2.</span> <span class="nav-text">二、stored as file_format 详解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、建一张表时，可以使用“stored-as-file-format”来指定该表数据的存储格式，hive中，表的默认存储格式为TextFile。"><span class="nav-number">2.1.</span> <span class="nav-text">1、建一张表时，可以使用“stored as file_format”来指定该表数据的存储格式，hive中，表的默认存储格式为TextFile。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、TEXTFILE、SEQUENCEFILE、RCFILE、ORC等四种储存格式及它们对于hive在存储数据和查询数据时性能的优劣比较"><span class="nav-number">2.2.</span> <span class="nav-text">2、TEXTFILE、SEQUENCEFILE、RCFILE、ORC等四种储存格式及它们对于hive在存储数据和查询数据时性能的优劣比较</span></a></li></ol></li></ol></div>
             
 
           </div>
