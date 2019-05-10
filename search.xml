@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[若泽数据课程一览]]></title>
     <url>%2F2019%2F05%2F08%2F%E8%8B%A5%E6%B3%BD%E6%95%B0%E6%8D%AE%E8%AF%BE%E7%A8%8B%E4%B8%80%E8%A7%88%2F</url>
-    <content type="text"><![CDATA[]]></content>
+    <content type="text"><![CDATA[若泽数据课程系列基础班Liunx VM虚拟机安装 Liunx常用命令（重点） 开发环境搭 MySQL 源码安装&amp;yum安装 CRUD编写 权限控制 Hadoop 架构介绍&amp;&amp;源码编译 伪分布式安装&amp;&amp;企业应用 HDFS（重点） 架构设计 副本放置策略 读写流程 YARN（重点） 架构设计 工作流程 调度管理&amp;&amp;常见参数配置（调优） MapReduce 架构设计 wordcount原理&amp;&amp;join原理和案例 Hive 架构设计 Hive DDL&amp;DML join在大数据中的使用 使用自带UDF和开发自定义UDF Sqoop 架构设计 RDBMS导入导出 整合项目将所有组件合作使用。人工智能基础 python基础 常用库——pandas、numpy、sklearn、keras 高级班scala编程（重点）Spark（五星重点）Hadoop高级Hive高级FlumeKafkaHBaseFlinkCDH容器调度平台线下班]]></content>
       <categories>
         <category>课程</category>
       </categories>
@@ -53,6 +53,29 @@
       </categories>
       <tags>
         <tag>flink</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Spark动态内存管理源码解析！]]></title>
+    <url>%2F2018%2F06%2F03%2FSpark%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%81%2F</url>
+    <content type="text"><![CDATA[一、Spark内存管理模式 Spark有两种内存管理模式，静态内存管理(Static MemoryManager)和动态（统一）内存管理（Unified MemoryManager）。动态内存管理从Spark1.6开始引入，在SparkEnv.scala中的源码可以看到，Spark目前默认采用动态内存管理模式，若将spark.memory.useLegacyMode设置为true，则会改为采用静态内存管理。12345678// SparkEnv.scala val useLegacyMemoryManager = conf.getBoolean(&quot;spark.memory.useLegacyMode&quot;, false) val memoryManager: MemoryManager = if (useLegacyMemoryManager) &#123; new StaticMemoryManager(conf, numUsableCores) &#125; else &#123; UnifiedMemoryManager(conf, numUsableCores) &#125; 二、Spark动态内存管理空间分配 相比于Static MemoryManager模式，Unified MemoryManager模型打破了存储内存和运行内存的界限，使每一个内存区能够动态伸缩，降低OOM的概率。由上图可知，executor JVM内存主要由以下几个区域组成： （1）Reserved Memory（预留内存）：这部分内存预留给系统使用，默认为300MB，可通过spark.testing.reservedMemory进行设置。12// UnifiedMemoryManager.scalaprivate val RESERVED_SYSTEM_MEMORY_BYTES = 300 * 1024 * 1024 另外，JVM内存的最小值也与reserved Memory有关，即minSystemMemory = reserved Memory1.5，即默认情况下JVM内存最小值为300MB1.5=450MB。 12// UnifiedMemoryManager.scala val minSystemMemory = (reservedMemory * 1.5).ceil.toLong （2）Spark Memeoy:分为execution Memory和storage Memory。去除掉reserved Memory，剩下usableMemory的一部分用于execution和storage这两类堆内存，默认是0.6，可通过spark.memory.fraction进行设置。例如：JVM内存是1G，那么用于execution和storage的默认内存为（1024-300）*0.6=434MB。1234// UnifiedMemoryManager.scala val usableMemory = systemMemory - reservedMemory val memoryFraction = conf.getDouble(&quot;spark.memory.fraction&quot;, 0.6) (usableMemory * memoryFraction).toLong 他们的边界由spark.memory.storageFraction设定，默认为0.5。即默认状态下storage Memory和execution Memory为1：1. 1234// UnifiedMemoryManager.scala onHeapStorageRegionSize = (maxMemory * conf.getDouble(&quot;spark.memory.storageFraction&quot;, 0.5)).toLong, numCores = numCores) （3）user Memory:剩余内存，用户根据需要使用，默认占usableMemory的（1-0.6）=0.4. 三、内存控制详解首先我们先来了解一下Spark内存管理实现类之前的关系。 1.MemoryManager主要功能是： （1）记录用了多少StorageMemory和ExecutionMemory； （2）申请Storage、Execution和Unroll Memory； （3）释放Stroage和Execution Memory。 Execution内存用来执行shuffle、joins、sorts和aggegations操作，Storage内存用于缓存和广播数据，每一个JVM中都存在着一个MemoryManager。构造MemoryManager需要指定onHeapStorageMemory和onHeapExecutionMemory参数。 123456 // MemoryManager.scalaprivate[spark] abstract class MemoryManager( conf: SparkConf, numCores: Int, onHeapStorageMemory: Long, onHeapExecutionMemory: Long) extends Logging &#123; 创建StorageMemoryPool和ExecutionMemoryPool对象，用来创建堆内或堆外的Storage和Execution内存池，管理Storage和Execution的内存分配。123456789// MemoryManager.scala @GuardedBy(&quot;this&quot;) protected val onHeapStorageMemoryPool = new StorageMemoryPool(this, MemoryMode.ON_HEAP) @GuardedBy(&quot;this&quot;) protected val offHeapStorageMemoryPool = new StorageMemoryPool(this, MemoryMode.OFF_HEAP) @GuardedBy(&quot;this&quot;) protected val onHeapExecutionMemoryPool = new ExecutionMemoryPool(this, MemoryMode.ON_HEAP) @GuardedBy(&quot;this&quot;) protected val offHeapExecutionMemoryPool = new ExecutionMemoryPool(this, MemoryMode.OFF_HEAP) 默认情况下，不使用堆外内存，可通过saprk.memory.offHeap.enabled设置，默认堆外内存为0，可使用spark.memory.offHeap.size参数设置。123456789101112// All the code you will ever need final val tungstenMemoryMode: MemoryMode = &#123; if (conf.getBoolean(&quot;spark.memory.offHeap.enabled&quot;, false)) &#123; require(conf.getSizeAsBytes(&quot;spark.memory.offHeap.size&quot;, 0) &gt; 0, &quot;spark.memory.offHeap.size must be &gt; 0 when spark.memory.offHeap.enabled == true&quot;) require(Platform.unaligned(), &quot;No support for unaligned Unsafe. Set spark.memory.offHeap.enabled to false.&quot;) MemoryMode.OFF_HEAP &#125; else &#123; MemoryMode.ON_HEAP &#125; &#125; 12// MemoryManager.scala protected[this] val maxOffHeapMemory = conf.getSizeAsBytes(&quot;spark.memory.offHeap.size&quot;, 0) 释放numBytes字节的Execution内存方法12345678910// MemoryManager.scaladef releaseExecutionMemory( numBytes: Long, taskAttemptId: Long, memoryMode: MemoryMode): Unit = synchronized &#123; memoryMode match &#123; case MemoryMode.ON_HEAP =&gt; onHeapExecutionMemoryPool.releaseMemory(numBytes, taskAttemptId) case MemoryMode.OFF_HEAP =&gt; offHeapExecutionMemoryPool.releaseMemory(numBytes, taskAttemptId) &#125; &#125; 释放指定task的所有Execution内存并将该task标记为inactive。12345// MemoryManager.scala private[memory] def releaseAllExecutionMemoryForTask(taskAttemptId: Long): Long = synchronized &#123; onHeapExecutionMemoryPool.releaseAllMemoryForTask(taskAttemptId) + offHeapExecutionMemoryPool.releaseAllMemoryForTask(taskAttemptId) &#125; 释放numBytes字节的Stoarge内存方法1234567// MemoryManager.scaladef releaseStorageMemory(numBytes: Long, memoryMode: MemoryMode): Unit = synchronized &#123; memoryMode match &#123; case MemoryMode.ON_HEAP =&gt; onHeapStorageMemoryPool.releaseMemory(numBytes) case MemoryMode.OFF_HEAP =&gt; offHeapStorageMemoryPool.releaseMemory(numBytes) &#125; &#125; 释放所有Storage内存方法12345// MemoryManager.scalafinal def releaseAllStorageMemory(): Unit = synchronized &#123; onHeapStorageMemoryPool.releaseAllMemory() offHeapStorageMemoryPool.releaseAllMemory() &#125; 2.接下来我们了解一下，UnifiedMemoryManager是如何对内存进行控制的？动态内存是如何实现的呢？ UnifiedMemoryManage继承了MemoryManager1234567891011// UnifiedMemoryManage.scalaprivate[spark] class UnifiedMemoryManager private[memory] ( conf: SparkConf, val maxHeapMemory: Long, onHeapStorageRegionSize: Long, numCores: Int) extends MemoryManager( conf, numCores, onHeapStorageRegionSize, maxHeapMemory - onHeapStorageRegionSize) &#123; 重写了maxOnHeapStorageMemory方法，最大Storage内存=最大内存-最大Execution内存。1234// UnifiedMemoryManage.scala override def maxOnHeapStorageMemory: Long = synchronized &#123; maxHeapMemory - onHeapExecutionMemoryPool.memoryUsed &#125; 核心方法acquireStorageMemory：申请Storage内存。12345678910111213141516171819202122232425262728293031// UnifiedMemoryManage.scalaoverride def acquireStorageMemory( blockId: BlockId, numBytes: Long, memoryMode: MemoryMode): Boolean = synchronized &#123; assertInvariants() assert(numBytes &gt;= 0) val (executionPool, storagePool, maxMemory) = memoryMode match &#123; //根据不同的内存模式去创建StorageMemoryPool和ExecutionMemoryPool case MemoryMode.ON_HEAP =&gt; ( onHeapExecutionMemoryPool, onHeapStorageMemoryPool, maxOnHeapStorageMemory) case MemoryMode.OFF_HEAP =&gt; ( offHeapExecutionMemoryPool, offHeapStorageMemoryPool, maxOffHeapMemory) &#125; if (numBytes &gt; maxMemory) &#123; // 若申请内存大于最大内存，则申请失败 logInfo(s&quot;Will not store $blockId as the required space ($numBytes bytes) exceeds our &quot; + s&quot;memory limit ($maxMemory bytes)&quot;) return false &#125; if (numBytes &gt; storagePool.memoryFree) &#123; // 如果Storage内存池没有足够的内存，则向Execution内存池借用 val memoryBorrowedFromExecution = Math.min(executionPool.memoryFree, numBytes)//当Execution内存有空闲时，Storage才能借到内存 executionPool.decrementPoolSize(memoryBorrowedFromExecution)//缩小Execution内存 storagePool.incrementPoolSize(memoryBorrowedFromExecution)//增加Storage内存 &#125; storagePool.acquireMemory(blockId, numBytes) 核心方法acquireExecutionMemory：申请Execution内存。123456789// UnifiedMemoryManage.scalaoverride private[memory] def acquireExecutionMemory( numBytes: Long, taskAttemptId: Long, memoryMode: MemoryMode): Long = synchronized &#123;//使用了synchronized关键字，调用acquireExecutionMemory方法可能会阻塞，直到Execution内存池有足够的内存。 ... executionPool.acquireMemory( numBytes, taskAttemptId, maybeGrowExecutionPool, computeMaxExecutionPoolSize) &#125; 方法最后调用了ExecutionMemoryPool的acquireMemory方法，该方法的参数需要两个函数：maybeGrowExecutionPool()和computeMaxExecutionPoolSize()。 每个Task能够使用的内存被限制在pooSize / (2 * numActiveTask) ~ maxPoolSize / numActiveTasks。其中maxPoolSize代表了execution pool的最大内存，poolSize表示当前这个pool的大小。1234// ExecutionMemoryPool.scala val maxPoolSize = computeMaxPoolSize() val maxMemoryPerTask = maxPoolSize / numActiveTasks val minMemoryPerTask = poolSize / (2 * numActiveTasks) maybeGrowExecutionPool()方法实现了如何动态增加Execution内存区的大小。在每次申请execution内存的同时，execution内存池会进行多次尝试，每次尝试都可能会回收一些存储内存。123456789101112131415// UnifiedMemoryManage.scala def maybeGrowExecutionPool(extraMemoryNeeded: Long): Unit = &#123; if (extraMemoryNeeded &gt; 0) &#123;//如果申请的内存大于0 //计算execution可借到的storage内存，是storage剩余内存和可借出内存的最大值 val memoryReclaimableFromStorage = math.max( storagePool.memoryFree, storagePool.poolSize - storageRegionSize) if (memoryReclaimableFromStorage &gt; 0) &#123;//如果可以申请到内存 val spaceToReclaim = storagePool.freeSpaceToShrinkPool( math.min(extraMemoryNeeded, memoryReclaimableFromStorage))//实际需要的内存，取实际需要的内存和storage内存区域全部可用内存大小的最小值 storagePool.decrementPoolSize(spaceToReclaim)//storage内存区域减少 executionPool.incrementPoolSize(spaceToReclaim)//execution内存区域增加 &#125; &#125; &#125;]]></content>
+      <categories>
+        <category>Spark</category>
+      </categories>
+      <tags>
+        <tag>spark</tag>
+        <tag>源码阅读</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[若泽大数据-零基础学员深圳某司高薪面试题]]></title>
+    <url>%2F2018%2F05%2F31%2F%E8%8B%A5%E6%B3%BD%E5%A4%A7%E6%95%B0%E6%8D%AE-%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E5%91%98%E6%B7%B1%E5%9C%B3%E6%9F%90%E5%8F%B8%E9%AB%98%E8%96%AA%E9%9D%A2%E8%AF%95%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[啥也不说！直接上题 面试时间：20180531 简单说下hdfs读文件和写文件的流程 每天数据量有多大？生产集群规模有多大？ 说几个spark开发中遇到的问题，和解决的方案 阐述一下最近开发的项目，以及担任的角色位置 kafka有做过哪些调优 我们项目中数据倾斜的场景和解决方案 零基础➕四个月紧跟若泽大数据学习之后是这样]]></content>
+      <categories>
+        <category>面试题</category>
+      </categories>
+      <tags>
+        <tag>大数据面试题</tag>
       </tags>
   </entry>
   <entry>
@@ -133,17 +156,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Spark不得不理解的重要概念——从源码角度看RDD]]></title>
-    <url>%2F2018%2F05%2F20%2FSpark%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%90%86%E8%A7%A3%E7%9A%84%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5%E2%80%94%E2%80%94%E4%BB%8E%E6%BA%90%E7%A0%81%E8%A7%92%E5%BA%A6%E7%9C%8BRDD%2F</url>
-    <content type="text"><![CDATA[1.RDD是什么 Resilient Distributed Dataset（弹性分布式数据集），是一个能够并行操作不可变的分区元素的集合 2.RDD五大特性 A list of partitions每个rdd有多个分区protected def getPartitions: Array[Partition] A function for computing each split计算作用到每个分区def compute(split: Partition, context: TaskContext): Iterator[T] A list of dependencies on other RDDsrdd之间存在依赖（RDD的血缘关系）如：RDDA=&gt;RDDB=&gt;RDDC=&gt;RDDDprotected def getDependencies: Seq[Dependency[_]] = deps Optionally, a Partitioner for key-value RDDs (e.g. to say that the RDD is hash-partitioned)可选，默认哈希的分区@transient val partitioner: Option[Partitioner] = None Optionally, a list of preferred locations to compute each split on (e.g. block locations foran HDFS file)计算每个分区的最优执行位置，尽量实现数据本地化，减少IO（这往往是理想状态）protected def getPreferredLocations(split: Partition): Seq[String] = Nil 源码来自github。 3.如何创建RDD创建RDD有两种方式 parallelize() 和textfile()，其中parallelize可接收集合类，主要作为测试用。textfile可读取文件系统，是常用的一种方式1234567891011121314151617parallelize() def parallelize[T: ClassTag]( seq: Seq[T], numSlices: Int = defaultParallelism): RDD[T] = withScope &#123; assertNotStopped() new ParallelCollectionRDD[T](this, seq, numSlices, Map[Int, Seq[String]]()) &#125;textfile（） def textFile( path: String, minPartitions: Int = defaultMinPartitions): RDD[String] = withScope &#123; assertNotStopped() hadoopFile(path, classOf[TextInputFormat], classOf[LongWritable], classOf[Text], minPartitions).map(pair =&gt; pair._2.toString).setName(path) &#125; 源码总结：1）.取_2是因为数据为（key（偏移量），value（数据）） 4.常见的transformation和action由于比较简单，大概说一下常用的用处，不做代码测试 transformation Map：对数据集的每一个元素进行操作 FlatMap：先对数据集进行扁平化处理，然后再Map Filter：对数据进行过滤，为true则通过 destinct：去重操作 action reduce：对数据进行聚集 reduceBykey：对key值相同的进行操作 collect：没有效果的action，但是很有用 saveAstextFile：数据存入文件系统 foreach：对每个元素进行func的操作]]></content>
-      <categories>
-        <category>Spark</category>
-      </categories>
-      <tags>
-        <tag>spark</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[美味不用等大数据面试题(201804月)]]></title>
     <url>%2F2018%2F05%2F20%2F%E7%BE%8E%E5%91%B3%E4%B8%8D%E7%94%A8%E7%AD%89%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%9D%A2%E8%AF%95%E9%A2%98(201804%E6%9C%88)%2F</url>
     <content type="text"><![CDATA[1.若泽大数据线下班，某某某的小伙伴现场面试题截图: 2.分享另外1家的忘记名字公司的大数据面试题：]]></content>
@@ -152,6 +164,17 @@
       </categories>
       <tags>
         <tag>大数据面试题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Spark不得不理解的重要概念——从源码角度看RDD]]></title>
+    <url>%2F2018%2F05%2F20%2FSpark%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%90%86%E8%A7%A3%E7%9A%84%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5%E2%80%94%E2%80%94%E4%BB%8E%E6%BA%90%E7%A0%81%E8%A7%92%E5%BA%A6%E7%9C%8BRDD%2F</url>
+    <content type="text"><![CDATA[1.RDD是什么 Resilient Distributed Dataset（弹性分布式数据集），是一个能够并行操作不可变的分区元素的集合 2.RDD五大特性 A list of partitions每个rdd有多个分区protected def getPartitions: Array[Partition] A function for computing each split计算作用到每个分区def compute(split: Partition, context: TaskContext): Iterator[T] A list of dependencies on other RDDsrdd之间存在依赖（RDD的血缘关系）如：RDDA=&gt;RDDB=&gt;RDDC=&gt;RDDDprotected def getDependencies: Seq[Dependency[_]] = deps Optionally, a Partitioner for key-value RDDs (e.g. to say that the RDD is hash-partitioned)可选，默认哈希的分区@transient val partitioner: Option[Partitioner] = None Optionally, a list of preferred locations to compute each split on (e.g. block locations foran HDFS file)计算每个分区的最优执行位置，尽量实现数据本地化，减少IO（这往往是理想状态）protected def getPreferredLocations(split: Partition): Seq[String] = Nil 源码来自github。 3.如何创建RDD创建RDD有两种方式 parallelize() 和textfile()，其中parallelize可接收集合类，主要作为测试用。textfile可读取文件系统，是常用的一种方式1234567891011121314151617parallelize() def parallelize[T: ClassTag]( seq: Seq[T], numSlices: Int = defaultParallelism): RDD[T] = withScope &#123; assertNotStopped() new ParallelCollectionRDD[T](this, seq, numSlices, Map[Int, Seq[String]]()) &#125;textfile（） def textFile( path: String, minPartitions: Int = defaultMinPartitions): RDD[String] = withScope &#123; assertNotStopped() hadoopFile(path, classOf[TextInputFormat], classOf[LongWritable], classOf[Text], minPartitions).map(pair =&gt; pair._2.toString).setName(path) &#125; 源码总结：1）.取_2是因为数据为（key（偏移量），value（数据）） 4.常见的transformation和action由于比较简单，大概说一下常用的用处，不做代码测试 transformation Map：对数据集的每一个元素进行操作 FlatMap：先对数据集进行扁平化处理，然后再Map Filter：对数据进行过滤，为true则通过 destinct：去重操作 action reduce：对数据进行聚集 reduceBykey：对key值相同的进行操作 collect：没有效果的action，但是很有用 saveAstextFile：数据存入文件系统 foreach：对每个元素进行func的操作]]></content>
+      <categories>
+        <category>Spark</category>
+      </categories>
+      <tags>
+        <tag>spark</tag>
       </tags>
   </entry>
   <entry>
@@ -223,17 +246,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[2min快速了解，Hive内部表和外部表]]></title>
-    <url>%2F2018%2F05%2F01%2F2min%E5%BF%AB%E9%80%9F%E4%BA%86%E8%A7%A3%EF%BC%8CHive%E5%86%85%E9%83%A8%E8%A1%A8%E5%92%8C%E5%A4%96%E9%83%A8%E8%A1%A8%2F</url>
-    <content type="text"><![CDATA[在了解内部表和外部表区别前，我们需要先了解一下Hive架构 ： 大家可以简单看一下这个架构图，我介绍其中要点：Hive的数据分为两种，一种为普通数据，一种为元数据。 元数据存储着表的基本信息，增删改查记录，类似于Hadoop架构中的namespace。普通数据就是表中的详细数据。 Hive的元数据默认存储在derby中，但大多数情况下存储在MySQL中。普通数据如架构图所示存储在hdfs中。 下面我们来介绍表的两种类型：内部表和外部表 内部表（MANAGED）：hive在hdfs中存在默认的存储路径，即default数据库。之后创建的数据库及表，如果没有指定路径应都在/user/hive/warehouse下，所以在该路径下的表为内部表。 外部表（EXTERNAL）：指定了/user/hive/warehouse以外路径所创建的表而内部表和外部表的主要区别就是 内部表：当删除内部表时，MySQL的元数据和HDFS上的普通数据都会删除 ； 外部表：当删除外部表时，MySQL的元数据会被删除，HDFS上的数据不会被删除； 1.准备数据: 按tab键制表符作为字段分割符cat /tmp/ruozedata.txt 1 jepson 32 110 2 ruoze 22 112 3 www.ruozedata.com 18 120 2.内部表测试： 在Hive里面创建一个表： 123456789hive&gt; create table ruozedata(id int, &gt; name string, &gt; age int, &gt; tele string) &gt; ROW FORMAT DELIMITED &gt; FIELDS TERMINATED BY &apos;\t&apos; &gt; STORED AS TEXTFILE;OKTime taken: 0.759 seconds 这样我们就在Hive里面创建了一张普通的表，现在给这个表导入数据： 1load data local inpath &apos;/tmp/ruozedata.txt&apos; into table ruozedata; 内部表删除 1hive&gt; drop table ruozedata; 3.外部表测试: 创建外部表多了external关键字说明以及hdfs上location ‘/hive/external’12345678hive&gt; create external table exter_ruozedata( &gt; id int, &gt; name string, &gt; age int, &gt; tel string) &gt; location &apos;/hive/external&apos;;OKTime taken: 0.098 seconds 创建外部表，需要在创建表的时候加上external关键字，同时指定外部表存放数据的路径（当然，你也可以不指定外部表的存放路径，这样Hive将 在HDFS上的/user/hive/warehouse/文件夹下以外部表的表名创建一个文件夹，并将属于这个表的数据存放在这里） 外部表导入数据和内部表一样： 1load data local inpath &apos;/tmp/ruozedata.txt&apos; into table exter_ruozedata; 删除外部表 1hive&gt; drop table exter_ruozedata;]]></content>
-      <categories>
-        <category>Hive</category>
-      </categories>
-      <tags>
-        <tag>hive</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[谈谈我和大数据的情缘及入门]]></title>
     <url>%2F2018%2F05%2F01%2F%E8%B0%88%E8%B0%88%E6%88%91%E5%92%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E6%83%85%E7%BC%98%E5%8F%8A%E5%85%A5%E9%97%A8%2F</url>
     <content type="text"><![CDATA[&#8195;当年我是做C#+Java软件开发，然后考取OCP来了上海，立志要做一名DBA。只记得当年试用期刚过时，阴差阳错轮到我负责公司的大数据平台这块，刚开始很痛苦，一个陌生的行业，一个讨论的小伙伴都没有，一份现成资料都没有，心情焦虑。后来我调整心态，从DB转移到对大数据的研究，决定啃下这块硬骨头，把它嚼碎，把它消化吸收。 &#8195;由于当时公司都是CDH环境，刚开始安装卡了很久都过不去，后面选择在线安装，很慢，有时需要1天。后来安装HDFS ,YARN,HIVE组件，不过对它们不理解，不明白，有时很困惑。这样的过程大概持续三个月了。 &#8195;后来看了很多博文，都是Apache Hadoop版本搭建，于是我先试试用Apache Hadoop搭建部署单节点和集群，然后配置HA，最后我发现自己比较喜欢这种方式，因为我能了解其配置参数，配置文件和常规命令等等，再回头去对比CDH安装HDFS服务，真是太爽了，因为Apache Hadoop版本有真正体验感，这时我就迅速调整方向 : 先Apache版本，再CDH。 &#8195;由于公司项目环境，推进自己实在太慢，于是我在网上看各种相关视频教程；加n种群，在群里潜水，看水友们提的问题自己会不会，不会就去查资料，会就帮助他们一起研究学习进步。 &#8195;后来这样的进度太慢了，因为很多群都是打广告，潜水，没有真正的技术讨论氛围，于是我迅速调整方向，自己建个QQ群，慢慢招兵买马，和管理员们一起去管理，在过去的两年里我也学到了很多知识和认识和我一样前进的小伙伴们，现在也有很多已成为friends。 &#8195;每当夜晚，我就会深深思考仅凭公司项目,网上免费课程视频，QQ群等，还是不够的，于是我开始咨询培训机构的课程，在这里提醒各位小伙伴们，报班一定要擦亮眼睛，选择老师很重要，真心很重要，许多培训机构的老师都是Java转的，讲的是全是基础，根本没有企业项目实战经验；还有不要跟风，一定看仔细看清楚课程是否符合当前的你。 &#8195;这时还是远远不够的，于是我开始每天上下班地铁上看技术博客，积极分享。然后再申请博客，写博文，写总结，坚持每次做完一次实验就将博文，梳理好，写好，这样久而久之，知识点就慢慢夯实积累了。 &#8195;再着后面就开始受邀几大培训机构做公开课，再一次将知识点梳理了，也认识了新的小伙伴们，我们有着相同的方向和目标，我们尽情的讨论着大数据的知识点，慢慢朝着我们心目中的目标而努力着！ 以上基本就是我和大数据的情缘，下面我来谈谈我对大数据入门的感悟。1. 心态要端正。既然想要从事这行，那么一定要下定决心，当然付出是肯定大大的，不光光是毛爷爷，而更多的付出是自己的那一份坚持，凡事贵在坚持，真真体现在这里。后来我将我老婆从化工实验室分析员转行，做Python爬虫和数据分析，当然这个主要还是靠她的那份坚持。 2. 心目中要有计划。先学习Linux和Shell，再学习数据库和SQL，再学习Java和Scala，然后学习Apache Haoop、Hive、Kafka、Spark，朝大数据研发或开发而努力着。 3. 各种方式学习。QQ群，博客，上下班看技术文章，选择好的老师和课程培训， (擦亮眼睛，很多视频，很多大数据老师都是瞎扯的，最终总结一句话，不在企业上班的教大数据都是耍流氓的。)可以加速自己前进的马拉松里程，其实一般都要看大家怎么衡量培训这个事的，time和money的抉择，以及快速jump后的高薪。 4. 项目经验。很多小白都没有项目经验也没有面试经验和技巧，屡屡面试以失败告终，这时大家可以找你们熟悉的小伙伴们的，让他给你培训他的项目，这样就有了，当然可以直接互联网搜索一个就行，不过一般很难有完整的。而面试，就看看其他人面试分享，学习他人。 最后，总结一句话，坚持才是最重要的。最后，总结一句话，坚持才是最重要的。最后，总结一句话，坚持才是最重要的。]]></content>
@@ -242,6 +254,17 @@
       </categories>
       <tags>
         <tag>人生感悟</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[2min快速了解，Hive内部表和外部表]]></title>
+    <url>%2F2018%2F05%2F01%2F2min%E5%BF%AB%E9%80%9F%E4%BA%86%E8%A7%A3%EF%BC%8CHive%E5%86%85%E9%83%A8%E8%A1%A8%E5%92%8C%E5%A4%96%E9%83%A8%E8%A1%A8%2F</url>
+    <content type="text"><![CDATA[在了解内部表和外部表区别前，我们需要先了解一下Hive架构 ： 大家可以简单看一下这个架构图，我介绍其中要点：Hive的数据分为两种，一种为普通数据，一种为元数据。 元数据存储着表的基本信息，增删改查记录，类似于Hadoop架构中的namespace。普通数据就是表中的详细数据。 Hive的元数据默认存储在derby中，但大多数情况下存储在MySQL中。普通数据如架构图所示存储在hdfs中。 下面我们来介绍表的两种类型：内部表和外部表 内部表（MANAGED）：hive在hdfs中存在默认的存储路径，即default数据库。之后创建的数据库及表，如果没有指定路径应都在/user/hive/warehouse下，所以在该路径下的表为内部表。 外部表（EXTERNAL）：指定了/user/hive/warehouse以外路径所创建的表而内部表和外部表的主要区别就是 内部表：当删除内部表时，MySQL的元数据和HDFS上的普通数据都会删除 ； 外部表：当删除外部表时，MySQL的元数据会被删除，HDFS上的数据不会被删除； 1.准备数据: 按tab键制表符作为字段分割符cat /tmp/ruozedata.txt 1 jepson 32 110 2 ruoze 22 112 3 www.ruozedata.com 18 120 2.内部表测试： 在Hive里面创建一个表： 123456789hive&gt; create table ruozedata(id int, &gt; name string, &gt; age int, &gt; tele string) &gt; ROW FORMAT DELIMITED &gt; FIELDS TERMINATED BY &apos;\t&apos; &gt; STORED AS TEXTFILE;OKTime taken: 0.759 seconds 这样我们就在Hive里面创建了一张普通的表，现在给这个表导入数据： 1load data local inpath &apos;/tmp/ruozedata.txt&apos; into table ruozedata; 内部表删除 1hive&gt; drop table ruozedata; 3.外部表测试: 创建外部表多了external关键字说明以及hdfs上location ‘/hive/external’12345678hive&gt; create external table exter_ruozedata( &gt; id int, &gt; name string, &gt; age int, &gt; tel string) &gt; location &apos;/hive/external&apos;;OKTime taken: 0.098 seconds 创建外部表，需要在创建表的时候加上external关键字，同时指定外部表存放数据的路径（当然，你也可以不指定外部表的存放路径，这样Hive将 在HDFS上的/user/hive/warehouse/文件夹下以外部表的表名创建一个文件夹，并将属于这个表的数据存放在这里） 外部表导入数据和内部表一样： 1load data local inpath &apos;/tmp/ruozedata.txt&apos; into table exter_ruozedata; 删除外部表 1hive&gt; drop table exter_ruozedata;]]></content>
+      <categories>
+        <category>Hive</category>
+      </categories>
+      <tags>
+        <tag>hive</tag>
       </tags>
   </entry>
   <entry>
@@ -389,9 +412,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[linux常用命令（一）]]></title>
-    <url>%2F2018%2F04%2F01%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4(%E4%B8%80)%2F</url>
-    <content type="text"><![CDATA[Linux最常用实战命令（一） 查看当前目录 pwd 查看IP ifconfig 查看虚拟机ip hostname 主机名字 i 查看主机名映射的IP 切换目录 cd cd ~ 切换家目录（root为/root，普通用户为/home/用户名） cd /filename 以绝对路径切换目录 cd - 返回上一次操作路径，并输出路径 cd ../ 返回上一层目录 清理桌面 clear 显示当前目录文件和文件夹 ls ls -l(ll) 显示详细信息 ls -la 显示详细信息+隐藏文件（以 . 开头，例：.ssh） ls -lh 显示详细信息+文件大小 ls -lrt 显示详细信息+按时间排序 查看文件夹大小 du -sh 命令帮助 man 命令 命令 –help 创建文件夹 mkdir mkdir -p filename1/filename2 递归创建文件夹 创建文件 touch/vi/echo xx&gt;filename 查看文件内容 cat filename 直接打印所有内容 more filename 根据窗口大小进行分页显示 文件编辑 vi vi分为命令行模式，插入模式，尾行模式 命令行模式—&gt;插入模式：按i或a键 插入模式—&gt;命令行模式：按Esc键 命令行模式—&gt;尾行模式：按Shift和:键 插入模式 dd 删除光标所在行 n+dd 删除光标以下的n行 dG 删除光标以下行 gg 第一行第一个字母 G 最后一行第一个字母 shift+$ 该行最后一个字母 尾行模式 q! 强制退出 qw 写入并退出 qw! 强制写入退出 x 退出，如果存在改动，则保存再退出]]></content>
+    <title><![CDATA[Linux常用命令（三）]]></title>
+    <url>%2F2018%2F04%2F01%2Flinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%883%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[Linux最常用实战命令（三） 用户、用户组 用户 useradd 用户名 添加用户 userdel 用户名 删除用户 id 用户名 查看用户信息 passwd 用户名 修改用户密码 su - 用户名 切换用户 ll /home/ 查看已有的用户 用户组 groupadd 用户组 添加用户组 cat /etc/group 用户组的文件 usermod -a -G 用户组 用户 将用户添加到用户组中 给一个普通用户添加sudo权限 123vi /etc/sudoers #在root ALL=(ALL) ALL 下面添加一行 用户 ALL=(ALL) NOPASSWD:ALL 修改文件权限 chown 修改文件或文件夹的所属用户和用户组 chown -R 用户:用户组 文件夹名 -R 为递归参数，指针对文件夹 chown 用户:用户组 文件名 chmod: 修改文件夹或者文件的权限 chmod -R 700 文件夹名 chmod 700 文件夹名 r =&gt; 4 w =&gt; 2 x =&gt; 1 后台执行命令 &amp; nohup screen 多人合作 screen screen -list 查看会话 screen -S 建立一个后台的会话 screen -r 进入会话 ctrl+a+d 退出会话]]></content>
       <categories>
         <category>Linux</category>
       </categories>
@@ -401,9 +424,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Linux常用命令（三）]]></title>
-    <url>%2F2018%2F04%2F01%2Flinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%883%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[Linux最常用实战命令（三） 用户、用户组 用户 useradd 用户名 添加用户 userdel 用户名 删除用户 id 用户名 查看用户信息 passwd 用户名 修改用户密码 su - 用户名 切换用户 ll /home/ 查看已有的用户 用户组 groupadd 用户组 添加用户组 cat /etc/group 用户组的文件 usermod -a -G 用户组 用户 将用户添加到用户组中 给一个普通用户添加sudo权限 123vi /etc/sudoers #在root ALL=(ALL) ALL 下面添加一行 用户 ALL=(ALL) NOPASSWD:ALL 修改文件权限 chown 修改文件或文件夹的所属用户和用户组 chown -R 用户:用户组 文件夹名 -R 为递归参数，指针对文件夹 chown 用户:用户组 文件名 chmod: 修改文件夹或者文件的权限 chmod -R 700 文件夹名 chmod 700 文件夹名 r =&gt; 4 w =&gt; 2 x =&gt; 1 后台执行命令 &amp; nohup screen 多人合作 screen screen -list 查看会话 screen -S 建立一个后台的会话 screen -r 进入会话 ctrl+a+d 退出会话]]></content>
+    <title><![CDATA[linux常用命令（一）]]></title>
+    <url>%2F2018%2F04%2F01%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4(%E4%B8%80)%2F</url>
+    <content type="text"><![CDATA[Linux最常用实战命令（一） 查看当前目录 pwd 查看IP ifconfig 查看虚拟机ip hostname 主机名字 i 查看主机名映射的IP 切换目录 cd cd ~ 切换家目录（root为/root，普通用户为/home/用户名） cd /filename 以绝对路径切换目录 cd - 返回上一次操作路径，并输出路径 cd ../ 返回上一层目录 清理桌面 clear 显示当前目录文件和文件夹 ls ls -l(ll) 显示详细信息 ls -la 显示详细信息+隐藏文件（以 . 开头，例：.ssh） ls -lh 显示详细信息+文件大小 ls -lrt 显示详细信息+按时间排序 查看文件夹大小 du -sh 命令帮助 man 命令 命令 –help 创建文件夹 mkdir mkdir -p filename1/filename2 递归创建文件夹 创建文件 touch/vi/echo xx&gt;filename 查看文件内容 cat filename 直接打印所有内容 more filename 根据窗口大小进行分页显示 文件编辑 vi vi分为命令行模式，插入模式，尾行模式 命令行模式—&gt;插入模式：按i或a键 插入模式—&gt;命令行模式：按Esc键 命令行模式—&gt;尾行模式：按Shift和:键 插入模式 dd 删除光标所在行 n+dd 删除光标以下的n行 dG 删除光标以下行 gg 第一行第一个字母 G 最后一行第一个字母 shift+$ 该行最后一个字母 尾行模式 q! 强制退出 qw 写入并退出 qw! 强制写入退出 x 退出，如果存在改动，则保存再退出]]></content>
       <categories>
         <category>Linux</category>
       </categories>
