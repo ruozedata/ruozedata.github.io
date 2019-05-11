@@ -199,7 +199,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Cambiar a barra de navegación">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -306,7 +306,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Buscar</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
         </li>
       
     </ul>
@@ -329,7 +329,7 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="Buscando..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -360,6 +360,187 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+<div class="post-meta">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/29/Spark之序列化在生产中的应用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ruozedata">
+      <meta itemprop="description" content="若泽数据优秀博客汇总">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="若泽大数据 www.ruozedata.com">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/05/29/Spark之序列化在生产中的应用/" class="post-title-link" itemprop="url">Spark之序列化在生产中的应用</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+			
+			
+			
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-05-29 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-29T00:00:00+08:00">2018-05-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-07 12:22:16" itemprop="dateModified" datetime="2019-05-07T12:22:16+08:00">2019-05-07</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Spark/" itemprop="url" rel="index"><span itemprop="name">Spark</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>　序列化在分布式应用的性能中扮演着重要的角色。格式化对象缓慢，或者消耗大量的字节格式化，会大大降低计算性能。在生产中，我们通常会创建大量的自定义实体对象，这些对象在网络传输时需要序列化，而一种好的序列化方式可以让数据有更好的压缩比，从而提升网络传输速率，提高spark作业的运行速度。通常这是在spark应用中第一件需要优化的事情。Spark的目标是在便利与性能中取得平衡，所以提供2种序列化的选择。<br>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/05/29/Spark之序列化在生产中的应用/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </p></div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -416,14 +597,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Publicado el</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Creado por: 2018-05-25 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-25T00:00:00+08:00">2018-05-25</time>
+              <time title="Created: 2018-05-25 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-25T00:00:00+08:00">2018-05-25</time>
             
 
             
@@ -438,9 +619,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Editado el</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modificado por: 2019-05-05 20:39:41" itemprop="dateModified" datetime="2019-05-05T20:39:41+08:00">2019-05-05</time>
+                <time title="Modified: 2019-05-05 20:39:41" itemprop="dateModified" datetime="2019-05-05T20:39:41+08:00">2019-05-05</time>
               
             
           </span>
@@ -454,7 +635,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">En</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/面试题/" itemprop="url" rel="index"><span itemprop="name">面试题</span></a></span>
@@ -501,7 +682,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/05/25/若泽数据带你随时了解业界面试题，随时跳高薪/#more" rel="contents">
-                Leer más &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -600,14 +781,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Publicado el</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Creado por: 2018-05-24 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-24T00:00:00+08:00">2018-05-24</time>
+              <time title="Created: 2018-05-24 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-24T00:00:00+08:00">2018-05-24</time>
             
 
             
@@ -622,9 +803,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Editado el</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modificado por: 2019-04-26 21:21:04" itemprop="dateModified" datetime="2019-04-26T21:21:04+08:00">2019-04-26</time>
+                <time title="Modified: 2019-04-26 21:21:04" itemprop="dateModified" datetime="2019-04-26T21:21:04+08:00">2019-04-26</time>
               
             
           </span>
@@ -638,7 +819,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">En</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/面试题/" itemprop="url" rel="index"><span itemprop="name">面试题</span></a></span>
@@ -682,7 +863,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/05/24/有赞...)/#more" rel="contents">
-                Leer más &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -781,14 +962,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Publicado el</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Creado por: 2018-05-23 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-23T00:00:00+08:00">2018-05-23</time>
+              <time title="Created: 2018-05-23 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-23T00:00:00+08:00">2018-05-23</time>
             
 
             
@@ -803,9 +984,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Editado el</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modificado por: 2019-04-26 21:11:34" itemprop="dateModified" datetime="2019-04-26T21:11:34+08:00">2019-04-26</time>
+                <time title="Modified: 2019-04-26 21:11:34" itemprop="dateModified" datetime="2019-04-26T21:11:34+08:00">2019-04-26</time>
               
             
           </span>
@@ -819,7 +1000,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">En</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hive/" itemprop="url" rel="index"><span itemprop="name">Hive</span></a></span>
@@ -866,7 +1047,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/05/23/Hive中自定义UDAF函数生产小案例/#more" rel="contents">
-                Leer más &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -965,14 +1146,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Publicado el</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Creado por: 2018-05-21 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-21T00:00:00+08:00">2018-05-21</time>
+              <time title="Created: 2018-05-21 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-21T00:00:00+08:00">2018-05-21</time>
             
 
             
@@ -987,9 +1168,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Editado el</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modificado por: 2019-04-26 20:55:10" itemprop="dateModified" datetime="2019-04-26T20:55:10+08:00">2019-04-26</time>
+                <time title="Modified: 2019-04-26 20:55:10" itemprop="dateModified" datetime="2019-04-26T20:55:10+08:00">2019-04-26</time>
               
             
           </span>
@@ -1003,7 +1184,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">En</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Spark/" itemprop="url" rel="index"><span itemprop="name">Spark</span></a></span>
@@ -1047,7 +1228,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/05/21/Spark History Server Web UI配置/#more" rel="contents">
-                Leer más &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -1146,14 +1327,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Publicado el</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Creado por: 2018-05-21 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-21T00:00:00+08:00">2018-05-21</time>
+              <time title="Created: 2018-05-21 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-21T00:00:00+08:00">2018-05-21</time>
             
 
             
@@ -1168,9 +1349,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Editado el</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modificado por: 2019-04-29 20:59:01" itemprop="dateModified" datetime="2019-04-29T20:59:01+08:00">2019-04-29</time>
+                <time title="Modified: 2019-04-29 20:59:01" itemprop="dateModified" datetime="2019-04-29T20:59:01+08:00">2019-04-29</time>
               
             
           </span>
@@ -1184,7 +1365,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">En</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Spark/" itemprop="url" rel="index"><span itemprop="name">Spark</span></a></span>
@@ -1231,7 +1412,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/05/21/Spark 基本概念/#more" rel="contents">
-                Leer más &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -1239,187 +1420,6 @@
         
       
     </p></div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-<div class="post-meta">
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/20/美味不用等大数据面试题(201804月)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ruozedata">
-      <meta itemprop="description" content="若泽数据优秀博客汇总">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="若泽大数据 www.ruozedata.com">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/05/20/美味不用等大数据面试题(201804月)/" class="post-title-link" itemprop="url">美味不用等大数据面试题(201804月)</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-			
-			
-			
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Publicado el</span>
-              
-
-              
-                
-              
-
-              <time title="Creado por: 2018-05-20 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-20T00:00:00+08:00">2018-05-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Editado el</span>
-                
-                <time title="Modificado por: 2019-04-24 20:40:46" itemprop="dateModified" datetime="2019-04-24T20:40:46+08:00">2019-04-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">En</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/面试题/" itemprop="url" rel="index"><span itemprop="name">面试题</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h6 id="1-若泽大数据线下班，某某某的小伙伴现场面试题截图"><a href="#1-若泽大数据线下班，某某某的小伙伴现场面试题截图" class="headerlink" title="1.若泽大数据线下班，某某某的小伙伴现场面试题截图:"></a><strong>1.若泽大数据线下班，某某某的小伙伴现场面试题截图:</strong></h6>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2018/05/20/美味不用等大数据面试题(201804月)/#more" rel="contents">
-                Leer más &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
 
     
 
@@ -1511,14 +1511,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Publicado el</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Creado por: 2018-05-20 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-20T00:00:00+08:00">2018-05-20</time>
+              <time title="Created: 2018-05-20 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-20T00:00:00+08:00">2018-05-20</time>
             
 
             
@@ -1533,9 +1533,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Editado el</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modificado por: 2019-04-25 22:51:30" itemprop="dateModified" datetime="2019-04-25T22:51:30+08:00">2019-04-25</time>
+                <time title="Modified: 2019-04-25 22:51:30" itemprop="dateModified" datetime="2019-04-25T22:51:30+08:00">2019-04-25</time>
               
             
           </span>
@@ -1549,7 +1549,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">En</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Spark/" itemprop="url" rel="index"><span itemprop="name">Spark</span></a></span>
@@ -1596,7 +1596,188 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/05/20/Spark不得不理解的重要概念——从源码角度看RDD/#more" rel="contents">
-                Leer más &raquo;
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+<div class="post-meta">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/20/美味不用等大数据面试题(201804月)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ruozedata">
+      <meta itemprop="description" content="若泽数据优秀博客汇总">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="若泽大数据 www.ruozedata.com">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/05/20/美味不用等大数据面试题(201804月)/" class="post-title-link" itemprop="url">美味不用等大数据面试题(201804月)</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+			
+			
+			
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-05-20 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-20T00:00:00+08:00">2018-05-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-24 20:40:46" itemprop="dateModified" datetime="2019-04-24T20:40:46+08:00">2019-04-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/面试题/" itemprop="url" rel="index"><span itemprop="name">面试题</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h6 id="1-若泽大数据线下班，某某某的小伙伴现场面试题截图"><a href="#1-若泽大数据线下班，某某某的小伙伴现场面试题截图" class="headerlink" title="1.若泽大数据线下班，某某某的小伙伴现场面试题截图:"></a><strong>1.若泽大数据线下班，某某某的小伙伴现场面试题截图:</strong></h6>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/05/20/美味不用等大数据面试题(201804月)/#more" rel="contents">
+                Read more &raquo;
               </a>
             </div>
           
@@ -1695,14 +1876,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Publicado el</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Creado por: 2018-05-19 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-19T00:00:00+08:00">2018-05-19</time>
+              <time title="Created: 2018-05-19 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-19T00:00:00+08:00">2018-05-19</time>
             
 
             
@@ -1717,9 +1898,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Editado el</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modificado por: 2019-04-24 20:28:20" itemprop="dateModified" datetime="2019-04-24T20:28:20+08:00">2019-04-24</time>
+                <time title="Modified: 2019-04-24 20:28:20" itemprop="dateModified" datetime="2019-04-24T20:28:20+08:00">2019-04-24</time>
               
             
           </span>
@@ -1733,7 +1914,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">En</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Spark/" itemprop="url" rel="index"><span itemprop="name">Spark</span></a></span>
@@ -1782,7 +1963,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2018/05/19/Spark RDD、DataFrame和DataSet的区别/#more" rel="contents">
-                Leer más &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -1841,7 +2022,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/12/Spark on YARN-Cluster和YARN-Client的区别/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/14/大数据之实时数据源同步中间件--生产上Canal与Maxwell颠峰对决/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ruozedata">
@@ -1861,7 +2042,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018/05/12/Spark on YARN-Cluster和YARN-Client的区别/" class="post-title-link" itemprop="url">Spark on YARN-Cluster和YARN-Client的区别</a>
+                <a href="/2018/05/14/大数据之实时数据源同步中间件--生产上Canal与Maxwell颠峰对决/" class="post-title-link" itemprop="url">大数据之实时数据源同步中间件--生产上Canal与Maxwell颠峰对决</a>
               
             
           </h1>
@@ -1881,14 +2062,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Publicado el</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Creado por: 2018-05-12 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-12T00:00:00+08:00">2018-05-12</time>
+              <time title="Created: 2018-05-14 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-14T00:00:00+08:00">2018-05-14</time>
             
 
             
@@ -1903,9 +2084,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Editado el</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modificado por: 2019-05-05 20:33:17" itemprop="dateModified" datetime="2019-05-05T20:33:17+08:00">2019-05-05</time>
+                <time title="Modified: 2019-05-11 21:52:43" itemprop="dateModified" datetime="2019-05-11T21:52:43+08:00">2019-05-11</time>
               
             
           </span>
@@ -1919,10 +2100,10 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">En</span>
+                <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Spark/" itemprop="url" rel="index"><span itemprop="name">Spark</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/其他组件/" itemprop="url" rel="index"><span itemprop="name">其他组件</span></a></span>
 
                 
                 
@@ -1958,196 +2139,13 @@
 
       
         
-          <h5 id="一-YARN-Cluster和YARN-Client的区别"><a href="#一-YARN-Cluster和YARN-Client的区别" class="headerlink" title="一. YARN-Cluster和YARN-Client的区别"></a>一. YARN-Cluster和YARN-Client的区别</h5><p><img src="/assets/blogImg/512_1.png" alt><br>（1）SparkContext初始化不同，这也导致了Driver所在位置的不同，YarnCluster的Driver是在集群的某一台NM上，但是Yarn-Client就是在driver所在的机器上；<br>（2）而Driver会和Executors进行通信，这也导致了Yarn_cluster在提交App之后可以关闭Client，而Yarn-Client不可以；<br>（3）最后再来说应用场景，Yarn-Cluster适合生产环境，Yarn-Client适合交互和调试。<br>
+          <h5 id="一-数据源同步中间件："><a href="#一-数据源同步中间件：" class="headerlink" title="一.数据源同步中间件："></a>一.数据源同步中间件：</h5><p>Canal<br><a href="https://github.com/alibaba/canal" target="_blank" rel="noopener">https://github.com/alibaba/canal</a><br><a href="https://github.com/Hackeruncle/syncClient" target="_blank" rel="noopener">https://github.com/Hackeruncle/syncClient</a></p>
+<p>Maxwell<br><a href="https://github.com/zendesk/maxwell" target="_blank" rel="noopener">https://github.com/zendesk/maxwell</a><br><img src="/assets/blogImg/514_1.png" alt="maxwell"><br>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2018/05/12/Spark on YARN-Cluster和YARN-Client的区别/#more" rel="contents">
-                Leer más &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </p></div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-<div class="post-meta">
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/08/生产改造Spark1.6源代码，create table语法支持Oracle列表分区/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ruozedata">
-      <meta itemprop="description" content="若泽数据优秀博客汇总">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="若泽大数据 www.ruozedata.com">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/05/08/生产改造Spark1.6源代码，create table语法支持Oracle列表分区/" class="post-title-link" itemprop="url">生产改造Spark1.6源代码，create table语法支持Oracle列表分区</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-			
-			
-			
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Publicado el</span>
-              
-
-              
-                
-              
-
-              <time title="Creado por: 2018-05-08 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-08T00:00:00+08:00">2018-05-08</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Editado el</span>
-                
-                <time title="Modificado por: 2019-04-24 18:36:40" itemprop="dateModified" datetime="2019-04-24T18:36:40+08:00">2019-04-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">En</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Spark/" itemprop="url" rel="index"><span itemprop="name">Spark</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <font color="#FF4500"><br></font>
-
-<h5 id="1-需求"><a href="#1-需求" class="headerlink" title="1.需求"></a>1.需求</h5><p>通过Spark SQL JDBC 方法，抽取Oracle表数据。</p>
-<h5 id="2-问题"><a href="#2-问题" class="headerlink" title="2.问题"></a>2.问题</h5><p>大数据开发人员反映，使用效果上列表分区优于散列分区。但Spark SQL JDBC方法只支持数字类型分区，而业务表的列表分区字段是个字符串。目前Oracle表使用列表分区，对省级代码分 区。<br>参考 <a href="http://spark.apache.org/docs/1.6.2/sql-programming-guide.html#jdbc-to-other-databases" target="_blank" rel="noopener">http://spark.apache.org/docs/1.6.2/sql-programming-guide.html#jdbc-to-other-databases</a><br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2018/05/08/生产改造Spark1.6源代码，create table语法支持Oracle列表分区/#more" rel="contents">
-                Leer más &raquo;
+              <a class="btn" href="/2018/05/14/大数据之实时数据源同步中间件--生产上Canal与Maxwell颠峰对决/#more" rel="contents">
+                Read more &raquo;
               </a>
             </div>
           
@@ -2195,7 +2193,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Página anterior"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Página siguiente"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2237,8 +2235,8 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">41</span>
-                    <span class="site-state-item-name">entradas</span>
+                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -2277,7 +2275,7 @@
                       
                     
                     <span class="site-state-item-count">10</span>
-                    <span class="site-state-item-name">categorías</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -2333,7 +2331,7 @@
                     
                       
                     
-                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -2455,7 +2453,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-user"></i>
     </span>
-    <span class="site-uv" title="Visitantes totales">
+    <span class="site-uv" title="Total Visitors">
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
     </span>
   
@@ -2468,7 +2466,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-eye"></i>
     </span>
-    <span class="site-pv" title="Visitas totales">
+    <span class="site-pv" title="Total Views">
       <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
     </span>
   
