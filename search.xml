@@ -30,8 +30,8 @@
         <category>Spark</category>
       </categories>
       <tags>
-        <tag>spark</tag>
         <tag>高级</tag>
+        <tag>spark</tag>
       </tags>
   </entry>
   <entry>
@@ -64,8 +64,8 @@
         <category>Spark MLlib</category>
       </categories>
       <tags>
-        <tag>spark</tag>
         <tag>高级</tag>
+        <tag>spark</tag>
       </tags>
   </entry>
   <entry>
@@ -76,8 +76,8 @@
         <category>Spark SQL</category>
       </categories>
       <tags>
-        <tag>spark</tag>
         <tag>高级</tag>
+        <tag>spark</tag>
       </tags>
   </entry>
   <entry>
@@ -88,8 +88,8 @@
         <category>Spark Streaming</category>
       </categories>
       <tags>
-        <tag>spark</tag>
         <tag>高级</tag>
+        <tag>spark</tag>
       </tags>
   </entry>
   <entry>
@@ -111,8 +111,8 @@
         <category>Spark Core</category>
       </categories>
       <tags>
-        <tag>spark</tag>
         <tag>高级</tag>
+        <tag>spark</tag>
         <tag>源码阅读</tag>
       </tags>
   </entry>
@@ -146,8 +146,8 @@
         <category>Spark Core</category>
       </categories>
       <tags>
-        <tag>spark</tag>
         <tag>高级</tag>
+        <tag>spark</tag>
       </tags>
   </entry>
   <entry>
@@ -184,18 +184,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Spark History Server Web UI配置]]></title>
-    <url>%2F2018%2F05%2F21%2FSpark%20History%20Server%20Web%20UI%E9%85%8D%E7%BD%AE%2F</url>
-    <content type="text"><![CDATA[1.进入spark目录和配置文件12[root@hadoop000 ~]# cd /opt/app/spark/conf[root@hadoop000 conf]# cp spark-defaults.conf.template spark-defaults.conf2.创建spark-history的存储日志路径为hdfs上(当然也可以在linux文件系统上)12345678[root@hadoop000 conf]# hdfs dfs -ls /Found 3 itemsdrwxr-xr-x - root root 0 2017-02-14 12:43 /sparkdrwxrwx--- - root root 0 2017-02-14 12:58 /tmpdrwxr-xr-x - root root 0 2017-02-14 12:58 /userYou have new mail in /var/spool/mail/root[root@hadoop000 conf]# hdfs dfs -ls /sparkFound 1 itemsdrwxrwxrwx - root root 0 2017-02-15 21:44 /spark/checkpointdata[root@hadoop000 conf]# hdfs dfs -mkdir /spark/historylog在HDFS中创建一个目录，用于保存Spark运行日志信息。Spark History Server从此目录中读取日志信息3.配置12345[root@hadoop000 conf]# vi spark-defaults.confspark.eventLog.enabled truespark.eventLog.compress truespark.eventLog.dir hdfs://nameservice1/spark/historylogspark.yarn.historyServer.address 172.16.101.55:18080spark.eventLog.dir保存日志相关信息的路径，可以是hdfs://开头的HDFS路径，也可以是file://开头的本地路径，都需要提前创建spark.yarn.historyServer.address : Spark history server的地址(不加http://).这个地址会在Spark应用程序完成后提交给YARN RM，然后可以在RM UI上点击链接跳转到history server UI上.4.添加SPARK_HISTORY_OPTS参数12345[root@hadoop01 conf]# vi spark-env.sh#!/usr/bin/env bashexport SCALA_HOME=/root/learnproject/app/scalaexport JAVA_HOME=/usr/java/jdk1.8.0_111export SPARK_MASTER_IP=172.16.101.55export SPARK_WORKER_MEMORY=1gexport SPARK_PID_DIR=/root/learnproject/app/pidexport HADOOP_CONF_DIR=/root/learnproject/app/hadoop/etc/hadoopexport SPARK_HISTORY_OPTS=&quot;-Dspark.history.fs.logDirectory=hdfs://mycluster/spark/historylog \-Dspark.history.ui.port=18080 \-Dspark.history.retainedApplications=20&quot;5.启动服务和查看123456[root@hadoop01 spark]# ./sbin/start-history-server.sh starting org.apache.spark.deploy.history.HistoryServer, logging to /root/learnproject/app/spark/logs/spark-root-org.apache.spark.deploy.history.HistoryServer-1-sht-sgmhadoopnn-01.out[root@hadoop01 ~]# jps28905 HistoryServer30407 ProdServerStart30373 ResourceManager30957 NameNode16949 Jps30280 DFSZKFailoverController31445 JobHistoryServer[root@hadoop01 ~]# ps -ef|grep sparkroot 17283 16928 0 21:42 pts/2 00:00:00 grep sparkroot 28905 1 0 Feb16 ? 00:09:11 /usr/java/jdk1.8.0_111/bin/java -cp /root/learnproject/app/spark/conf/:/root/learnproject/app/spark/jars/*:/root/learnproject/app/hadoop/etc/hadoop/ -Dspark.history.fs.logDirectory=hdfs://mycluster/spark/historylog -Dspark.history.ui.port=18080 -Dspark.history.retainedApplications=20 -Xmx1g org.apache.spark.deploy.history.HistoryServerYou have new mail in /var/spool/mail/root[root@hadoop01 ~]# netstat -nlp|grep 28905tcp 0 0 0.0.0.0:18080 0.0.0.0:* LISTEN 28905/java以上配置是针对使用自己编译的Spark部署到集群中一到两台机器上作为提交作业客户端的，如果你是CDH集群中集成的Spark那么可以在管理界面直接查看！]]></content>
-      <categories>
-        <category>Spark</category>
-      </categories>
-      <tags>
-        <tag>spark</tag>
-        <tag>高级</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Spark 基本概念]]></title>
     <url>%2F2018%2F05%2F21%2FSpark%20%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%2F</url>
     <content type="text"><![CDATA[基于 Spark 构建的用户程序，包含了 一个driver 程序和集群上的 executors；（起了一个作业，就是一个Application）spark名词解释Application jar：应用程序jar包包含了用户的 Spark 程序的一个 jar 包. 在某些情况下用户可能想要创建一个囊括了应用及其依赖的 “胖” jar 包. 但实际上, 用户的 jar 不应该包括 Hadoop 或是 Spark 的库, 这些库会在运行时被进行加载；Driver Program：这个进程运行应用程序的 main 方法并且新建 SparkContext ；Cluster Manager：集群管理者在集群上获取资源的外部服务 (例如:standalone,Mesos,Yarn)；（–master）Deploy mode：部署模式告诉你在哪里启动driver program. 在 “cluster” 模式下, 框架在集群内部运行 driver. 在 “client” 模式下, 提交者在集群外部运行 driver.；Worker Node：工作节点集群中任何可以运行应用代码的节点；（yarn上就是node manager）Executor：在一个工作节点上为某应用启动的一个进程，该进程负责运行任务，并且负责将数据存在内存或者磁盘上。每个应用都有各自独立的 executors；Task：任务被送到某个 executor 上执行的工作单元；Job：包含很多并行计算的task。一个 action 就会产生一个job；Stage：一个 Job 会被拆分成多个task的集合，每个task集合被称为 stage，stage之间是相互依赖的(就像 Mapreduce 分 map和 reduce stages一样)，可以在Driver 的日志上看到。spark工作流程1个action会触发1个job，1个job包含n个stage，每个stage包含n个task，n个task会送到n个executor上执行，一个Application是由一个driver 程序和n个 executor组成。提交的时候，通过Cluster Manager和Deploy mode控制。spark应用程序在集群上运行一组独立的进程，通过SparkContext协调的在main方法里面。如果运行在一个集群之上，SparkContext能够连接各种的集群管理者，去获取到作业所需要的资源。一旦连接成功，spark在集群节点之上运行executor进程，来给你的应用程序运行计算和存储数据。它会发送你的应用程序代码到executors上。最后，SparkContext发送tasks到executors上去运行1、每个Application都有自己独立的executor进程，这些进程在运行周期内都是常驻的以多线程的方式运行tasks。好处是每个进程无论是在调度还是执行都是相互独立的。所以，这就意味着数据不能跨应用程序进行共享，除非写到外部存储系统（Alluxio）。2、spark并不关心底层的集群管理。3、driver 程序会监听并且接收外面的一些executor请求，在整个生命周期里面。所以，driver 程序应该能被Worker Node通过网络访问。4、因为driver 在集群上调度Tasks，driver 就应该靠近Worker Node。]]></content>
@@ -203,8 +191,20 @@
         <category>Spark</category>
       </categories>
       <tags>
-        <tag>spark</tag>
         <tag>高级</tag>
+        <tag>spark</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Spark History Server Web UI配置]]></title>
+    <url>%2F2018%2F05%2F21%2FSpark%20History%20Server%20Web%20UI%E9%85%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[1.进入spark目录和配置文件12[root@hadoop000 ~]# cd /opt/app/spark/conf[root@hadoop000 conf]# cp spark-defaults.conf.template spark-defaults.conf2.创建spark-history的存储日志路径为hdfs上(当然也可以在linux文件系统上)12345678[root@hadoop000 conf]# hdfs dfs -ls /Found 3 itemsdrwxr-xr-x - root root 0 2017-02-14 12:43 /sparkdrwxrwx--- - root root 0 2017-02-14 12:58 /tmpdrwxr-xr-x - root root 0 2017-02-14 12:58 /userYou have new mail in /var/spool/mail/root[root@hadoop000 conf]# hdfs dfs -ls /sparkFound 1 itemsdrwxrwxrwx - root root 0 2017-02-15 21:44 /spark/checkpointdata[root@hadoop000 conf]# hdfs dfs -mkdir /spark/historylog在HDFS中创建一个目录，用于保存Spark运行日志信息。Spark History Server从此目录中读取日志信息3.配置12345[root@hadoop000 conf]# vi spark-defaults.confspark.eventLog.enabled truespark.eventLog.compress truespark.eventLog.dir hdfs://nameservice1/spark/historylogspark.yarn.historyServer.address 172.16.101.55:18080spark.eventLog.dir保存日志相关信息的路径，可以是hdfs://开头的HDFS路径，也可以是file://开头的本地路径，都需要提前创建spark.yarn.historyServer.address : Spark history server的地址(不加http://).这个地址会在Spark应用程序完成后提交给YARN RM，然后可以在RM UI上点击链接跳转到history server UI上.4.添加SPARK_HISTORY_OPTS参数12345[root@hadoop01 conf]# vi spark-env.sh#!/usr/bin/env bashexport SCALA_HOME=/root/learnproject/app/scalaexport JAVA_HOME=/usr/java/jdk1.8.0_111export SPARK_MASTER_IP=172.16.101.55export SPARK_WORKER_MEMORY=1gexport SPARK_PID_DIR=/root/learnproject/app/pidexport HADOOP_CONF_DIR=/root/learnproject/app/hadoop/etc/hadoopexport SPARK_HISTORY_OPTS=&quot;-Dspark.history.fs.logDirectory=hdfs://mycluster/spark/historylog \-Dspark.history.ui.port=18080 \-Dspark.history.retainedApplications=20&quot;5.启动服务和查看123456[root@hadoop01 spark]# ./sbin/start-history-server.sh starting org.apache.spark.deploy.history.HistoryServer, logging to /root/learnproject/app/spark/logs/spark-root-org.apache.spark.deploy.history.HistoryServer-1-sht-sgmhadoopnn-01.out[root@hadoop01 ~]# jps28905 HistoryServer30407 ProdServerStart30373 ResourceManager30957 NameNode16949 Jps30280 DFSZKFailoverController31445 JobHistoryServer[root@hadoop01 ~]# ps -ef|grep sparkroot 17283 16928 0 21:42 pts/2 00:00:00 grep sparkroot 28905 1 0 Feb16 ? 00:09:11 /usr/java/jdk1.8.0_111/bin/java -cp /root/learnproject/app/spark/conf/:/root/learnproject/app/spark/jars/*:/root/learnproject/app/hadoop/etc/hadoop/ -Dspark.history.fs.logDirectory=hdfs://mycluster/spark/historylog -Dspark.history.ui.port=18080 -Dspark.history.retainedApplications=20 -Xmx1g org.apache.spark.deploy.history.HistoryServerYou have new mail in /var/spool/mail/root[root@hadoop01 ~]# netstat -nlp|grep 28905tcp 0 0 0.0.0.0:18080 0.0.0.0:* LISTEN 28905/java以上配置是针对使用自己编译的Spark部署到集群中一到两台机器上作为提交作业客户端的，如果你是CDH集群中集成的Spark那么可以在管理界面直接查看！]]></content>
+      <categories>
+        <category>Spark</category>
+      </categories>
+      <tags>
+        <tag>高级</tag>
+        <tag>spark</tag>
       </tags>
   </entry>
   <entry>
@@ -215,8 +215,8 @@
         <category>Spark Core</category>
       </categories>
       <tags>
-        <tag>spark</tag>
         <tag>高级</tag>
+        <tag>spark</tag>
       </tags>
   </entry>
   <entry>
@@ -238,8 +238,8 @@
         <category>Spark Core</category>
       </categories>
       <tags>
-        <tag>spark</tag>
         <tag>高级</tag>
+        <tag>spark</tag>
       </tags>
   </entry>
   <entry>
@@ -262,9 +262,9 @@
         <category>Spark</category>
       </categories>
       <tags>
-        <tag>架构</tag>
-        <tag>spark</tag>
         <tag>高级</tag>
+        <tag>spark</tag>
+        <tag>架构</tag>
       </tags>
   </entry>
   <entry>
@@ -275,8 +275,8 @@
         <category>Spark</category>
       </categories>
       <tags>
-        <tag>spark</tag>
         <tag>高级</tag>
+        <tag>spark</tag>
         <tag>源码阅读</tag>
       </tags>
   </entry>
@@ -303,17 +303,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[2min快速了解，Hive内部表和外部表]]></title>
-    <url>%2F2018%2F05%2F01%2F2min%E5%BF%AB%E9%80%9F%E4%BA%86%E8%A7%A3%EF%BC%8CHive%E5%86%85%E9%83%A8%E8%A1%A8%E5%92%8C%E5%A4%96%E9%83%A8%E8%A1%A8%2F</url>
-    <content type="text"><![CDATA[在了解内部表和外部表区别前，我们需要先了解一下Hive架构 ：大家可以简单看一下这个架构图，我介绍其中要点：Hive的数据分为两种，一种为普通数据，一种为元数据。元数据存储着表的基本信息，增删改查记录，类似于Hadoop架构中的namespace。普通数据就是表中的详细数据。Hive的元数据默认存储在derby中，但大多数情况下存储在MySQL中。普通数据如架构图所示存储在hdfs中。下面我们来介绍表的两种类型：内部表和外部表内部表（MANAGED）：hive在hdfs中存在默认的存储路径，即default数据库。之后创建的数据库及表，如果没有指定路径应都在/user/hive/warehouse下，所以在该路径下的表为内部表。外部表（EXTERNAL）：指定了/user/hive/warehouse以外路径所创建的表而内部表和外部表的主要区别就是内部表：当删除内部表时，MySQL的元数据和HDFS上的普通数据都会删除 ；外部表：当删除外部表时，MySQL的元数据会被删除，HDFS上的数据不会被删除；1.准备数据: 按tab键制表符作为字段分割符cat /tmp/ruozedata.txt 1 jepson 32 110 2 ruoze 22 112 3 www.ruozedata.com 18 120 2.内部表测试：在Hive里面创建一个表：123456789hive&gt; create table ruozedata(id int, &gt; name string, &gt; age int, &gt; tele string) &gt; ROW FORMAT DELIMITED &gt; FIELDS TERMINATED BY &apos;\t&apos; &gt; STORED AS TEXTFILE;OKTime taken: 0.759 seconds这样我们就在Hive里面创建了一张普通的表，现在给这个表导入数据：1load data local inpath &apos;/tmp/ruozedata.txt&apos; into table ruozedata;内部表删除1hive&gt; drop table ruozedata;3.外部表测试:创建外部表多了external关键字说明以及hdfs上location ‘/hive/external’12345678hive&gt; create external table exter_ruozedata( &gt; id int, &gt; name string, &gt; age int, &gt; tel string) &gt; location &apos;/hive/external&apos;;OKTime taken: 0.098 seconds创建外部表，需要在创建表的时候加上external关键字，同时指定外部表存放数据的路径（当然，你也可以不指定外部表的存放路径，这样Hive将 在HDFS上的/user/hive/warehouse/文件夹下以外部表的表名创建一个文件夹，并将属于这个表的数据存放在这里）外部表导入数据和内部表一样：1load data local inpath &apos;/tmp/ruozedata.txt&apos; into table exter_ruozedata;删除外部表1hive&gt; drop table exter_ruozedata;]]></content>
-      <categories>
-        <category>Hive</category>
-      </categories>
-      <tags>
-        <tag>hive</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[谈谈我和大数据的情缘及入门]]></title>
     <url>%2F2018%2F05%2F01%2F%E8%B0%88%E8%B0%88%E6%88%91%E5%92%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E6%83%85%E7%BC%98%E5%8F%8A%E5%85%A5%E9%97%A8%2F</url>
     <content type="text"><![CDATA[&#8195;当年我是做C#+Java软件开发，然后考取OCP来了上海，立志要做一名DBA。只记得当年试用期刚过时，阴差阳错轮到我负责公司的大数据平台这块，刚开始很痛苦，一个陌生的行业，一个讨论的小伙伴都没有，一份现成资料都没有，心情焦虑。后来我调整心态，从DB转移到对大数据的研究，决定啃下这块硬骨头，把它嚼碎，把它消化吸收。&#8195;由于当时公司都是CDH环境，刚开始安装卡了很久都过不去，后面选择在线安装，很慢，有时需要1天。后来安装HDFS ,YARN,HIVE组件，不过对它们不理解，不明白，有时很困惑。这样的过程大概持续三个月了。&#8195;后来看了很多博文，都是Apache Hadoop版本搭建，于是我先试试用Apache Hadoop搭建部署单节点和集群，然后配置HA，最后我发现自己比较喜欢这种方式，因为我能了解其配置参数，配置文件和常规命令等等，再回头去对比CDH安装HDFS服务，真是太爽了，因为Apache Hadoop版本有真正体验感，这时我就迅速调整方向 : 先Apache版本，再CDH。&#8195;由于公司项目环境，推进自己实在太慢，于是我在网上看各种相关视频教程；加n种群，在群里潜水，看水友们提的问题自己会不会，不会就去查资料，会就帮助他们一起研究学习进步。&#8195;后来这样的进度太慢了，因为很多群都是打广告，潜水，没有真正的技术讨论氛围，于是我迅速调整方向，自己建个QQ群，慢慢招兵买马，和管理员们一起去管理，在过去的两年里我也学到了很多知识和认识和我一样前进的小伙伴们，现在也有很多已成为friends。&#8195;每当夜晚，我就会深深思考仅凭公司项目,网上免费课程视频，QQ群等，还是不够的，于是我开始咨询培训机构的课程，在这里提醒各位小伙伴们，报班一定要擦亮眼睛，选择老师很重要，真心很重要，许多培训机构的老师都是Java转的，讲的是全是基础，根本没有企业项目实战经验；还有不要跟风，一定看仔细看清楚课程是否符合当前的你。&#8195;这时还是远远不够的，于是我开始每天上下班地铁上看技术博客，积极分享。然后再申请博客，写博文，写总结，坚持每次做完一次实验就将博文，梳理好，写好，这样久而久之，知识点就慢慢夯实积累了。&#8195;再着后面就开始受邀几大培训机构做公开课，再一次将知识点梳理了，也认识了新的小伙伴们，我们有着相同的方向和目标，我们尽情的讨论着大数据的知识点，慢慢朝着我们心目中的目标而努力着！以上基本就是我和大数据的情缘，下面我来谈谈我对大数据入门的感悟。1. 心态要端正。既然想要从事这行，那么一定要下定决心，当然付出是肯定大大的，不光光是毛爷爷，而更多的付出是自己的那一份坚持，凡事贵在坚持，真真体现在这里。后来我将我老婆从化工实验室分析员转行，做Python爬虫和数据分析，当然这个主要还是靠她的那份坚持。2. 心目中要有计划。先学习Linux和Shell，再学习数据库和SQL，再学习Java和Scala，然后学习Apache Haoop、Hive、Kafka、Spark，朝大数据研发或开发而努力着。3. 各种方式学习。QQ群，博客，上下班看技术文章，选择好的老师和课程培训，(擦亮眼睛，很多视频，很多大数据老师都是瞎扯的，最终总结一句话，不在企业上班的教大数据都是耍流氓的。)可以加速自己前进的马拉松里程，其实一般都要看大家怎么衡量培训这个事的，time和money的抉择，以及快速jump后的高薪。4. 项目经验。很多小白都没有项目经验也没有面试经验和技巧，屡屡面试以失败告终，这时大家可以找你们熟悉的小伙伴们的，让他给你培训他的项目，这样就有了，当然可以直接互联网搜索一个就行，不过一般很难有完整的。而面试，就看看其他人面试分享，学习他人。最后，总结一句话，坚持才是最重要的。最后，总结一句话，坚持才是最重要的。最后，总结一句话，坚持才是最重要的。]]></content>
@@ -322,6 +311,17 @@
       </categories>
       <tags>
         <tag>人生感悟</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[2min快速了解，Hive内部表和外部表]]></title>
+    <url>%2F2018%2F05%2F01%2F2min%E5%BF%AB%E9%80%9F%E4%BA%86%E8%A7%A3%EF%BC%8CHive%E5%86%85%E9%83%A8%E8%A1%A8%E5%92%8C%E5%A4%96%E9%83%A8%E8%A1%A8%2F</url>
+    <content type="text"><![CDATA[在了解内部表和外部表区别前，我们需要先了解一下Hive架构 ：大家可以简单看一下这个架构图，我介绍其中要点：Hive的数据分为两种，一种为普通数据，一种为元数据。元数据存储着表的基本信息，增删改查记录，类似于Hadoop架构中的namespace。普通数据就是表中的详细数据。Hive的元数据默认存储在derby中，但大多数情况下存储在MySQL中。普通数据如架构图所示存储在hdfs中。下面我们来介绍表的两种类型：内部表和外部表内部表（MANAGED）：hive在hdfs中存在默认的存储路径，即default数据库。之后创建的数据库及表，如果没有指定路径应都在/user/hive/warehouse下，所以在该路径下的表为内部表。外部表（EXTERNAL）：指定了/user/hive/warehouse以外路径所创建的表而内部表和外部表的主要区别就是内部表：当删除内部表时，MySQL的元数据和HDFS上的普通数据都会删除 ；外部表：当删除外部表时，MySQL的元数据会被删除，HDFS上的数据不会被删除；1.准备数据: 按tab键制表符作为字段分割符cat /tmp/ruozedata.txt 1 jepson 32 110 2 ruoze 22 112 3 www.ruozedata.com 18 120 2.内部表测试：在Hive里面创建一个表：123456789hive&gt; create table ruozedata(id int, &gt; name string, &gt; age int, &gt; tele string) &gt; ROW FORMAT DELIMITED &gt; FIELDS TERMINATED BY &apos;\t&apos; &gt; STORED AS TEXTFILE;OKTime taken: 0.759 seconds这样我们就在Hive里面创建了一张普通的表，现在给这个表导入数据：1load data local inpath &apos;/tmp/ruozedata.txt&apos; into table ruozedata;内部表删除1hive&gt; drop table ruozedata;3.外部表测试:创建外部表多了external关键字说明以及hdfs上location ‘/hive/external’12345678hive&gt; create external table exter_ruozedata( &gt; id int, &gt; name string, &gt; age int, &gt; tel string) &gt; location &apos;/hive/external&apos;;OKTime taken: 0.098 seconds创建外部表，需要在创建表的时候加上external关键字，同时指定外部表存放数据的路径（当然，你也可以不指定外部表的存放路径，这样Hive将 在HDFS上的/user/hive/warehouse/文件夹下以外部表的表名创建一个文件夹，并将属于这个表的数据存放在这里）外部表导入数据和内部表一样：1load data local inpath &apos;/tmp/ruozedata.txt&apos; into table exter_ruozedata;删除外部表1hive&gt; drop table exter_ruozedata;]]></content>
+      <categories>
+        <category>Hive</category>
+      </categories>
+      <tags>
+        <tag>hive</tag>
       </tags>
   </entry>
   <entry>
@@ -366,8 +366,8 @@
       </categories>
       <tags>
         <tag>hive</tag>
-        <tag>案例</tag>
         <tag>压缩格式</tag>
+        <tag>案例</tag>
       </tags>
   </entry>
   <entry>
@@ -412,9 +412,9 @@
         <category>Spark</category>
       </categories>
       <tags>
+        <tag>spark</tag>
         <tag>环境搭建</tag>
         <tag>基础</tag>
-        <tag>spark</tag>
       </tags>
   </entry>
   <entry>
@@ -425,9 +425,9 @@
         <category>Spark</category>
       </categories>
       <tags>
-        <tag>架构</tag>
-        <tag>spark</tag>
         <tag>高级</tag>
+        <tag>spark</tag>
+        <tag>架构</tag>
       </tags>
   </entry>
   <entry>
@@ -470,6 +470,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Linux常用命令（三）]]></title>
+    <url>%2F2018%2F04%2F01%2Flinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%883%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[Linux最常用实战命令（三）用户、用户组用户useradd 用户名 添加用户userdel 用户名 删除用户id 用户名 查看用户信息passwd 用户名 修改用户密码su - 用户名 切换用户ll /home/ 查看已有的用户用户组groupadd 用户组 添加用户组cat /etc/group 用户组的文件usermod -a -G 用户组 用户 将用户添加到用户组中给一个普通用户添加sudo权限123vi /etc/sudoers #在root ALL=(ALL) ALL 下面添加一行 用户 ALL=(ALL) NOPASSWD:ALL修改文件权限chown 修改文件或文件夹的所属用户和用户组chown -R 用户:用户组 文件夹名 -R 为递归参数，指针对文件夹chown 用户:用户组 文件名chmod: 修改文件夹或者文件的权限chmod -R 700 文件夹名chmod 700 文件夹名r =&gt; 4 w =&gt; 2 x =&gt; 1 后台执行命令&amp;nohupscreen多人合作 screenscreen -list 查看会话screen -S 建立一个后台的会话screen -r 进入会话ctrl+a+d 退出会话]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[linux常用命令（一）]]></title>
     <url>%2F2018%2F04%2F01%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4(%E4%B8%80)%2F</url>
     <content type="text"><![CDATA[Linux最常用实战命令（一）查看当前目录 pwd查看IPifconfig 查看虚拟机iphostname 主机名字i 查看主机名映射的IP切换目录 cdcd ~ 切换家目录（root为/root，普通用户为/home/用户名）cd /filename 以绝对路径切换目录cd - 返回上一次操作路径，并输出路径cd ../ 返回上一层目录清理桌面 clear显示当前目录文件和文件夹 lsls -l(ll) 显示详细信息ls -la 显示详细信息+隐藏文件（以 . 开头，例：.ssh）ls -lh 显示详细信息+文件大小ls -lrt 显示详细信息+按时间排序查看文件夹大小 du -sh命令帮助man 命令命令 –help创建文件夹 mkdirmkdir -p filename1/filename2 递归创建文件夹创建文件 touch/vi/echo xx&gt;filename查看文件内容cat filename 直接打印所有内容more filename 根据窗口大小进行分页显示文件编辑 vivi分为命令行模式，插入模式，尾行模式命令行模式—&gt;插入模式：按i或a键插入模式—&gt;命令行模式：按Esc键命令行模式—&gt;尾行模式：按Shift和:键插入模式dd 删除光标所在行n+dd 删除光标以下的n行dG 删除光标以下行gg 第一行第一个字母G 最后一行第一个字母shift+$ 该行最后一个字母尾行模式q! 强制退出qw 写入并退出qw! 强制写入退出x 退出，如果存在改动，则保存再退出]]></content>
@@ -485,18 +497,6 @@
     <title><![CDATA[linux常用命令（二）]]></title>
     <url>%2F2018%2F04%2F01%2Flinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%88%E4%BA%8C%EF%BC%89%2F</url>
     <content type="text"><![CDATA[Linux最常用实战命令（二）实时查看文件内容 tail filenametail -f filename 当文件(名)被修改后，不能监视文件内容tail -F filename 当文件(名)被修改后，依然可以监视文件内容复制、移动文件cp oldfilename newfilename 复制mv oldfilename newfilename 移动/重命名echoecho “xxx” 输出echo “xxx” &gt; filename 覆盖echo “xxx” &gt;&gt; filename 追加删除 rmrm -f 强制删除rm -rf 强制删除文件夹，r 表示递归参数，指针对文件夹及文件夹里面文件别名 aliasalias x=”xxxxxx” 临时引用别名alias x=”xxxxxx” 配置到环境变量中即为永久生效查看历史命令 historyhistory 显示出所有历史记录history n 显示出n条记录!n 执行第n条记录管道命令 （ | ）管道的两边都是命令，左边的命令先执行，执行的结果作为右边命令的输入查看进程、查看id、端口ps -ef ｜grep 进程名 查看进程基本信息netstat -npl｜grep 进程名或进程id 查看服务id和端口杀死进程 killkill -9 进程名/pid 强制删除kill -9 $(pgrep 进程名)：杀死与该进程相关的所有进程rpm 搜索、卸载rpm -qa | grep xxx 搜索xxxrpm –nodeps -e xxx 删除xxx–nodeps 不验证包的依赖性查询find 路径 -name xxx (推荐)which xxxlocal xxx查看磁盘、内存、系统的情况df -h 查看磁盘大小及其使用情况free -m 查看内存大小及其使用情况top 查看系统情况软连接ln -s 原始目录 目标目录压缩、解压tar -czf 压缩 tar -xzvf 解压zip 压缩 unzip 解压]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>基础</tag>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Linux常用命令（三）]]></title>
-    <url>%2F2018%2F04%2F01%2Flinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%883%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[Linux最常用实战命令（三）用户、用户组用户useradd 用户名 添加用户userdel 用户名 删除用户id 用户名 查看用户信息passwd 用户名 修改用户密码su - 用户名 切换用户ll /home/ 查看已有的用户用户组groupadd 用户组 添加用户组cat /etc/group 用户组的文件usermod -a -G 用户组 用户 将用户添加到用户组中给一个普通用户添加sudo权限123vi /etc/sudoers #在root ALL=(ALL) ALL 下面添加一行 用户 ALL=(ALL) NOPASSWD:ALL修改文件权限chown 修改文件或文件夹的所属用户和用户组chown -R 用户:用户组 文件夹名 -R 为递归参数，指针对文件夹chown 用户:用户组 文件名chmod: 修改文件夹或者文件的权限chmod -R 700 文件夹名chmod 700 文件夹名r =&gt; 4 w =&gt; 2 x =&gt; 1 后台执行命令&amp;nohupscreen多人合作 screenscreen -list 查看会话screen -S 建立一个后台的会话screen -r 进入会话ctrl+a+d 退出会话]]></content>
       <categories>
         <category>Linux</category>
       </categories>
