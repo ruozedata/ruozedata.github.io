@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://yoursite.com/2018/06/14/%E7%94%9F%E4%BA%A7%E5%BC%80%E5%8F%91%E5%BF%85%E7%94%A8-Spark%20RDD%E8%BD%ACDataFrame%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95/</loc>
+    <loc>http://yoursite.com/2019/05/13/%E8%8B%A5%E6%B3%BD%E6%95%B0%E6%8D%AE-CDH5.16.1%E9%9B%86%E7%BE%A4%E4%BC%81%E4%B8%9A%E7%9C%9F%E6%AD%A3%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2(%E5%85%A8%E7%BD%91%E6%9C%80%E7%BB%86%EF%BC%8C%E9%85%8D%E5%A5%97%E8%A7%86%E9%A2%91%EF%BC%8C%E7%94%9F%E4%BA%A7%E5%8F%AF%E5%AE%9E%E8%B7%B5)/</loc>
     <lastmod>2019-05-13</lastmod>
   </url>  <url>
-    <loc>http://yoursite.com/2018/04/23/%E4%BD%A0%E5%A4%A7%E7%88%B7%E6%B0%B8%E8%BF%9C%E6%98%AF%E4%BD%A0%E5%A4%A7%E7%88%B7%EF%BC%8CRDD%E8%A1%80%E7%BC%98%E5%85%B3%E7%B3%BB%E6%BA%90%E7%A0%81%E8%AF%A6%E8%A7%A3%EF%BC%81/</loc>
+    <loc>http://yoursite.com/2018/06/13/%E4%BD%A0%E5%A4%A7%E7%88%B7%E6%B0%B8%E8%BF%9C%E6%98%AF%E4%BD%A0%E5%A4%A7%E7%88%B7%EF%BC%8CRDD%E8%A1%80%E7%BC%98%E5%85%B3%E7%B3%BB%E6%BA%90%E7%A0%81%E8%AF%A6%E8%A7%A3%EF%BC%81/</loc>
+    <lastmod>2019-05-13</lastmod>
+  </url>  <url>
+    <loc>http://yoursite.com/2018/06/14/%E7%94%9F%E4%BA%A7%E5%BC%80%E5%8F%91%E5%BF%85%E7%94%A8-Spark%20RDD%E8%BD%ACDataFrame%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95/</loc>
     <lastmod>2019-05-13</lastmod>
   </url>  <url>
     <loc>http://yoursite.com/2018/04/13/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E7%94%9F%E4%BA%A7%E4%B8%8A%E8%A6%81%E9%80%89%E6%8B%A9Spark%20On%20Yarn%EF%BC%9F/</loc>
