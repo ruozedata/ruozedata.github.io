@@ -8,6 +8,41 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/categories/Spark-Core/</loc>
+        <lastmod>2019-05-17T14:24:36.362Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/categories/Spark-Streaming/</loc>
+        <lastmod>2019-05-16T11:42:29.333Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/categories/Spark-MLlib/</loc>
+        <lastmod>2019-05-15T11:48:37.756Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/categories/Java/</loc>
+        <lastmod>2019-05-15T11:35:24.458Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/categories/CDH/</loc>
+        <lastmod>2019-05-13T12:17:53.768Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>http://yoursite.com/categories/Spark/</loc>
         <lastmod>2019-05-13T09:02:56.230Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -17,13 +52,6 @@
     <url>
         <loc>http://yoursite.com/categories/%E5%85%B6%E4%BB%96%E7%BB%84%E4%BB%B6/</loc>
         <lastmod>2019-05-13T09:01:12.648Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/categories/Spark-Core/</loc>
-        <lastmod>2019-05-13T09:00:03.422Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -45,20 +73,6 @@
     <url>
         <loc>http://yoursite.com/categories/Hive/</loc>
         <lastmod>2019-05-13T08:58:00.192Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/categories/Spark-MLlib/</loc>
-        <lastmod>2019-05-13T08:56:44.124Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/categories/Spark-Streaming/</loc>
-        <lastmod>2019-05-13T08:56:43.297Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
