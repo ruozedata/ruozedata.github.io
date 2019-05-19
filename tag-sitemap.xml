@@ -3,15 +3,29 @@
 
 
     <url>
+        <loc>http://yoursite.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
+        <lastmod>2019-05-19T14:02:55.765Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>http://yoursite.com/tags/spark/</loc>
-        <lastmod>2019-05-17T14:24:36.362Z</lastmod>
+        <lastmod>2019-05-19T13:59:58.484Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://yoursite.com/tags/%E9%AB%98%E7%BA%A7/</loc>
-        <lastmod>2019-05-17T14:24:36.362Z</lastmod>
+        <lastmod>2019-05-19T13:59:58.484Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/hadoop/</loc>
+        <lastmod>2019-05-19T13:53:51.770Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -94,22 +108,8 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/hadoop/</loc>
-        <lastmod>2019-05-13T08:05:52.878Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite.com/tags/%E4%BA%BA%E7%94%9F%E6%84%9F%E6%82%9F/</loc>
         <lastmod>2019-05-13T08:05:48.667Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
-        <lastmod>2019-05-13T08:04:04.163Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
