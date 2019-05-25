@@ -219,6 +219,32 @@
   </entry>
   
   <entry>
+    <title>02生产预警平台项目之Flume-1.7.0源码编译导入eclipse</title>
+    <link href="http://yoursite.com/2018/08/28/02%E7%94%9F%E4%BA%A7%E9%A2%84%E8%AD%A6%E5%B9%B3%E5%8F%B0%E9%A1%B9%E7%9B%AE%E4%B9%8BFlume-1.7.0%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AF%BC%E5%85%A5eclipse/"/>
+    <id>http://yoursite.com/2018/08/28/02生产预警平台项目之Flume-1.7.0源码编译导入eclipse/</id>
+    <published>2018-08-27T16:00:00.000Z</published>
+    <updated>2019-05-25T13:04:01.670Z</updated>
+    
+    <content type="html"><![CDATA[<!-- build time:Sat May 25 2019 21:07:00 GMT+0800 (GMT+08:00) --><a id="more"></a><h3 id="【前提】"><a href="#【前提】" class="headerlink" title="【前提】:"></a>【前提】:</h3><p>1.windows 7 安装maven-3.3.9<br>其中在conf/setting.xml文件添加<br>D:\software\apache-maven-3.3.9\repository<br><a href="http://blog.csdn.net/defonds/article/details/41957287" target="_blank" rel="noopener">http://blog.csdn.net/defonds/article/details/41957287</a><br>2.windows 7 安装eclipse 64位(百度下载，解压即可)<br>3.eclipse安装maven插件，选择第二种方式link<br><a href="http://blog.csdn.net/lfsfxy9/article/details/9397937" target="_blank" rel="noopener">http://blog.csdn.net/lfsfxy9/article/details/9397937</a><br>其中 eclipse-maven3-plugin.7z 这个包可以加群258669058找我，分享给你</p><h3 id="【flume-ng-1-7-0源码的编译导入eclipse】"><a href="#【flume-ng-1-7-0源码的编译导入eclipse】" class="headerlink" title="【flume-ng 1.7.0源码的编译导入eclipse】:"></a>【flume-ng 1.7.0源码的编译导入eclipse】:</h3><h4 id="1-下载官网的源码-不要下载GitHub上源码，因为这时pom文件中版本为1-8-0，编译会有问题"><a href="#1-下载官网的源码-不要下载GitHub上源码，因为这时pom文件中版本为1-8-0，编译会有问题" class="headerlink" title="1.下载官网的源码(不要下载GitHub上源码，因为这时pom文件中版本为1.8.0，编译会有问题)"></a>1.下载官网的源码(不要下载GitHub上源码，因为这时pom文件中版本为1.8.0，编译会有问题)</h4><p><a href="http://archive.apache.org/dist/flume/1.7.0/" target="_blank" rel="noopener">http://archive.apache.org/dist/flume/1.7.0/</a><br>a.下载apache-flume-1.7.0-src.tar.gz<br>b.解压重命名为flume-1.7.0</p><h4 id="2-修改pom-xml-大概在621行，将自带的repository注释掉，添加以下的"><a href="#2-修改pom-xml-大概在621行，将自带的repository注释掉，添加以下的" class="headerlink" title="2.修改pom.xml (大概在621行，将自带的repository注释掉，添加以下的)"></a>2.修改pom.xml (大概在621行，将自带的repository注释掉，添加以下的)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;repository&gt;</span><br><span class="line">       &lt;id&gt;maven.tempo-db.com&lt;/id&gt;</span><br><span class="line">       &lt;url&gt;http://maven.oschina.net/service/local/repositories/sonatype-public-grid/content/&lt;/url&gt;</span><br><span class="line"> &lt;/repository&gt;</span><br></pre></td></tr></table></figure><p><img src="/assets/blogImg/0828_1.png" alt="enter description here"></p><h4 id="3-打开cmd-编译"><a href="#3-打开cmd-编译" class="headerlink" title="3.打开cmd,编译"></a>3.打开cmd,编译</h4><p>cd /d D:[WORK]\Training\05Hadoop\Compile\flume-1.7.0<br>mvn compile<br><img src="/assets/blogImg/0828_2.png" alt="enter description here"></p><h4 id="4-打开eclipse-单击Window–-gt-Perferences–-gt-左侧的Maven–-gt-User-Settings"><a href="#4-打开eclipse-单击Window–-gt-Perferences–-gt-左侧的Maven–-gt-User-Settings" class="headerlink" title="4.打开eclipse,单击Window–&gt;Perferences–&gt;左侧的Maven–&gt;User Settings"></a>4.打开eclipse,单击Window–&gt;Perferences–&gt;左侧的Maven–&gt;User Settings</h4><p>然后设置自己的mvn的setting.xml路径和Local Repository<br>(最好使用Maven3.3.x版本以上，我是3.3.9)<br><img src="/assets/blogImg/0828_3.png" alt="enter description here"></p><h4 id="5-关闭eclipse的-Project–-gt-Buid-Automatically"><a href="#5-关闭eclipse的-Project–-gt-Buid-Automatically" class="headerlink" title="5.关闭eclipse的 Project–&gt;Buid Automatically"></a>5.关闭eclipse的 Project–&gt;Buid Automatically</h4><p><img src="/assets/blogImg/0828_4.png" alt="enter description here"></p><h4 id="6-关闭eclipse的Download-repository-index-updates-on-startup"><a href="#6-关闭eclipse的Download-repository-index-updates-on-startup" class="headerlink" title="6.关闭eclipse的Download repository index updates on startup"></a>6.关闭eclipse的Download repository index updates on startup</h4><p><img src="/assets/blogImg/0828_5.png" alt="enter description here"></p><h4 id="7-导入flume1-7-0源码"><a href="#7-导入flume1-7-0源码" class="headerlink" title="7.导入flume1.7.0源码"></a>7.导入flume1.7.0源码</h4><p>a.File–&gt;Import–&gt;Maven–&gt;Existing Maven Projects–&gt;Next<br>b.选择目录–&gt; Finish</p><h4 id="8-检查源码，没有抛任何错误"><a href="#8-检查源码，没有抛任何错误" class="headerlink" title="8.检查源码，没有抛任何错误"></a>8.检查源码，没有抛任何错误</h4><p><img src="/assets/blogImg/0828_6.png" alt="enter description here"></p><!-- rebuild by neat -->]]></content>
+    
+    <summary type="html">
+    
+      &lt;!-- build time:Sat May 25 2019 21:07:00 GMT+0800 (GMT+08:00) --&gt;
+    
+    </summary>
+    
+      <category term="生产预警平台项目" scheme="http://yoursite.com/categories/%E7%94%9F%E4%BA%A7%E9%A2%84%E8%AD%A6%E5%B9%B3%E5%8F%B0%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+      <category term="高级" scheme="http://yoursite.com/tags/%E9%AB%98%E7%BA%A7/"/>
+    
+      <category term="spark" scheme="http://yoursite.com/tags/spark/"/>
+    
+      <category term="生产预警平台项目" scheme="http://yoursite.com/tags/%E7%94%9F%E4%BA%A7%E9%A2%84%E8%AD%A6%E5%B9%B3%E5%8F%B0%E9%A1%B9%E7%9B%AE/"/>
+    
+  </entry>
+  
+  <entry>
     <title>这是一篇热腾腾的面经</title>
     <link href="http://yoursite.com/2018/08/27/%E8%BF%99%E6%98%AF%E4%B8%80%E7%AF%87%E7%83%AD%E8%85%BE%E8%85%BE%E7%9A%84%E9%9D%A2%E7%BB%8F/"/>
     <id>http://yoursite.com/2018/08/27/这是一篇热腾腾的面经/</id>
@@ -237,32 +263,6 @@
     
     
       <category term="大数据面试题" scheme="http://yoursite.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>01生产预警平台项目之项目概述</title>
-    <link href="http://yoursite.com/2018/08/27/hexo%E4%B8%BB%E9%A2%98Yilia%E5%9C%A8%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%80%82%E9%85%8D%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B/"/>
-    <id>http://yoursite.com/2018/08/27/hexo主题Yilia在移动端适配的一些事/</id>
-    <published>2018-08-26T16:00:00.000Z</published>
-    <updated>2019-05-24T13:12:06.408Z</updated>
-    
-    <content type="html"><![CDATA[<!-- build time:Fri May 24 2019 21:12:39 GMT+0800 (GMT+08:00) --><h3 id="1-前期基本架构图"><a href="#1-前期基本架构图" class="headerlink" title="1.前期基本架构图"></a>1.前期基本架构图</h3><p><img src="/assets/blogImg/0827_1.png" alt="enter description here"></p><h3 id="2-最终基本架构图"><a href="#2-最终基本架构图" class="headerlink" title="2.最终基本架构图"></a>2.最终基本架构图</h3><p><img src="/assets/blogImg/0827_2.png" alt="enter description here"><br><a id="more"></a></p><h3 id="3-版本"><a href="#3-版本" class="headerlink" title="3.版本"></a>3.版本</h3><table><thead><tr><th>组件</th><th>版本</th></tr></thead><tbody><tr><td>Flume:</td><td>1.7</td></tr><tr><td>Hadoop:</td><td>2.7.3</td></tr><tr><td>Scala:</td><td>2.11</td></tr><tr><td>Kafka:</td><td>0.10.1.0</td></tr><tr><td>Spark:</td><td>2.0.2</td></tr><tr><td>InfluxDB:</td><td>1.2.0</td></tr><tr><td>Grafana:</td><td>4.1.1</td></tr><tr><td>maven:</td><td>3.3.9</td></tr></tbody></table><h3 id="4-主要目的"><a href="#4-主要目的" class="headerlink" title="4.主要目的"></a>4.主要目的</h3><p>主要是想基于Exec Source开发自定义插件AdvancedExecSource，将机器名称 和 服务名称 添加到cdh 服务的角色log数据的每一行前面，则格式为：机器名称 服务名称 年月日 时分秒.毫秒 日志级别 日志信息 ；<br>然后在后面的spark streaming 实时计算我们所需求：比如统计每台机器的服务的每秒出现的error次数 、统计每5秒的warn，error次数等等；<br>来实时可视化展示和邮件短信、微信企业号通知。</p><p>其实主要我们现在的很多监控服务基本达不到秒级的通知，都为5分钟等等，为了方便我们自己的维护；<br>其实对一些即将出现的问题可以提前预知；<br>其实最主要可以有效扩展到实时计算数据库级别日志，比如MySQL慢查询日志，nginx，tomcat，linux的系统级别日志等等。</p><h3 id="5-大概流程"><a href="#5-大概流程" class="headerlink" title="5.大概流程"></a>5.大概流程</h3><p>1.搭建hadoop cluster<br>2.eclipse 导入flume源代码（window7 安装maven，eclipse，eclipse与maven集成）<br>3.开发flume-ng 自定义插件<br>4.flume 收集，汇聚到hdfs(主要测试是否汇聚成功，后期也可以做离线处理)<br>5.flume 收集，汇聚到kafka<br>6.搭建kafka monitor<br>7.搭建 spark client<br>8.window7装ieda开发工具<br>9.idea开发 spark streaming 的wc<br>10.读取kafka日志，开发spark streaming的这块日志分析<br>11.写入influxdb<br>12.grafana可视化展示<br>13.集成邮件</p><p>###说明：<br>针对自身情况，自行选择，步骤如上，但不是固定的，有些顺序是可以打乱的，例如开发工具的安装，可以一起操作的，再如这几个组件的下载编译，如果不<br>想编译可以直接下tar包的，自行选择就好，但是建议还是自己编译，遇到坑才能更好的记住这个东西，本身这个项目就是学习提升的过程，要是什么都是现成的，<br>那就没什么意义了</p><!-- rebuild by neat -->]]></content>
-    
-    <summary type="html">
-    
-      &lt;!-- build time:Fri May 24 2019 21:12:39 GMT+0800 (GMT+08:00) --&gt;&lt;h3 id=&quot;1-前期基本架构图&quot;&gt;&lt;a href=&quot;#1-前期基本架构图&quot; class=&quot;headerlink&quot; title=&quot;1.前期基本架构图&quot;&gt;&lt;/a&gt;1.前期基本架构图&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/assets/blogImg/0827_1.png&quot; alt=&quot;enter description here&quot;&gt;&lt;/p&gt;&lt;h3 id=&quot;2-最终基本架构图&quot;&gt;&lt;a href=&quot;#2-最终基本架构图&quot; class=&quot;headerlink&quot; title=&quot;2.最终基本架构图&quot;&gt;&lt;/a&gt;2.最终基本架构图&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/assets/blogImg/0827_2.png&quot; alt=&quot;enter description here&quot;&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="生产预警平台项目" scheme="http://yoursite.com/categories/%E7%94%9F%E4%BA%A7%E9%A2%84%E8%AD%A6%E5%B9%B3%E5%8F%B0%E9%A1%B9%E7%9B%AE/"/>
-    
-    
-      <category term="高级" scheme="http://yoursite.com/tags/%E9%AB%98%E7%BA%A7/"/>
-    
-      <category term="spark" scheme="http://yoursite.com/tags/spark/"/>
-    
-      <category term="生产预警平台项目" scheme="http://yoursite.com/tags/%E7%94%9F%E4%BA%A7%E9%A2%84%E8%AD%A6%E5%B9%B3%E5%8F%B0%E9%A1%B9%E7%9B%AE/"/>
     
   </entry>
   
