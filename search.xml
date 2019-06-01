@@ -117,6 +117,19 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[09生产预警平台项目之基于Spark Streaming Direct方式的WordCount最详细案例(java版)]]></title>
+    <url>%2F2018%2F09%2F10%2F09%E7%94%9F%E4%BA%A7%E9%A2%84%E8%AD%A6%E5%B9%B3%E5%8F%B0%E9%A1%B9%E7%9B%AE%E4%B9%8B%E5%9F%BA%E4%BA%8ESpark%20Streaming%20Direct%E6%96%B9%E5%BC%8F%E7%9A%84WordCount%E6%9C%80%E8%AF%A6%E7%BB%86%E6%A1%88%E4%BE%8B(java%E7%89%88)%2F</url>
+    <content type="text"><![CDATA[1.前提a. flume 收集–》flume 聚合–》kafka ，启动进程和启动kafka manager监控，参考08【在线日志分析】之Flume Agent(聚合节点) sink to kafka clusterb.window7 安装jdk1.7 或者1.8(本次环境是1.8)c.window7 安装IDEA开发工具(以下仅供参考)使用IntelliJ IDEA 配置Maven（入门）:http://blog.csdn.net/qq_32588349/article/details/51461182IDEA Java/Scala混合项目Maven打包:http://blog.csdn.net/rongyongfeikai2/article/details/51404611Intellij idea使用java编写并执行spark程序:http://blog.csdn.net/yhao2014/article/details/442390212.源代码（可下载单个java文件，加入projet 或者 整个工程下载，IDEA选择open 即可）GitHub: https://github.com/Hackeruncle/OnlineLogAnalysis/blob/master/online_log_analysis/src/main/java/com/learn/java/main/SparkStreamingFromKafka_WordCount.java3.使用IDEA 本地运行测试（未打jar包）海康威视校招电话面试：1.数据倾斜的解决，怎么知道哪里倾斜2.自定义类的广播3.cache机制，rdd和df的cache什么区别4.spark动态内存，堆内和堆外5.rdd算子，map,mappartitions,foreach，union6.宽依赖，窄依赖7.spark DAG过程，doOnrecive，eventloop执行过程8.stage和task怎么分类9.spark调优10.概念，executor，worker，job,task和partition的关系11.用没用过spark什么log，没记住12.讲讲sparkSQL数据清洗过程13.捎带一点项目]]></content>
+      <categories>
+        <category>生产预警平台项目</category>
+      </categories>
+      <tags>
+        <tag>spark</tag>
+        <tag>高级</tag>
+        <tag>生产预警平台项目</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[08生产预警平台项目之Flume Agent(聚合节点) sink to kafka cluster]]></title>
     <url>%2F2018%2F09%2F07%2F08%E7%94%9F%E4%BA%A7%E9%A2%84%E8%AD%A6%E5%B9%B3%E5%8F%B0%E9%A1%B9%E7%9B%AE%E4%B9%8BFlume%20Agent(%E8%81%9A%E5%90%88%E8%8A%82%E7%82%B9)%20sink%20to%20kafka%20cluster%2F</url>
     <content type="text"><![CDATA[1.创建logtopic1[root@sht-sgmhadoopdn-01 kafka]# bin/kafka-topics.sh --create --zookeeper 172.16.101.58:2181,172.16.101.59:2181,172.16.101.60:2181/kafka --replication-factor 3 --partitions 1 --topic logtopic2.创建avro_memory_kafka.properties (kafka sink)12345678910111213141516171819202122232425262728293031323334[root@sht-sgmhadoopcm-01 ~]# cd /tmp/flume-ng/conf[root@sht-sgmhadoopcm-01 conf]# cp avro_memory_hdfs.properties avro_memory_kafka.properties[root@sht-sgmhadoopcm-01 conf]# vi avro_memory_kafka.properties #Name the components on this agenta1.sources = r1a1.sinks = k1a1.channels = c1# Describe/configure the sourcea1.sources.r1.type = avroa1.sources.r1.bind = 172.16.101.54a1.sources.r1.port = 4545#Describe the sinka1.sinks.k1.type = org.apache.flume.sink.kafka.KafkaSinka1.sinks.k1.kafka.topic = logtopica1.sinks.k1.kafka.bootstrap.servers = 172.16.101.58:9092,172.16.101.59:9092,172.16.101.60:9092a1.sinks.k1.kafka.flumeBatchSize = 6000a1.sinks.k1.kafka.producer.acks = 1a1.sinks.k1.kafka.producer.linger.ms = 1a1.sinks.ki.kafka.producer.compression.type = snappy#Use a channel which buffers events in memorya1.channels.c1.type = memorya1.channels.c1.keep-alive = 90a1.channels.c1.capacity = 2000000a1.channels.c1.transactionCapacity = 6000#Bind the source and sink to the channela1.sources.r1.channels = c1a1.sinks.k1.channel = c13.后台启动 flume-ng agent(聚合节点)和查看nohup.out123456789[root@sht-sgmhadoopcm-01 ~]# source /etc/profile[root@sht-sgmhadoopcm-01 ~]# cd /tmp/flume-ng/[root@sht-sgmhadoopcm-01 flume-ng]# nohup flume-ng agent -c conf -f /tmp/flume-ng/conf/avro_memory_kafka.properties -n a1 -Dflume.root.logger=INFO,console &amp;[1] 4971[root@sht-sgmhadoopcm-01 flume-ng]# nohup: ignoring input and appending output to `nohup.out&apos;[root@sht-sgmhadoopcm-01 flume-ng]# [root@sht-sgmhadoopcm-01 flume-ng]# [root@sht-sgmhadoopcm-01 flume-ng]# cat nohup.out4.检查log收集的三台(收集节点)开启没12345678[hdfs@flume-agent-01 flume-ng]$ . ~/.bash_profile [hdfs@flume-agent-02 flume-ng]$ . ~/.bash_profile [hdfs@flume-agent-03 flume-ng]$ . ~/.bash_profile[hdfs@flume-agent-01 flume-ng]$ nohup flume-ng agent -c /tmp/flume-ng/conf -f /tmp/flume-ng/conf/exec_memory_avro.properties -n a1 -Dflume.root.logger=INFO,console &amp;[hdfs@flume-agent-01 flume-ng]$ nohup flume-ng agent -c /tmp/flume-ng/conf -f /tmp/flume-ng/conf/exec_memory_avro.properties -n a1 -Dflume.root.logger=INFO,console &amp;[hdfs@flume-agent-01 flume-ng]$ nohup flume-ng agent -c /tmp/flume-ng/conf -f /tmp/flume-ng/conf/exec_memory_avro.properties -n a1 -Dflume.root.logger=INFO,console &amp;5.打开kafka manager监控http://172.16.101.55:9999]]></content>
@@ -208,6 +221,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[这是一篇热腾腾的面经]]></title>
+    <url>%2F2018%2F08%2F27%2F%E8%BF%99%E6%98%AF%E4%B8%80%E7%AF%87%E7%83%AD%E8%85%BE%E8%85%BE%E7%9A%84%E9%9D%A2%E7%BB%8F%2F</url>
+    <content type="text"><![CDATA[伟梦：1.主要还是项目？基本上没问什么技术，我就说了一遍项目流程，然后说几个优化点，比如上次讲的血案，我也顺带提了一下。2.在大数据中，有没有什么是不足的，遇到过什么问题？微盟：1.SparkStreaming处理完一批次的数据，写偏移量之前挂了，数据怎么保证不重？2.Maxwell的底层原理？3.手写Spring？4.遍历二叉树？5.用过什么算法？6.多线程方面，怎么实现一个主线程，等待其他子线程完成后再运行？7.Maxwell和Cannal的比较？8.direct比较receiver的优势？9.原来是把数据传入到Hive，之后改了架构，怎么把Hive的数据导入到Hbase？10.为什么用Kafka自己存储offset来替代checkpoint，怎么防止了数据双份落地，数据双份是指什么？11.单例用过吗？平安：1.问项目，流程，业务？2.数据量，增量？3.几个人开发的，代码量多少？4.你主要做什么的？5.什么场景，用SparkSql分析什么东西？总结：基本上都是围绕项目来面，第一家问的比较少，而且都是关于项目；微盟的面试官做的项目，跟简历上的项目，架构上基本一样，所以问的比较深，问我Maxwell的底层原理，对比Cannal有什么优势，为什么选择它，这个我没回答上来，后来让手写Spring，算法，后来就让我走了；平安也是基本围绕项目，业务，数据量，没问什么技术，而且我说了关于优化的点(面试官说不要说网上都有的东西)。]]></content>
+      <categories>
+        <category>面试题</category>
+      </categories>
+      <tags>
+        <tag>大数据面试题</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[01生产预警平台项目之项目概述]]></title>
     <url>%2F2018%2F08%2F27%2F01%E7%94%9F%E4%BA%A7%E9%A2%84%E8%AD%A6%E5%B9%B3%E5%8F%B0%E9%A1%B9%E7%9B%AE%E4%B9%8B%E9%A1%B9%E7%9B%AE%E6%A6%82%E8%BF%B0%2F</url>
     <content type="text"><![CDATA[1.前期基本架构图2.最终基本架构图3.版本组件版本Flume:1.7Hadoop:2.7.3Scala:2.11Kafka:0.10.1.0Spark:2.0.2InfluxDB:1.2.0Grafana:4.1.1maven:3.3.94.主要目的主要是想基于Exec Source开发自定义插件AdvancedExecSource，将机器名称 和 服务名称 添加到cdh 服务的角色log数据的每一行前面，则格式为：机器名称 服务名称 年月日 时分秒.毫秒 日志级别 日志信息 ；然后在后面的spark streaming 实时计算我们所需求：比如统计每台机器的服务的每秒出现的error次数 、统计每5秒的warn，error次数等等；来实时可视化展示和邮件短信、微信企业号通知。其实主要我们现在的很多监控服务基本达不到秒级的通知，都为5分钟等等，为了方便我们自己的维护；其实对一些即将出现的问题可以提前预知；其实最主要可以有效扩展到实时计算数据库级别日志，比如MySQL慢查询日志，nginx，tomcat，linux的系统级别日志等等。5.大概流程1.搭建hadoop cluster2.eclipse 导入flume源代码（window7 安装maven，eclipse，eclipse与maven集成）3.开发flume-ng 自定义插件4.flume 收集，汇聚到hdfs(主要测试是否汇聚成功，后期也可以做离线处理)5.flume 收集，汇聚到kafka6.搭建kafka monitor7.搭建 spark client8.window7装ieda开发工具9.idea开发 spark streaming 的wc10.读取kafka日志，开发spark streaming的这块日志分析11.写入influxdb12.grafana可视化展示13.集成邮件###说明：针对自身情况，自行选择，步骤如上，但不是固定的，有些顺序是可以打乱的，例如开发工具的安装，可以一起操作的，再如这几个组件的下载编译，如果不想编译可以直接下tar包的，自行选择就好，但是建议还是自己编译，遇到坑才能更好的记住这个东西，本身这个项目就是学习提升的过程，要是什么都是现成的，那就没什么意义了]]></content>
@@ -218,17 +242,6 @@
         <tag>spark</tag>
         <tag>高级</tag>
         <tag>生产预警平台项目</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[这是一篇热腾腾的面经]]></title>
-    <url>%2F2018%2F08%2F27%2F%E8%BF%99%E6%98%AF%E4%B8%80%E7%AF%87%E7%83%AD%E8%85%BE%E8%85%BE%E7%9A%84%E9%9D%A2%E7%BB%8F%2F</url>
-    <content type="text"><![CDATA[伟梦：1.主要还是项目？基本上没问什么技术，我就说了一遍项目流程，然后说几个优化点，比如上次讲的血案，我也顺带提了一下。2.在大数据中，有没有什么是不足的，遇到过什么问题？微盟：1.SparkStreaming处理完一批次的数据，写偏移量之前挂了，数据怎么保证不重？2.Maxwell的底层原理？3.手写Spring？4.遍历二叉树？5.用过什么算法？6.多线程方面，怎么实现一个主线程，等待其他子线程完成后再运行？7.Maxwell和Cannal的比较？8.direct比较receiver的优势？9.原来是把数据传入到Hive，之后改了架构，怎么把Hive的数据导入到Hbase？10.为什么用Kafka自己存储offset来替代checkpoint，怎么防止了数据双份落地，数据双份是指什么？11.单例用过吗？平安：1.问项目，流程，业务？2.数据量，增量？3.几个人开发的，代码量多少？4.你主要做什么的？5.什么场景，用SparkSql分析什么东西？总结：基本上都是围绕项目来面，第一家问的比较少，而且都是关于项目；微盟的面试官做的项目，跟简历上的项目，架构上基本一样，所以问的比较深，问我Maxwell的底层原理，对比Cannal有什么优势，为什么选择它，这个我没回答上来，后来让手写Spring，算法，后来就让我走了；平安也是基本围绕项目，业务，数据量，没问什么技术，而且我说了关于优化的点(面试官说不要说网上都有的东西)。]]></content>
-      <categories>
-        <category>面试题</category>
-      </categories>
-      <tags>
-        <tag>大数据面试题</tag>
       </tags>
   </entry>
   <entry>
@@ -465,9 +478,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Spark 基本概念]]></title>
-    <url>%2F2018%2F05%2F21%2FSpark%20%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%2F</url>
-    <content type="text"><![CDATA[基于 Spark 构建的用户程序，包含了 一个driver 程序和集群上的 executors；（起了一个作业，就是一个Application）spark名词解释Application jar：应用程序jar包包含了用户的 Spark 程序的一个 jar 包. 在某些情况下用户可能想要创建一个囊括了应用及其依赖的 “胖” jar 包. 但实际上, 用户的 jar 不应该包括 Hadoop 或是 Spark 的库, 这些库会在运行时被进行加载；Driver Program：这个进程运行应用程序的 main 方法并且新建 SparkContext ；Cluster Manager：集群管理者在集群上获取资源的外部服务 (例如:standalone,Mesos,Yarn)；（–master）Deploy mode：部署模式告诉你在哪里启动driver program. 在 “cluster” 模式下, 框架在集群内部运行 driver. 在 “client” 模式下, 提交者在集群外部运行 driver.；Worker Node：工作节点集群中任何可以运行应用代码的节点；（yarn上就是node manager）Executor：在一个工作节点上为某应用启动的一个进程，该进程负责运行任务，并且负责将数据存在内存或者磁盘上。每个应用都有各自独立的 executors；Task：任务被送到某个 executor 上执行的工作单元；Job：包含很多并行计算的task。一个 action 就会产生一个job；Stage：一个 Job 会被拆分成多个task的集合，每个task集合被称为 stage，stage之间是相互依赖的(就像 Mapreduce 分 map和 reduce stages一样)，可以在Driver 的日志上看到。spark工作流程1个action会触发1个job，1个job包含n个stage，每个stage包含n个task，n个task会送到n个executor上执行，一个Application是由一个driver 程序和n个 executor组成。提交的时候，通过Cluster Manager和Deploy mode控制。spark应用程序在集群上运行一组独立的进程，通过SparkContext协调的在main方法里面。如果运行在一个集群之上，SparkContext能够连接各种的集群管理者，去获取到作业所需要的资源。一旦连接成功，spark在集群节点之上运行executor进程，来给你的应用程序运行计算和存储数据。它会发送你的应用程序代码到executors上。最后，SparkContext发送tasks到executors上去运行1、每个Application都有自己独立的executor进程，这些进程在运行周期内都是常驻的以多线程的方式运行tasks。好处是每个进程无论是在调度还是执行都是相互独立的。所以，这就意味着数据不能跨应用程序进行共享，除非写到外部存储系统（Alluxio）。2、spark并不关心底层的集群管理。3、driver 程序会监听并且接收外面的一些executor请求，在整个生命周期里面。所以，driver 程序应该能被Worker Node通过网络访问。4、因为driver 在集群上调度Tasks，driver 就应该靠近Worker Node。]]></content>
+    <title><![CDATA[Spark History Server Web UI配置]]></title>
+    <url>%2F2018%2F05%2F21%2FSpark%20History%20Server%20Web%20UI%E9%85%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[1.进入spark目录和配置文件12[root@hadoop000 ~]# cd /opt/app/spark/conf[root@hadoop000 conf]# cp spark-defaults.conf.template spark-defaults.conf2.创建spark-history的存储日志路径为hdfs上(当然也可以在linux文件系统上)12345678[root@hadoop000 conf]# hdfs dfs -ls /Found 3 itemsdrwxr-xr-x - root root 0 2017-02-14 12:43 /sparkdrwxrwx--- - root root 0 2017-02-14 12:58 /tmpdrwxr-xr-x - root root 0 2017-02-14 12:58 /userYou have new mail in /var/spool/mail/root[root@hadoop000 conf]# hdfs dfs -ls /sparkFound 1 itemsdrwxrwxrwx - root root 0 2017-02-15 21:44 /spark/checkpointdata[root@hadoop000 conf]# hdfs dfs -mkdir /spark/historylog在HDFS中创建一个目录，用于保存Spark运行日志信息。Spark History Server从此目录中读取日志信息3.配置12345[root@hadoop000 conf]# vi spark-defaults.confspark.eventLog.enabled truespark.eventLog.compress truespark.eventLog.dir hdfs://nameservice1/spark/historylogspark.yarn.historyServer.address 172.16.101.55:18080spark.eventLog.dir保存日志相关信息的路径，可以是hdfs://开头的HDFS路径，也可以是file://开头的本地路径，都需要提前创建spark.yarn.historyServer.address : Spark history server的地址(不加http://).这个地址会在Spark应用程序完成后提交给YARN RM，然后可以在RM UI上点击链接跳转到history server UI上.4.添加SPARK_HISTORY_OPTS参数12345[root@hadoop01 conf]# vi spark-env.sh#!/usr/bin/env bashexport SCALA_HOME=/root/learnproject/app/scalaexport JAVA_HOME=/usr/java/jdk1.8.0_111export SPARK_MASTER_IP=172.16.101.55export SPARK_WORKER_MEMORY=1gexport SPARK_PID_DIR=/root/learnproject/app/pidexport HADOOP_CONF_DIR=/root/learnproject/app/hadoop/etc/hadoopexport SPARK_HISTORY_OPTS=&quot;-Dspark.history.fs.logDirectory=hdfs://mycluster/spark/historylog \-Dspark.history.ui.port=18080 \-Dspark.history.retainedApplications=20&quot;5.启动服务和查看123456[root@hadoop01 spark]# ./sbin/start-history-server.sh starting org.apache.spark.deploy.history.HistoryServer, logging to /root/learnproject/app/spark/logs/spark-root-org.apache.spark.deploy.history.HistoryServer-1-sht-sgmhadoopnn-01.out[root@hadoop01 ~]# jps28905 HistoryServer30407 ProdServerStart30373 ResourceManager30957 NameNode16949 Jps30280 DFSZKFailoverController31445 JobHistoryServer[root@hadoop01 ~]# ps -ef|grep sparkroot 17283 16928 0 21:42 pts/2 00:00:00 grep sparkroot 28905 1 0 Feb16 ? 00:09:11 /usr/java/jdk1.8.0_111/bin/java -cp /root/learnproject/app/spark/conf/:/root/learnproject/app/spark/jars/*:/root/learnproject/app/hadoop/etc/hadoop/ -Dspark.history.fs.logDirectory=hdfs://mycluster/spark/historylog -Dspark.history.ui.port=18080 -Dspark.history.retainedApplications=20 -Xmx1g org.apache.spark.deploy.history.HistoryServerYou have new mail in /var/spool/mail/root[root@hadoop01 ~]# netstat -nlp|grep 28905tcp 0 0 0.0.0.0:18080 0.0.0.0:* LISTEN 28905/java以上配置是针对使用自己编译的Spark部署到集群中一到两台机器上作为提交作业客户端的，如果你是CDH集群中集成的Spark那么可以在管理界面直接查看！]]></content>
       <categories>
         <category>Spark Other</category>
       </categories>
@@ -477,9 +490,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Spark History Server Web UI配置]]></title>
-    <url>%2F2018%2F05%2F21%2FSpark%20History%20Server%20Web%20UI%E9%85%8D%E7%BD%AE%2F</url>
-    <content type="text"><![CDATA[1.进入spark目录和配置文件12[root@hadoop000 ~]# cd /opt/app/spark/conf[root@hadoop000 conf]# cp spark-defaults.conf.template spark-defaults.conf2.创建spark-history的存储日志路径为hdfs上(当然也可以在linux文件系统上)12345678[root@hadoop000 conf]# hdfs dfs -ls /Found 3 itemsdrwxr-xr-x - root root 0 2017-02-14 12:43 /sparkdrwxrwx--- - root root 0 2017-02-14 12:58 /tmpdrwxr-xr-x - root root 0 2017-02-14 12:58 /userYou have new mail in /var/spool/mail/root[root@hadoop000 conf]# hdfs dfs -ls /sparkFound 1 itemsdrwxrwxrwx - root root 0 2017-02-15 21:44 /spark/checkpointdata[root@hadoop000 conf]# hdfs dfs -mkdir /spark/historylog在HDFS中创建一个目录，用于保存Spark运行日志信息。Spark History Server从此目录中读取日志信息3.配置12345[root@hadoop000 conf]# vi spark-defaults.confspark.eventLog.enabled truespark.eventLog.compress truespark.eventLog.dir hdfs://nameservice1/spark/historylogspark.yarn.historyServer.address 172.16.101.55:18080spark.eventLog.dir保存日志相关信息的路径，可以是hdfs://开头的HDFS路径，也可以是file://开头的本地路径，都需要提前创建spark.yarn.historyServer.address : Spark history server的地址(不加http://).这个地址会在Spark应用程序完成后提交给YARN RM，然后可以在RM UI上点击链接跳转到history server UI上.4.添加SPARK_HISTORY_OPTS参数12345[root@hadoop01 conf]# vi spark-env.sh#!/usr/bin/env bashexport SCALA_HOME=/root/learnproject/app/scalaexport JAVA_HOME=/usr/java/jdk1.8.0_111export SPARK_MASTER_IP=172.16.101.55export SPARK_WORKER_MEMORY=1gexport SPARK_PID_DIR=/root/learnproject/app/pidexport HADOOP_CONF_DIR=/root/learnproject/app/hadoop/etc/hadoopexport SPARK_HISTORY_OPTS=&quot;-Dspark.history.fs.logDirectory=hdfs://mycluster/spark/historylog \-Dspark.history.ui.port=18080 \-Dspark.history.retainedApplications=20&quot;5.启动服务和查看123456[root@hadoop01 spark]# ./sbin/start-history-server.sh starting org.apache.spark.deploy.history.HistoryServer, logging to /root/learnproject/app/spark/logs/spark-root-org.apache.spark.deploy.history.HistoryServer-1-sht-sgmhadoopnn-01.out[root@hadoop01 ~]# jps28905 HistoryServer30407 ProdServerStart30373 ResourceManager30957 NameNode16949 Jps30280 DFSZKFailoverController31445 JobHistoryServer[root@hadoop01 ~]# ps -ef|grep sparkroot 17283 16928 0 21:42 pts/2 00:00:00 grep sparkroot 28905 1 0 Feb16 ? 00:09:11 /usr/java/jdk1.8.0_111/bin/java -cp /root/learnproject/app/spark/conf/:/root/learnproject/app/spark/jars/*:/root/learnproject/app/hadoop/etc/hadoop/ -Dspark.history.fs.logDirectory=hdfs://mycluster/spark/historylog -Dspark.history.ui.port=18080 -Dspark.history.retainedApplications=20 -Xmx1g org.apache.spark.deploy.history.HistoryServerYou have new mail in /var/spool/mail/root[root@hadoop01 ~]# netstat -nlp|grep 28905tcp 0 0 0.0.0.0:18080 0.0.0.0:* LISTEN 28905/java以上配置是针对使用自己编译的Spark部署到集群中一到两台机器上作为提交作业客户端的，如果你是CDH集群中集成的Spark那么可以在管理界面直接查看！]]></content>
+    <title><![CDATA[Spark 基本概念]]></title>
+    <url>%2F2018%2F05%2F21%2FSpark%20%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%2F</url>
+    <content type="text"><![CDATA[基于 Spark 构建的用户程序，包含了 一个driver 程序和集群上的 executors；（起了一个作业，就是一个Application）spark名词解释Application jar：应用程序jar包包含了用户的 Spark 程序的一个 jar 包. 在某些情况下用户可能想要创建一个囊括了应用及其依赖的 “胖” jar 包. 但实际上, 用户的 jar 不应该包括 Hadoop 或是 Spark 的库, 这些库会在运行时被进行加载；Driver Program：这个进程运行应用程序的 main 方法并且新建 SparkContext ；Cluster Manager：集群管理者在集群上获取资源的外部服务 (例如:standalone,Mesos,Yarn)；（–master）Deploy mode：部署模式告诉你在哪里启动driver program. 在 “cluster” 模式下, 框架在集群内部运行 driver. 在 “client” 模式下, 提交者在集群外部运行 driver.；Worker Node：工作节点集群中任何可以运行应用代码的节点；（yarn上就是node manager）Executor：在一个工作节点上为某应用启动的一个进程，该进程负责运行任务，并且负责将数据存在内存或者磁盘上。每个应用都有各自独立的 executors；Task：任务被送到某个 executor 上执行的工作单元；Job：包含很多并行计算的task。一个 action 就会产生一个job；Stage：一个 Job 会被拆分成多个task的集合，每个task集合被称为 stage，stage之间是相互依赖的(就像 Mapreduce 分 map和 reduce stages一样)，可以在Driver 的日志上看到。spark工作流程1个action会触发1个job，1个job包含n个stage，每个stage包含n个task，n个task会送到n个executor上执行，一个Application是由一个driver 程序和n个 executor组成。提交的时候，通过Cluster Manager和Deploy mode控制。spark应用程序在集群上运行一组独立的进程，通过SparkContext协调的在main方法里面。如果运行在一个集群之上，SparkContext能够连接各种的集群管理者，去获取到作业所需要的资源。一旦连接成功，spark在集群节点之上运行executor进程，来给你的应用程序运行计算和存储数据。它会发送你的应用程序代码到executors上。最后，SparkContext发送tasks到executors上去运行1、每个Application都有自己独立的executor进程，这些进程在运行周期内都是常驻的以多线程的方式运行tasks。好处是每个进程无论是在调度还是执行都是相互独立的。所以，这就意味着数据不能跨应用程序进行共享，除非写到外部存储系统（Alluxio）。2、spark并不关心底层的集群管理。3、driver 程序会监听并且接收外面的一些executor请求，在整个生命周期里面。所以，driver 程序应该能被Worker Node通过网络访问。4、因为driver 在集群上调度Tasks，driver 就应该靠近Worker Node。]]></content>
       <categories>
         <category>Spark Other</category>
       </categories>
@@ -584,17 +597,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[谈谈我和大数据的情缘及入门]]></title>
-    <url>%2F2018%2F05%2F01%2F%E8%B0%88%E8%B0%88%E6%88%91%E5%92%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E6%83%85%E7%BC%98%E5%8F%8A%E5%85%A5%E9%97%A8%2F</url>
-    <content type="text"><![CDATA[&#8195;当年我是做C#+Java软件开发，然后考取OCP来了上海，立志要做一名DBA。只记得当年试用期刚过时，阴差阳错轮到我负责公司的大数据平台这块，刚开始很痛苦，一个陌生的行业，一个讨论的小伙伴都没有，一份现成资料都没有，心情焦虑。后来我调整心态，从DB转移到对大数据的研究，决定啃下这块硬骨头，把它嚼碎，把它消化吸收。&#8195;由于当时公司都是CDH环境，刚开始安装卡了很久都过不去，后面选择在线安装，很慢，有时需要1天。后来安装HDFS ,YARN,HIVE组件，不过对它们不理解，不明白，有时很困惑。这样的过程大概持续三个月了。&#8195;后来看了很多博文，都是Apache Hadoop版本搭建，于是我先试试用Apache Hadoop搭建部署单节点和集群，然后配置HA，最后我发现自己比较喜欢这种方式，因为我能了解其配置参数，配置文件和常规命令等等，再回头去对比CDH安装HDFS服务，真是太爽了，因为Apache Hadoop版本有真正体验感，这时我就迅速调整方向 : 先Apache版本，再CDH。&#8195;由于公司项目环境，推进自己实在太慢，于是我在网上看各种相关视频教程；加n种群，在群里潜水，看水友们提的问题自己会不会，不会就去查资料，会就帮助他们一起研究学习进步。&#8195;后来这样的进度太慢了，因为很多群都是打广告，潜水，没有真正的技术讨论氛围，于是我迅速调整方向，自己建个QQ群，慢慢招兵买马，和管理员们一起去管理，在过去的两年里我也学到了很多知识和认识和我一样前进的小伙伴们，现在也有很多已成为friends。&#8195;每当夜晚，我就会深深思考仅凭公司项目,网上免费课程视频，QQ群等，还是不够的，于是我开始咨询培训机构的课程，在这里提醒各位小伙伴们，报班一定要擦亮眼睛，选择老师很重要，真心很重要，许多培训机构的老师都是Java转的，讲的是全是基础，根本没有企业项目实战经验；还有不要跟风，一定看仔细看清楚课程是否符合当前的你。&#8195;这时还是远远不够的，于是我开始每天上下班地铁上看技术博客，积极分享。然后再申请博客，写博文，写总结，坚持每次做完一次实验就将博文，梳理好，写好，这样久而久之，知识点就慢慢夯实积累了。&#8195;再着后面就开始受邀几大培训机构做公开课，再一次将知识点梳理了，也认识了新的小伙伴们，我们有着相同的方向和目标，我们尽情的讨论着大数据的知识点，慢慢朝着我们心目中的目标而努力着！以上基本就是我和大数据的情缘，下面我来谈谈我对大数据入门的感悟。1. 心态要端正。既然想要从事这行，那么一定要下定决心，当然付出是肯定大大的，不光光是毛爷爷，而更多的付出是自己的那一份坚持，凡事贵在坚持，真真体现在这里。后来我将我老婆从化工实验室分析员转行，做Python爬虫和数据分析，当然这个主要还是靠她的那份坚持。2. 心目中要有计划。先学习Linux和Shell，再学习数据库和SQL，再学习Java和Scala，然后学习Apache Haoop、Hive、Kafka、Spark，朝大数据研发或开发而努力着。3. 各种方式学习。QQ群，博客，上下班看技术文章，选择好的老师和课程培训，(擦亮眼睛，很多视频，很多大数据老师都是瞎扯的，最终总结一句话，不在企业上班的教大数据都是耍流氓的。)可以加速自己前进的马拉松里程，其实一般都要看大家怎么衡量培训这个事的，time和money的抉择，以及快速jump后的高薪。4. 项目经验。很多小白都没有项目经验也没有面试经验和技巧，屡屡面试以失败告终，这时大家可以找你们熟悉的小伙伴们的，让他给你培训他的项目，这样就有了，当然可以直接互联网搜索一个就行，不过一般很难有完整的。而面试，就看看其他人面试分享，学习他人。最后，总结一句话，坚持才是最重要的。最后，总结一句话，坚持才是最重要的。最后，总结一句话，坚持才是最重要的。]]></content>
-      <categories>
-        <category>感想</category>
-      </categories>
-      <tags>
-        <tag>人生感悟</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[2min快速了解，Hive内部表和外部表]]></title>
     <url>%2F2018%2F05%2F01%2F2min%E5%BF%AB%E9%80%9F%E4%BA%86%E8%A7%A3%EF%BC%8CHive%E5%86%85%E9%83%A8%E8%A1%A8%E5%92%8C%E5%A4%96%E9%83%A8%E8%A1%A8%2F</url>
     <content type="text"><![CDATA[在了解内部表和外部表区别前，我们需要先了解一下Hive架构 ：大家可以简单看一下这个架构图，我介绍其中要点：Hive的数据分为两种，一种为普通数据，一种为元数据。元数据存储着表的基本信息，增删改查记录，类似于Hadoop架构中的namespace。普通数据就是表中的详细数据。Hive的元数据默认存储在derby中，但大多数情况下存储在MySQL中。普通数据如架构图所示存储在hdfs中。下面我们来介绍表的两种类型：内部表和外部表内部表（MANAGED）：hive在hdfs中存在默认的存储路径，即default数据库。之后创建的数据库及表，如果没有指定路径应都在/user/hive/warehouse下，所以在该路径下的表为内部表。外部表（EXTERNAL）：指定了/user/hive/warehouse以外路径所创建的表而内部表和外部表的主要区别就是内部表：当删除内部表时，MySQL的元数据和HDFS上的普通数据都会删除 ；外部表：当删除外部表时，MySQL的元数据会被删除，HDFS上的数据不会被删除；1.准备数据: 按tab键制表符作为字段分割符cat /tmp/ruozedata.txt 1 jepson 32 110 2 ruoze 22 112 3 www.ruozedata.com 18 120 2.内部表测试：在Hive里面创建一个表：123456789hive&gt; create table ruozedata(id int, &gt; name string, &gt; age int, &gt; tele string) &gt; ROW FORMAT DELIMITED &gt; FIELDS TERMINATED BY &apos;\t&apos; &gt; STORED AS TEXTFILE;OKTime taken: 0.759 seconds这样我们就在Hive里面创建了一张普通的表，现在给这个表导入数据：1load data local inpath &apos;/tmp/ruozedata.txt&apos; into table ruozedata;内部表删除1hive&gt; drop table ruozedata;3.外部表测试:创建外部表多了external关键字说明以及hdfs上location ‘/hive/external’12345678hive&gt; create external table exter_ruozedata( &gt; id int, &gt; name string, &gt; age int, &gt; tel string) &gt; location &apos;/hive/external&apos;;OKTime taken: 0.098 seconds创建外部表，需要在创建表的时候加上external关键字，同时指定外部表存放数据的路径（当然，你也可以不指定外部表的存放路径，这样Hive将 在HDFS上的/user/hive/warehouse/文件夹下以外部表的表名创建一个文件夹，并将属于这个表的数据存放在这里）外部表导入数据和内部表一样：1load data local inpath &apos;/tmp/ruozedata.txt&apos; into table exter_ruozedata;删除外部表1hive&gt; drop table exter_ruozedata;]]></content>
@@ -603,6 +605,17 @@
       </categories>
       <tags>
         <tag>hive</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[谈谈我和大数据的情缘及入门]]></title>
+    <url>%2F2018%2F05%2F01%2F%E8%B0%88%E8%B0%88%E6%88%91%E5%92%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E6%83%85%E7%BC%98%E5%8F%8A%E5%85%A5%E9%97%A8%2F</url>
+    <content type="text"><![CDATA[&#8195;当年我是做C#+Java软件开发，然后考取OCP来了上海，立志要做一名DBA。只记得当年试用期刚过时，阴差阳错轮到我负责公司的大数据平台这块，刚开始很痛苦，一个陌生的行业，一个讨论的小伙伴都没有，一份现成资料都没有，心情焦虑。后来我调整心态，从DB转移到对大数据的研究，决定啃下这块硬骨头，把它嚼碎，把它消化吸收。&#8195;由于当时公司都是CDH环境，刚开始安装卡了很久都过不去，后面选择在线安装，很慢，有时需要1天。后来安装HDFS ,YARN,HIVE组件，不过对它们不理解，不明白，有时很困惑。这样的过程大概持续三个月了。&#8195;后来看了很多博文，都是Apache Hadoop版本搭建，于是我先试试用Apache Hadoop搭建部署单节点和集群，然后配置HA，最后我发现自己比较喜欢这种方式，因为我能了解其配置参数，配置文件和常规命令等等，再回头去对比CDH安装HDFS服务，真是太爽了，因为Apache Hadoop版本有真正体验感，这时我就迅速调整方向 : 先Apache版本，再CDH。&#8195;由于公司项目环境，推进自己实在太慢，于是我在网上看各种相关视频教程；加n种群，在群里潜水，看水友们提的问题自己会不会，不会就去查资料，会就帮助他们一起研究学习进步。&#8195;后来这样的进度太慢了，因为很多群都是打广告，潜水，没有真正的技术讨论氛围，于是我迅速调整方向，自己建个QQ群，慢慢招兵买马，和管理员们一起去管理，在过去的两年里我也学到了很多知识和认识和我一样前进的小伙伴们，现在也有很多已成为friends。&#8195;每当夜晚，我就会深深思考仅凭公司项目,网上免费课程视频，QQ群等，还是不够的，于是我开始咨询培训机构的课程，在这里提醒各位小伙伴们，报班一定要擦亮眼睛，选择老师很重要，真心很重要，许多培训机构的老师都是Java转的，讲的是全是基础，根本没有企业项目实战经验；还有不要跟风，一定看仔细看清楚课程是否符合当前的你。&#8195;这时还是远远不够的，于是我开始每天上下班地铁上看技术博客，积极分享。然后再申请博客，写博文，写总结，坚持每次做完一次实验就将博文，梳理好，写好，这样久而久之，知识点就慢慢夯实积累了。&#8195;再着后面就开始受邀几大培训机构做公开课，再一次将知识点梳理了，也认识了新的小伙伴们，我们有着相同的方向和目标，我们尽情的讨论着大数据的知识点，慢慢朝着我们心目中的目标而努力着！以上基本就是我和大数据的情缘，下面我来谈谈我对大数据入门的感悟。1. 心态要端正。既然想要从事这行，那么一定要下定决心，当然付出是肯定大大的，不光光是毛爷爷，而更多的付出是自己的那一份坚持，凡事贵在坚持，真真体现在这里。后来我将我老婆从化工实验室分析员转行，做Python爬虫和数据分析，当然这个主要还是靠她的那份坚持。2. 心目中要有计划。先学习Linux和Shell，再学习数据库和SQL，再学习Java和Scala，然后学习Apache Haoop、Hive、Kafka、Spark，朝大数据研发或开发而努力着。3. 各种方式学习。QQ群，博客，上下班看技术文章，选择好的老师和课程培训，(擦亮眼睛，很多视频，很多大数据老师都是瞎扯的，最终总结一句话，不在企业上班的教大数据都是耍流氓的。)可以加速自己前进的马拉松里程，其实一般都要看大家怎么衡量培训这个事的，time和money的抉择，以及快速jump后的高薪。4. 项目经验。很多小白都没有项目经验也没有面试经验和技巧，屡屡面试以失败告终，这时大家可以找你们熟悉的小伙伴们的，让他给你培训他的项目，这样就有了，当然可以直接互联网搜索一个就行，不过一般很难有完整的。而面试，就看看其他人面试分享，学习他人。最后，总结一句话，坚持才是最重要的。最后，总结一句话，坚持才是最重要的。最后，总结一句话，坚持才是最重要的。]]></content>
+      <categories>
+        <category>感想</category>
+      </categories>
+      <tags>
+        <tag>人生感悟</tag>
       </tags>
   </entry>
   <entry>
