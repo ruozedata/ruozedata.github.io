@@ -8,8 +8,8 @@
         <category>其他组件</category>
       </categories>
       <tags>
-        <tag>架构</tag>
         <tag>环境搭建</tag>
+        <tag>架构</tag>
         <tag>案例</tag>
       </tags>
   </entry>
@@ -114,6 +114,32 @@
       </categories>
       <tags>
         <tag>flink</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[17生产预警平台项目之使用IDEA将工程Build成jar包]]></title>
+    <url>%2F2018%2F09%2F25%2F17%E7%94%9F%E4%BA%A7%E9%A2%84%E8%AD%A6%E5%B9%B3%E5%8F%B0%E9%A1%B9%E7%9B%AE%E4%B9%8B%E4%BD%BF%E7%94%A8IDEA%E5%B0%86%E5%B7%A5%E7%A8%8BBuild%E6%88%90jar%E5%8C%85%2F</url>
+    <content type="text"><![CDATA[1.File–&gt;Project Structure2.Artifacts–&gt;+–&gt;JAR–&gt;From modules with dependencies3. 单击… –&gt;选择OnLineLogAnalysis24.选择项目的根目录5.修改Name–&gt;选择输出目录–&gt;选择Output directory–&gt;Apply–&gt;OK6.Build–&gt;Build Artifacts–&gt;Build===================================说明:1.打包方式很多，大家自行google.2.由于我是引用influxdb的源码包,需要引入许多依赖jar包,所以我需要将相关依赖jar包全部打包到本程序的jar包,故该jar包大概160M。(当然也可以只需要打本程序的jar包，只不过需要事先将相关的所有或者部分依赖jar包，前提上传到集群，然后spark-submit使用–jars引用即可)]]></content>
+      <categories>
+        <category>生产预警平台项目</category>
+      </categories>
+      <tags>
+        <tag>spark</tag>
+        <tag>高级</tag>
+        <tag>生产预警平台项目</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[16生产预警平台项目之grafana-4.1.1 Install和新建日志分析的DashBoard]]></title>
+    <url>%2F2018%2F09%2F19%2F16%E7%94%9F%E4%BA%A7%E9%A2%84%E8%AD%A6%E5%B9%B3%E5%8F%B0%E9%A1%B9%E7%9B%AE%E4%B9%8Bgrafana-4.1.1%20Install%E5%92%8C%E6%96%B0%E5%BB%BA%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%9A%84DashBoard%2F</url>
+    <content type="text"><![CDATA[1.下载wget https://grafanarel.s3.amazonaws.com/builds/grafana-4.1.1-1484211277.linux-x64.tar.gz2.解压tar -zxvf grafana-4.1.1-1484211277.linux-x64.tar.gz3.配置文件cd grafana-4.1.1-1484211277cp conf/sample.ini conf/custom.ini#make changes to conf/custom.ini then start grafana-server4.后台启动./bin/grafana-server &amp;5.打开webhttp://172.16.101.66:3000/ admin/admin6.配置数据源influxdb还要填写Database 为 online_log_analysis7.IDEA本机运行OnLineLogAanlysis2.class，实时计算存储到influxdb8.新建dashboard和 cdh_hdfs_warn曲线图参考:http://grafana.org/download/http://docs.grafana.org/]]></content>
+      <categories>
+        <category>生产预警平台项目</category>
+      </categories>
+      <tags>
+        <tag>spark</tag>
+        <tag>高级</tag>
+        <tag>生产预警平台项目</tag>
       </tags>
   </entry>
   <entry>
@@ -299,6 +325,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[这是一篇热腾腾的面经]]></title>
+    <url>%2F2018%2F08%2F27%2F%E8%BF%99%E6%98%AF%E4%B8%80%E7%AF%87%E7%83%AD%E8%85%BE%E8%85%BE%E7%9A%84%E9%9D%A2%E7%BB%8F%2F</url>
+    <content type="text"><![CDATA[伟梦：1.主要还是项目？基本上没问什么技术，我就说了一遍项目流程，然后说几个优化点，比如上次讲的血案，我也顺带提了一下。2.在大数据中，有没有什么是不足的，遇到过什么问题？微盟：1.SparkStreaming处理完一批次的数据，写偏移量之前挂了，数据怎么保证不重？2.Maxwell的底层原理？3.手写Spring？4.遍历二叉树？5.用过什么算法？6.多线程方面，怎么实现一个主线程，等待其他子线程完成后再运行？7.Maxwell和Cannal的比较？8.direct比较receiver的优势？9.原来是把数据传入到Hive，之后改了架构，怎么把Hive的数据导入到Hbase？10.为什么用Kafka自己存储offset来替代checkpoint，怎么防止了数据双份落地，数据双份是指什么？11.单例用过吗？平安：1.问项目，流程，业务？2.数据量，增量？3.几个人开发的，代码量多少？4.你主要做什么的？5.什么场景，用SparkSql分析什么东西？总结：基本上都是围绕项目来面，第一家问的比较少，而且都是关于项目；微盟的面试官做的项目，跟简历上的项目，架构上基本一样，所以问的比较深，问我Maxwell的底层原理，对比Cannal有什么优势，为什么选择它，这个我没回答上来，后来让手写Spring，算法，后来就让我走了；平安也是基本围绕项目，业务，数据量，没问什么技术，而且我说了关于优化的点(面试官说不要说网上都有的东西)。]]></content>
+      <categories>
+        <category>面试题</category>
+      </categories>
+      <tags>
+        <tag>大数据面试题</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[01生产预警平台项目之项目概述]]></title>
     <url>%2F2018%2F08%2F27%2F01%E7%94%9F%E4%BA%A7%E9%A2%84%E8%AD%A6%E5%B9%B3%E5%8F%B0%E9%A1%B9%E7%9B%AE%E4%B9%8B%E9%A1%B9%E7%9B%AE%E6%A6%82%E8%BF%B0%2F</url>
     <content type="text"><![CDATA[1.前期基本架构图2.最终基本架构图3.版本组件版本Flume:1.7Hadoop:2.7.3Scala:2.11Kafka:0.10.1.0Spark:2.0.2InfluxDB:1.2.0Grafana:4.1.1maven:3.3.94.主要目的主要是想基于Exec Source开发自定义插件AdvancedExecSource，将机器名称 和 服务名称 添加到cdh 服务的角色log数据的每一行前面，则格式为：机器名称 服务名称 年月日 时分秒.毫秒 日志级别 日志信息 ；然后在后面的spark streaming 实时计算我们所需求：比如统计每台机器的服务的每秒出现的error次数 、统计每5秒的warn，error次数等等；来实时可视化展示和邮件短信、微信企业号通知。其实主要我们现在的很多监控服务基本达不到秒级的通知，都为5分钟等等，为了方便我们自己的维护；其实对一些即将出现的问题可以提前预知；其实最主要可以有效扩展到实时计算数据库级别日志，比如MySQL慢查询日志，nginx，tomcat，linux的系统级别日志等等。5.大概流程1.搭建hadoop cluster2.eclipse 导入flume源代码（window7 安装maven，eclipse，eclipse与maven集成）3.开发flume-ng 自定义插件4.flume 收集，汇聚到hdfs(主要测试是否汇聚成功，后期也可以做离线处理)5.flume 收集，汇聚到kafka6.搭建kafka monitor7.搭建 spark client8.window7装ieda开发工具9.idea开发 spark streaming 的wc10.读取kafka日志，开发spark streaming的这块日志分析11.写入influxdb12.grafana可视化展示13.集成邮件###说明：针对自身情况，自行选择，步骤如上，但不是固定的，有些顺序是可以打乱的，例如开发工具的安装，可以一起操作的，再如这几个组件的下载编译，如果不想编译可以直接下tar包的，自行选择就好，但是建议还是自己编译，遇到坑才能更好的记住这个东西，本身这个项目就是学习提升的过程，要是什么都是现成的，那就没什么意义了]]></content>
@@ -309,17 +346,6 @@
         <tag>spark</tag>
         <tag>高级</tag>
         <tag>生产预警平台项目</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[这是一篇热腾腾的面经]]></title>
-    <url>%2F2018%2F08%2F27%2F%E8%BF%99%E6%98%AF%E4%B8%80%E7%AF%87%E7%83%AD%E8%85%BE%E8%85%BE%E7%9A%84%E9%9D%A2%E7%BB%8F%2F</url>
-    <content type="text"><![CDATA[伟梦：1.主要还是项目？基本上没问什么技术，我就说了一遍项目流程，然后说几个优化点，比如上次讲的血案，我也顺带提了一下。2.在大数据中，有没有什么是不足的，遇到过什么问题？微盟：1.SparkStreaming处理完一批次的数据，写偏移量之前挂了，数据怎么保证不重？2.Maxwell的底层原理？3.手写Spring？4.遍历二叉树？5.用过什么算法？6.多线程方面，怎么实现一个主线程，等待其他子线程完成后再运行？7.Maxwell和Cannal的比较？8.direct比较receiver的优势？9.原来是把数据传入到Hive，之后改了架构，怎么把Hive的数据导入到Hbase？10.为什么用Kafka自己存储offset来替代checkpoint，怎么防止了数据双份落地，数据双份是指什么？11.单例用过吗？平安：1.问项目，流程，业务？2.数据量，增量？3.几个人开发的，代码量多少？4.你主要做什么的？5.什么场景，用SparkSql分析什么东西？总结：基本上都是围绕项目来面，第一家问的比较少，而且都是关于项目；微盟的面试官做的项目，跟简历上的项目，架构上基本一样，所以问的比较深，问我Maxwell的底层原理，对比Cannal有什么优势，为什么选择它，这个我没回答上来，后来让手写Spring，算法，后来就让我走了；平安也是基本围绕项目，业务，数据量，没问什么技术，而且我说了关于优化的点(面试官说不要说网上都有的东西)。]]></content>
-      <categories>
-        <category>面试题</category>
-      </categories>
-      <tags>
-        <tag>大数据面试题</tag>
       </tags>
   </entry>
   <entry>
@@ -580,17 +606,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[美味不用等大数据面试题(201804月)]]></title>
-    <url>%2F2018%2F05%2F20%2F%E7%BE%8E%E5%91%B3%E4%B8%8D%E7%94%A8%E7%AD%89%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%9D%A2%E8%AF%95%E9%A2%98(201804%E6%9C%88)%2F</url>
-    <content type="text"><![CDATA[1.若泽大数据线下班，某某某的小伙伴现场面试题截图:2.分享另外1家的忘记名字公司的大数据面试题：]]></content>
-      <categories>
-        <category>面试题</category>
-      </categories>
-      <tags>
-        <tag>大数据面试题</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Spark不得不理解的重要概念——从源码角度看RDD]]></title>
     <url>%2F2018%2F05%2F20%2FSpark%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%90%86%E8%A7%A3%E7%9A%84%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5%E2%80%94%E2%80%94%E4%BB%8E%E6%BA%90%E7%A0%81%E8%A7%92%E5%BA%A6%E7%9C%8BRDD%2F</url>
     <content type="text"><![CDATA[1.RDD是什么Resilient Distributed Dataset（弹性分布式数据集），是一个能够并行操作不可变的分区元素的集合2.RDD五大特性A list of partitions每个rdd有多个分区protected def getPartitions: Array[Partition]A function for computing each split计算作用到每个分区def compute(split: Partition, context: TaskContext): Iterator[T]A list of dependencies on other RDDsrdd之间存在依赖（RDD的血缘关系）如：RDDA=&gt;RDDB=&gt;RDDC=&gt;RDDDprotected def getDependencies: Seq[Dependency[_]] = depsOptionally, a Partitioner for key-value RDDs (e.g. to say that the RDD is hash-partitioned)可选，默认哈希的分区@transient val partitioner: Option[Partitioner] = NoneOptionally, a list of preferred locations to compute each split on (e.g. block locations foran HDFS file)计算每个分区的最优执行位置，尽量实现数据本地化，减少IO（这往往是理想状态）protected def getPreferredLocations(split: Partition): Seq[String] = Nil源码来自github。3.如何创建RDD创建RDD有两种方式 parallelize() 和textfile()，其中parallelize可接收集合类，主要作为测试用。textfile可读取文件系统，是常用的一种方式1234567891011121314151617parallelize() def parallelize[T: ClassTag]( seq: Seq[T], numSlices: Int = defaultParallelism): RDD[T] = withScope &#123; assertNotStopped() new ParallelCollectionRDD[T](this, seq, numSlices, Map[Int, Seq[String]]()) &#125;textfile（） def textFile( path: String, minPartitions: Int = defaultMinPartitions): RDD[String] = withScope &#123; assertNotStopped() hadoopFile(path, classOf[TextInputFormat], classOf[LongWritable], classOf[Text], minPartitions).map(pair =&gt; pair._2.toString).setName(path) &#125;源码总结：1）.取_2是因为数据为（key（偏移量），value（数据））4.常见的transformation和action由于比较简单，大概说一下常用的用处，不做代码测试transformationMap：对数据集的每一个元素进行操作FlatMap：先对数据集进行扁平化处理，然后再MapFilter：对数据进行过滤，为true则通过destinct：去重操作actionreduce：对数据进行聚集reduceBykey：对key值相同的进行操作collect：没有效果的action，但是很有用saveAstextFile：数据存入文件系统foreach：对每个元素进行func的操作]]></content>
@@ -600,6 +615,17 @@
       <tags>
         <tag>spark</tag>
         <tag>高级</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[美味不用等大数据面试题(201804月)]]></title>
+    <url>%2F2018%2F05%2F20%2F%E7%BE%8E%E5%91%B3%E4%B8%8D%E7%94%A8%E7%AD%89%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%9D%A2%E8%AF%95%E9%A2%98(201804%E6%9C%88)%2F</url>
+    <content type="text"><![CDATA[1.若泽大数据线下班，某某某的小伙伴现场面试题截图:2.分享另外1家的忘记名字公司的大数据面试题：]]></content>
+      <categories>
+        <category>面试题</category>
+      </categories>
+      <tags>
+        <tag>大数据面试题</tag>
       </tags>
   </entry>
   <entry>
@@ -779,17 +805,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Hadoop常用命令大全]]></title>
-    <url>%2F2018%2F04%2F14%2FHadoop%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8%2F</url>
-    <content type="text"><![CDATA[若泽大数据，Hadoop常用命令大全1. 单独启动和关闭hadoop服务功能命令启动名称节点hadoop-daemon.sh start namenode启动数据节点hadoop-daemons.sh start datanode slave启动secondarynamenodehadoop-daemon.sh start secondarynamenode启动resourcemanageryarn-daemon.sh start resourcemanager启动nodemanagerbin/yarn-daemons.sh start nodemanager停止数据节点hadoop-daemons.sh stop datanode2. 常用的命令功能命令创建目录hdfs dfs -mkdir /input查看hdfs dfs -ls递归查看hdfs dfs ls -R上传hdfs dfs -put下载hdfs dfs -get删除hdfs dfs -rm从本地剪切粘贴到hdfshdfs fs -moveFromLocal /input/xx.txt /input/xx.txt从hdfs剪切粘贴到本地hdfs fs -moveToLocal /input/xx.txt /input/xx.txt追加一个文件到另一个文件到末尾hdfs fs -appedToFile ./hello.txt /input/hello.txt查看文件内容hdfs fs -cat /input/hello.txt显示一个文件到末尾hdfs fs -tail /input/hello.txt以字符串的形式打印文件的内容hdfs fs -text /input/hello.txt修改文件权限hdfs fs -chmod 666 /input/hello.txt修改文件所属hdfs fs -chown ruoze.ruoze /input/hello.txt从本地文件系统拷贝到hdfs里hdfs fs -copyFromLocal /input/hello.txt /input/从hdfs拷贝到本地hdfs fs -copyToLocal /input/hello.txt /input/从hdfs到一个路径拷贝到另一个路径hdfs fs -cp /input/xx.txt /output/xx.txt从hdfs到一个路径移动到另一个路径hdfs fs -mv /input/xx.txt /output/xx.txt统计文件系统的可用空间信息hdfs fs -df -h /统计文件夹的大小信息hdfs fs -du -s -h /统计一个指定目录下的文件节点数量hadoop fs -count /aaa设置hdfs的文件副本数量hadoop fs -setrep 3 /input/xx.txt总结：一定要学会查看命令帮助1.hadoop命令直接回车查看命令帮助2.hdfs命令、hdfs dfs命令直接回车查看命令帮助3.hadoop fs 等价 hdfs dfs命令，和Linux的命令差不多。]]></content>
-      <categories>
-        <category>Hadoop</category>
-      </categories>
-      <tags>
-        <tag>hadoop</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Spark2.2.0 全网最详细的源码编译]]></title>
     <url>%2F2018%2F04%2F14%2FSpark2.2.0%20%E5%85%A8%E7%BD%91%E6%9C%80%E8%AF%A6%E7%BB%86%E7%9A%84%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%2F</url>
     <content type="text"><![CDATA[若泽大数据，Spark2.2.0 全网最详细的源码编译环境准备JDK： Spark 2.2.0及以上版本只支持JDK1.8Maven：3.3.9设置maven环境变量时，需设置maven内存：export MAVEN_OPTS=”-Xmx2g -XX:ReservedCodeCacheSize=512m”Scala：2.11.8Git编译下载spark的tar包，并解压12[hadoop@hadoop000 source]$ wget https://d3kbcqa49mib13.cloudfront.net/spark-2.2.0.tgz[hadoop@hadoop000 source]$ tar -xzvf spark-2.2.0.tgz编辑dev/make-distribution.sh123456789101112131415[hadoop@hadoop000 spark-2.2.0]$ vi dev/make-distribution.sh注释以下内容：#VERSION=$(&quot;$MVN&quot; help:evaluate -Dexpression=project.version $@ 2&gt;/dev/null | grep -v &quot;INFO&quot; | tail -n 1)#SCALA_VERSION=$(&quot;$MVN&quot; help:evaluate -Dexpression=scala.binary.version $@ 2&gt;/dev/null\# | grep -v &quot;INFO&quot;\# | tail -n 1)#SPARK_HADOOP_VERSION=$(&quot;$MVN&quot; help:evaluate -Dexpression=hadoop.version $@ 2&gt;/dev/null\# | grep -v &quot;INFO&quot;\# | tail -n 1)#SPARK_HIVE=$(&quot;$MVN&quot; help:evaluate -Dexpression=project.activeProfiles -pl sql/hive $@ 2&gt;/dev/null\# | grep -v &quot;INFO&quot;\# | fgrep --count &quot;&lt;id&gt;hive&lt;/id&gt;&quot;;\# # Reset exit status to 0, otherwise the script stops here if the last grep finds nothing\# # because we use &quot;set -o pipefail&quot;# echo -n)添加以下内容：1234VERSION=2.2.0SCALA_VERSION=2.11SPARK_HADOOP_VERSION=2.6.0-cdh5.7.0SPARK_HIVE=1编辑pom.xml1234567[hadoop@hadoop000 spark-2.2.0]$ vi pom.xml添加在repositorys内&lt;repository&gt; &lt;id&gt;clouders&lt;/id&gt; &lt;name&gt;clouders Repository&lt;/name&gt; &lt;url&gt;https://repository.cloudera.com/artifactory/cloudera-repos/&lt;/url&gt;&lt;/repository&gt;安装1[hadoop@hadoop000 spark-2.2.0]$ ./dev/make-distribution.sh --name 2.6.0-cdh5.7.0 --tgz -Dhadoop.version=2.6.0-cdh5.7.0 -Phadoop-2.6 -Phive -Phive-thriftserver -Pyarn稍微等待几小时，网络较好的话，非常快。也可以参考J哥博客：基于CentOS6.4环境编译Spark-2.1.0源码 http://blog.itpub.net/30089851/viewspace-2140779/]]></content>
@@ -800,6 +815,17 @@
         <tag>spark</tag>
         <tag>环境搭建</tag>
         <tag>基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hadoop常用命令大全]]></title>
+    <url>%2F2018%2F04%2F14%2FHadoop%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8%2F</url>
+    <content type="text"><![CDATA[若泽大数据，Hadoop常用命令大全1. 单独启动和关闭hadoop服务功能命令启动名称节点hadoop-daemon.sh start namenode启动数据节点hadoop-daemons.sh start datanode slave启动secondarynamenodehadoop-daemon.sh start secondarynamenode启动resourcemanageryarn-daemon.sh start resourcemanager启动nodemanagerbin/yarn-daemons.sh start nodemanager停止数据节点hadoop-daemons.sh stop datanode2. 常用的命令功能命令创建目录hdfs dfs -mkdir /input查看hdfs dfs -ls递归查看hdfs dfs ls -R上传hdfs dfs -put下载hdfs dfs -get删除hdfs dfs -rm从本地剪切粘贴到hdfshdfs fs -moveFromLocal /input/xx.txt /input/xx.txt从hdfs剪切粘贴到本地hdfs fs -moveToLocal /input/xx.txt /input/xx.txt追加一个文件到另一个文件到末尾hdfs fs -appedToFile ./hello.txt /input/hello.txt查看文件内容hdfs fs -cat /input/hello.txt显示一个文件到末尾hdfs fs -tail /input/hello.txt以字符串的形式打印文件的内容hdfs fs -text /input/hello.txt修改文件权限hdfs fs -chmod 666 /input/hello.txt修改文件所属hdfs fs -chown ruoze.ruoze /input/hello.txt从本地文件系统拷贝到hdfs里hdfs fs -copyFromLocal /input/hello.txt /input/从hdfs拷贝到本地hdfs fs -copyToLocal /input/hello.txt /input/从hdfs到一个路径拷贝到另一个路径hdfs fs -cp /input/xx.txt /output/xx.txt从hdfs到一个路径移动到另一个路径hdfs fs -mv /input/xx.txt /output/xx.txt统计文件系统的可用空间信息hdfs fs -df -h /统计文件夹的大小信息hdfs fs -du -s -h /统计一个指定目录下的文件节点数量hadoop fs -count /aaa设置hdfs的文件副本数量hadoop fs -setrep 3 /input/xx.txt总结：一定要学会查看命令帮助1.hadoop命令直接回车查看命令帮助2.hdfs命令、hdfs dfs命令直接回车查看命令帮助3.hadoop fs 等价 hdfs dfs命令，和Linux的命令差不多。]]></content>
+      <categories>
+        <category>Hadoop</category>
+      </categories>
+      <tags>
+        <tag>hadoop</tag>
       </tags>
   </entry>
   <entry>
@@ -855,9 +881,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[linux常用命令（二）]]></title>
-    <url>%2F2018%2F04%2F01%2Flinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%88%E4%BA%8C%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[Linux最常用实战命令（二）实时查看文件内容 tail filenametail -f filename 当文件(名)被修改后，不能监视文件内容tail -F filename 当文件(名)被修改后，依然可以监视文件内容复制、移动文件cp oldfilename newfilename 复制mv oldfilename newfilename 移动/重命名echoecho “xxx” 输出echo “xxx” &gt; filename 覆盖echo “xxx” &gt;&gt; filename 追加删除 rmrm -f 强制删除rm -rf 强制删除文件夹，r 表示递归参数，指针对文件夹及文件夹里面文件别名 aliasalias x=”xxxxxx” 临时引用别名alias x=”xxxxxx” 配置到环境变量中即为永久生效查看历史命令 historyhistory 显示出所有历史记录history n 显示出n条记录!n 执行第n条记录管道命令 （ | ）管道的两边都是命令，左边的命令先执行，执行的结果作为右边命令的输入查看进程、查看id、端口ps -ef ｜grep 进程名 查看进程基本信息netstat -npl｜grep 进程名或进程id 查看服务id和端口杀死进程 killkill -9 进程名/pid 强制删除kill -9 $(pgrep 进程名)：杀死与该进程相关的所有进程rpm 搜索、卸载rpm -qa | grep xxx 搜索xxxrpm –nodeps -e xxx 删除xxx–nodeps 不验证包的依赖性查询find 路径 -name xxx (推荐)which xxxlocal xxx查看磁盘、内存、系统的情况df -h 查看磁盘大小及其使用情况free -m 查看内存大小及其使用情况top 查看系统情况软连接ln -s 原始目录 目标目录压缩、解压tar -czf 压缩 tar -xzvf 解压zip 压缩 unzip 解压]]></content>
+    <title><![CDATA[Linux常用命令（三）]]></title>
+    <url>%2F2018%2F04%2F01%2Flinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%883%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[Linux最常用实战命令（三）用户、用户组用户useradd 用户名 添加用户userdel 用户名 删除用户id 用户名 查看用户信息passwd 用户名 修改用户密码su - 用户名 切换用户ll /home/ 查看已有的用户用户组groupadd 用户组 添加用户组cat /etc/group 用户组的文件usermod -a -G 用户组 用户 将用户添加到用户组中给一个普通用户添加sudo权限123vi /etc/sudoers #在root ALL=(ALL) ALL 下面添加一行 用户 ALL=(ALL) NOPASSWD:ALL修改文件权限chown 修改文件或文件夹的所属用户和用户组chown -R 用户:用户组 文件夹名 -R 为递归参数，指针对文件夹chown 用户:用户组 文件名chmod: 修改文件夹或者文件的权限chmod -R 700 文件夹名chmod 700 文件夹名r =&gt; 4 w =&gt; 2 x =&gt; 1 后台执行命令&amp;nohupscreen多人合作 screenscreen -list 查看会话screen -S 建立一个后台的会话screen -r 进入会话ctrl+a+d 退出会话]]></content>
       <categories>
         <category>Linux</category>
       </categories>
@@ -867,9 +893,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Linux常用命令（三）]]></title>
-    <url>%2F2018%2F04%2F01%2Flinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%883%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[Linux最常用实战命令（三）用户、用户组用户useradd 用户名 添加用户userdel 用户名 删除用户id 用户名 查看用户信息passwd 用户名 修改用户密码su - 用户名 切换用户ll /home/ 查看已有的用户用户组groupadd 用户组 添加用户组cat /etc/group 用户组的文件usermod -a -G 用户组 用户 将用户添加到用户组中给一个普通用户添加sudo权限123vi /etc/sudoers #在root ALL=(ALL) ALL 下面添加一行 用户 ALL=(ALL) NOPASSWD:ALL修改文件权限chown 修改文件或文件夹的所属用户和用户组chown -R 用户:用户组 文件夹名 -R 为递归参数，指针对文件夹chown 用户:用户组 文件名chmod: 修改文件夹或者文件的权限chmod -R 700 文件夹名chmod 700 文件夹名r =&gt; 4 w =&gt; 2 x =&gt; 1 后台执行命令&amp;nohupscreen多人合作 screenscreen -list 查看会话screen -S 建立一个后台的会话screen -r 进入会话ctrl+a+d 退出会话]]></content>
+    <title><![CDATA[linux常用命令（二）]]></title>
+    <url>%2F2018%2F04%2F01%2Flinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%88%E4%BA%8C%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[Linux最常用实战命令（二）实时查看文件内容 tail filenametail -f filename 当文件(名)被修改后，不能监视文件内容tail -F filename 当文件(名)被修改后，依然可以监视文件内容复制、移动文件cp oldfilename newfilename 复制mv oldfilename newfilename 移动/重命名echoecho “xxx” 输出echo “xxx” &gt; filename 覆盖echo “xxx” &gt;&gt; filename 追加删除 rmrm -f 强制删除rm -rf 强制删除文件夹，r 表示递归参数，指针对文件夹及文件夹里面文件别名 aliasalias x=”xxxxxx” 临时引用别名alias x=”xxxxxx” 配置到环境变量中即为永久生效查看历史命令 historyhistory 显示出所有历史记录history n 显示出n条记录!n 执行第n条记录管道命令 （ | ）管道的两边都是命令，左边的命令先执行，执行的结果作为右边命令的输入查看进程、查看id、端口ps -ef ｜grep 进程名 查看进程基本信息netstat -npl｜grep 进程名或进程id 查看服务id和端口杀死进程 killkill -9 进程名/pid 强制删除kill -9 $(pgrep 进程名)：杀死与该进程相关的所有进程rpm 搜索、卸载rpm -qa | grep xxx 搜索xxxrpm –nodeps -e xxx 删除xxx–nodeps 不验证包的依赖性查询find 路径 -name xxx (推荐)which xxxlocal xxx查看磁盘、内存、系统的情况df -h 查看磁盘大小及其使用情况free -m 查看内存大小及其使用情况top 查看系统情况软连接ln -s 原始目录 目标目录压缩、解压tar -czf 压缩 tar -xzvf 解压zip 压缩 unzip 解压]]></content>
       <categories>
         <category>Linux</category>
       </categories>
