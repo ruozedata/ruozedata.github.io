@@ -43,18 +43,21 @@ uname -r
 步骤：
 
 1、检查内核版本，必须是3.10及以上
+```
 uname -r
-
+```
 2、安装docker
+```
 yum install docker
-
+```
 3、输入y确认安装
+```
 Dependency Updated:
   audit.x86_64 0:2.8.1-3.el7_5.1                                  audit-libs.x86_64 0:2.8.1-3.el7_5.1                                 
 
 Complete!
 (成功标志)
-
+```
 4、启动docker
 ```
 [root@hadoop000 ~]# systemctl start docker
@@ -69,16 +72,18 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service 
 6、停止docker
 ```
 [root@hadoop000 ~]# systemctl stop docker
-``` 
+```
+
 ### 5.常用命令
 
 镜像操作
+
 |操作|命令|说明|
-|---|---|---|
-检索	|docker search 关键字 eg：docker search redis|	我们经常去docker hub上检索镜像的详细信息，如镜像的TAG。|
-拉取	|docker pull 镜像名:tag|	:tag是可选的，tag表示标签，多为软件的版本，默认是latest
-列表|	docker images	|查看所有本地镜像
-删除|docker rmi image-id	|删除指定的本地镜像
+|-|-|-|
+| 检索 |docker search 关键字 eg：docker search redis | 我们经常去docker hub上检索镜像的详细信息，如镜像的TAG |
+| 拉取	| docker pull 镜像名:tag|	:tag是可选的，tag表示标签，多为软件的版本，默认是latest|
+| 列表 |	docker images	|  查看所有本地镜像 |
+| 删除 | docker rmi image-id	|  删除指定的本地镜像 |
 
 当然大家也可以在官网查找：https://hub.docker.com/
 
@@ -88,32 +93,32 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service 
 步骤：
 
 - 1、搜索镜像
-[root@localhost ~]# docker search tomcat
+	[root@localhost ~]# docker search tomcat
 - 2、拉取镜像
-[root@localhost ~]# docker pull tomcat
+	[root@localhost ~]# docker pull tomcat
 - 3、根据镜像启动容器
-docker run --name mytomcat -d tomcat:latest
+	docker run --name mytomcat -d tomcat:latest
 - 4、docker ps  
-查看运行中的容器
+	查看运行中的容器
 - 5、 停止运行中的容器
-docker stop  容器的id
+	docker stop  容器的id
 - 6、查看所有的容器
-docker ps -a
+	docker ps -a
 - 7、启动容器
-docker start 容器id
+	docker start 容器id
 - 8、删除一个容器
- docker rm 容器id
+	 docker rm 容器id
 - 9、启动一个做了端口映射的tomcat
-[root@localhost ~]# docker run -d -p 8888:8080 tomcat
--d：后台运行
--p: 将主机的端口映射到容器的一个端口    主机端口:容器内部的端口
+	[root@localhost ~]# docker run -d -p 8888:8080 tomcat
+	-d：后台运行
+	-p: 将主机的端口映射到容器的一个端口    主机端口:容器内部的端口
 
 - 10、为了演示简单关闭了linux的防火墙
-service firewalld status ；查看防火墙状态
-service firewalld stop：关闭防火墙
-systemctl disable firewalld.service #禁止firewall开机启动
+	service firewalld status ；查看防火墙状态
+	service firewalld stop：关闭防火墙
+	systemctl disable firewalld.service #禁止firewall开机启动
 - 11、查看容器的日志
-docker logs container-name/container-id
+	docker logs container-name/container-id
 
 更多命令参看
 https://docs.docker.com/engine/reference/commandline/docker/
@@ -121,7 +126,8 @@ https://docs.docker.com/engine/reference/commandline/docker/
 
 ### 6.使用docker安装mysql
 
-- docker pull mysql
+-  docker pull mysql
+
 ```
 docker pull mysql 
 Using default tag: latest
@@ -145,7 +151,9 @@ Status: Downloaded newer image for docker.io/mysql:latest
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 docker.io/mysql     latest              f991c20cb508        10 days ago         486 MB
 ```
-- 启动
+
+-  启动
+
 ```
 [root@hadoop000 ~]# docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
@@ -159,7 +167,9 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 error: database is uninitialized and password option is not specified 
   You need to specify one of MYSQL_ROOT_PASSWORD, MYSQL_ALLOW_EMPTY_PASSWORD and MYSQL_RANDOM_ROOT_PASSWORD
 ```
+
 可以看到上面启动的方式是错误的，提示我们要带上具体的密码
+
 ```
 [root@hadoop000 ~]# docker run -p 3306:3306 --name mysql02 -e MYSQL_ROOT_PASSWORD=123456 -d mysql
 eae86796e132027df994e5f29775eb04c6a1039a92905c247f1d149714fedc06
@@ -170,13 +180,17 @@ eae86796e132027df994e5f29775eb04c6a1039a92905c247f1d149714fedc06
 -p：端口映射，此处映射主机3306端口到容器pwc-mysql的3306端口
 -d：成功启动容器后输出容器的完整ID，例如上图 73f8811f669ee...
 ```
-- 查看是否启动成功
+
+-  查看是否启动成功
+
 ```
 [root@hadoop000 ~]# docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES
 eae86796e132        mysql               "docker-entrypoint..."   8 minutes ago       Up 8 minutes        0.0.0.0:3306->3306/tcp, 33060/tcp   mysql02
 ```
-- 登陆MySQL
+
+-  登陆MySQL
+
 ```
 docker exec -it mysql04 /bin/bash
 root@e34aba02c0c3:/# mysql -uroot -p123456 
@@ -195,7 +209,8 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 mysql> 
 ```
-- 其他的高级操作
+
+-  其他的高级操作
 ```
 docker run --name mysql03 -v /conf/mysql:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
 把主机的/conf/mysql文件夹挂载到 mysqldocker容器的/etc/mysql/conf.d文件夹里面

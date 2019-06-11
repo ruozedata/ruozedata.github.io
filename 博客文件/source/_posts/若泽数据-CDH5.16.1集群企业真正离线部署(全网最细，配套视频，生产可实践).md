@@ -6,10 +6,7 @@ comments: true
 tags: 
 	- cdh
 categories: CDH
-
 ---
-
-
 
 [若泽数据](www.ruozedata.com)
 ---------------------
@@ -310,21 +307,22 @@ chown -R cloudera-scm:cloudera-scm /opt/cloudera/
 账号密码:admin/admin
 
 ### 7.欢迎使用Cloudera Manager--最终用户许可条款与条件。勾选
-![avatar](install pictures/1.png)
+![enter description here](/assets/blogImg/CDH516_1.png)
+
 ### 8.欢迎使用Cloudera Manager--您想要部署哪个版本？选择Cloudera Express免费版本
-![avatar](install pictures/2.png)
+![enter description here](/assets/blogImg/CDH516_2.png)
 ### 9.感谢您选择Cloudera Manager和CDH
-![avatar](install pictures/3.png)
+![enter description here](/assets/blogImg/CDH516_3.png)
 ### 10.为CDH集群安装指导主机。选择[当前管理的主机]，全部勾选
-![avatar](install pictures/4.png)
+![enter description here](/assets/blogImg/CDH516_4.png)
 ### 11.选择存储库
-![avatar](install pictures/5.png)
+![enter description here](/assets/blogImg/CDH516_5.png)
 
 ### 12.集群安装--正在安装选定Parcel假如
 本地parcel离线源配置正确，则"下载"阶段瞬间完成，其余阶段视节点数与内部网络情况决定。
-![avatar](install pictures/6.png)
+![enter description here](/assets/blogImg/CDH516_6.png)
 ### 13.检查主机正确性
-![avatar](install pictures/7.png)
+![enter description here](/assets/blogImg/CDH516_7.png)
 
 ```
 13.1.建议将/proc/sys/vm/swappiness设置为最大值10。
@@ -359,19 +357,19 @@ chmod +x /etc/rc.d/rc.local
 ```
 
 ### 14.自定义服务，选择部署Zookeeper、HDFS、Yarn服务
-![avatar](install pictures/8.png)
+![enter description here](/assets/blogImg/CDH516_8.png)
 ### 15.自定义角色分配
-![avatar](install pictures/9.png)
+![enter description here](/assets/blogImg/CDH516_9.png)
 ### 16.数据库设置
-![avatar](install pictures/10.png)
+![enter description here](/assets/blogImg/CDH516_10.png)
 ### 17.审改设置，默认即可
-![avatar](install pictures/11.png)
+![enter description here](/assets/blogImg/CDH516_11.png)
 ### 18.首次运行
-![avatar](install pictures/12.png)
+![enter description here](/assets/blogImg/CDH516_12.png)
 ### 19.恭喜您!
-![avatar](install pictures/13.png)
+![enter description here](/assets/blogImg/CDH516_13.png)
 ### 20.主页
-![avatar](install pictures/14.png)
+![enter description here](/assets/blogImg/CDH516_14.png)
 
 ------------------
 ### CDH全套课程目录，如有buy，加微信(ruoze_star)
