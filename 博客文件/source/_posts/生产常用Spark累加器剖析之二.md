@@ -131,7 +131,7 @@ trait AccumulatorParam[T] extends AccumulableParam[T, T] {
 
 在Executor端已经完成了一系列操作，需要将它们的值返回到Driver端进行聚合汇总，整个顺序如图累加器执行流程：
 
-![累加器执行流程](/source/assets/pic/累加器执行流程图.png)
+![enter description here](/assets/blogImg/累加器执行流程图.png)
 
 根据执行流程，我们可以发现，在执行完collectAccumulators方法之后，最终会在DAGScheduler中调用updateAccumulators(event)，而在该方法中会调用Accumulators的add方法，从而完成聚合操作：
 
