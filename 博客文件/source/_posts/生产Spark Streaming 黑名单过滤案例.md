@@ -3,7 +3,7 @@ layout: post
 title: "生产Spark Streaming 黑名单过滤案例"
 date: 2019-03-08
 comments: true
-tags: [spark,spark streaming,高级]
+tags: [spark,sparkstreaming,高级]
 categories: [Spark Streaming]
 ---
 
@@ -73,5 +73,4 @@ object TransformApp {
 ```
 
 最后输出：
-
-![代码实现](/source/assets/blogImg/2019-03-08-1.png)
+![enter description here](/assets/blogImg/2019-03-08-1.png)

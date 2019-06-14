@@ -25,15 +25,15 @@ Spark提供了2种内存分配模式：
 
 在Spark最初采用的静态内存管理机制下，存储内存、执行内存和其它内存的大小在Spark应用程序运行期间均为固定的，但用户可以在应用程序启动前进行配置，堆内内存的分配如下图所示：
 
-![堆内内存](/source/assets/blogImg/2019-04-03-内存管理1.png)
+![enter description here](/assets/blogImg/2019-04-03-内存管理1.png)
 
 默认情况下，spark内存管理采用unified模式，如果要开启静态内存管理模式，需要将spark.memory.useLegacyMode参数调为true（默认为false），1.6.1版本的官网配置如下所示： 
 
-![堆内内存官网配置](/source/assets/blogImg/2019-04-03-内存管理2.png)
+![enter description here](/assets/blogImg/2019-04-03-内存管理2.png)
 
 将参数调整为true之后，就会进入到静态内存管理中来，可以通过SparkEnv.scala中发现： 
 
-![调参](/source/assets/blogImg/2019-04-03-内存管理3.png)
+![enter description here](/assets/blogImg/2019-04-03-内存管理3.png)
 
 ```
 如果spark.memory.useLegacyMode为true，就进入到StaticMemoryManager（静态内存管理）；
@@ -51,7 +51,7 @@ Spark提供了2种内存分配模式：
 
 从StaticMemoryManager.scala中的getMaxExecutionMemory方法中，我们可以发现：
 
-![Execution内存](/source/assets/blogImg/2019-04-03-内存管理4.png)
+![enter description here](/assets/blogImg/2019-04-03-内存管理4.png)
 
 每个executor分配给execution的内存为：
 
@@ -94,7 +94,7 @@ Spark之所以会有一个SafetyFraction这样的参数，是为了避免潜在�
 
 StaticMemoryManager.scala中的getMaxStorageMemory方法发现：
 
-![Storage内存](/source/assets/blogImg/2019-04-03-内存管理5.png)
+![enter description here](/assets/blogImg/2019-04-03-内存管理5.png)
 
 最后为每个executor分配到的storage的内存： 
 
@@ -119,7 +119,7 @@ BlockManager是spark自己实现的内部分布式文件系统，BlockManager接
 
 StaticMemoryManager.scala中的maxUnrollMemory方法：
 
-![Unroll](/source/assets/blogImg/2019-04-03-内存管理6.png)
+![enter description here](/assets/blogImg/2019-04-03-内存管理6.png)
 
 Unroll的优先级别还是比较高的，它使用的内存空间是可以从storage中借用的，如果在storage中没有现存的数据block，它甚至可以占据整个storage空间；如果storage中有数据block，它可以最大drop掉内存的数据是通过spark.storage.unrollFraction来控制的，通过源码可知这部分的默认值为0.2 
 
@@ -145,7 +145,7 @@ Spark1.6开始引入了Off-heap memory（详见SPARK-11389）
  
 堆外的空间分配较为简单，只有存储内存和执行内存，如图所示：
 
-![堆外内存](/source/assets/blogImg/2019-04-03-内存管理7.png)
+![enter description here](/assets/blogImg/2019-04-03-内存管理7.png)
 
 可用的执行内存和存储内存占用的空间大小直接由参数 spark.memory.storageFraction 决定（默认为0.5），由于堆外内存占用的空间可以被精确计算，所以无需再设定保险区域
 

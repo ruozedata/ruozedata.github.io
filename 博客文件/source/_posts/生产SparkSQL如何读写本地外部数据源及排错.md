@@ -10,7 +10,7 @@ categories: [Spark SQL]
 
 [https://spark-packages.org/](https://spark-packages.org/)里有很多third-party数据源的package，spark把包加载进来就可以使用了
 
-![enter description here](/source/assets/pic/2019-03-01-1.png)
+![enter description here](/assets/blogImg/2019-03-01-1.png)
 
 
 csv格式在spark2.0版本之后是内置的，2.0之前属于第三方数据源
@@ -266,7 +266,7 @@ org.apache.spark.sql.AnalysisException: path file:/home/hadoop/tmp/parquet2json 
 
 可以通过设置savemode来解决这个问题
 
-![enter description here](/source/assets/pic/2019-03-01-2.png)
+![enter description here](/assets/blogImg/2019-03-01-2.png)
 
 默认是errorifexists
 

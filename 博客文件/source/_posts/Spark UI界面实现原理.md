@@ -9,7 +9,7 @@ categories: Spark Other
 ---
 当Spark程序在运行时，会提供一个Web页面查看Application运行状态信息。是否开启UI界面由参数spark.ui.enabled(默认为true)来确定。下面列出Spark UI一些相关配置参数，默认值，以及其作用。
 
-![Spark UI](/source/assets/blogImg/2019-02-22-1.png)
+![enter description here](/assets/blogImg/2019-02-22-1.png)
 
 本文接下来分成两个部分，第一部分基于Spark-1.6.0的源码，结合第二部分的图片内容来描述UI界面在Spark中的实现方式。第二部分以实例展示Spark UI界面显示的内容。
 
@@ -24,7 +24,7 @@ categories: Spark Other
 
 以SparkUI类为容器，各个Tab，如JobsTab, StagesTab, ExecutorsTab等镶嵌在SparkUI上，对应各个Tab，有页面内容实现类JobPage, StagePage, ExecutorsPage等页面。这些类的继承和包含关系如下图所示：
 
-![继承和包含关系](/source/assets/blogImg/2019-02-22-2.png)
+![enter description here](/assets/blogImg/2019-02-22-2.png)
 
 ### 初始化过程
 
@@ -278,7 +278,8 @@ private def jobsTable(jobs: Seq[JobUIData]): Seq[Node] = {
 
 ### Jobs页面
 
-![Job页面](/source/assets/blogImg/2019-02-22-3.png)
+![enter description here](/assets/blogImg/2019-02-22-3.png)
+
 
 连接上该端口后，显示的就是上面的页面，也是Job的主页面。这里会显示所有Active，Completed, Cancled以及Failed状态的Job。默认情况下总共显示1000条Job信息，这个数值由参数spark.ui.retainedJobs(默认值1000)来确定。 
 
@@ -286,24 +287,23 @@ private def jobsTable(jobs: Seq[JobUIData]): Seq[Node] = {
 
 ### Stages页面
 
-![Stages页面](/source/assets/blogImg/2019-02-22-4.png)
+![enter description here](/assets/blogImg/2019-02-22-4.png)
 
 ### Storage页面
 
-![Storage页面](/source/assets/blogImg/2019-02-22-5.png)
+![enter description here](/assets/blogImg/2019-02-22-5.png)
 
 ### Enviroment页面
 
-![Enviroment页面](/source/assets/blogImg/2019-02-22-6.png)
+![enter description here](/assets/blogImg/2019-02-22-6.png)
 
 ### Executors页面
 
-![Executors页面](/source/assets/blogImg/2019-02-22-7.png)
-
+![enter description here](/assets/blogImg/2019-02-22-7.png)
 ### 单个Job包含的Stages页面
 
-![单个Job包含的Stages页面](/source/assets/blogImg/2019-02-22-8.png)
+![enter description here](/assets/blogImg/2019-02-22-8.png)
 
 ### Task页面
 
-![Task页面](/source/assets/blogImg/2019-02-22-9.png)
+![enter description here](/assets/blogImg/2019-02-22-9.png)
