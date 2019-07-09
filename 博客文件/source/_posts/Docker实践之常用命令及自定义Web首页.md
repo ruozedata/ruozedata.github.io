@@ -8,6 +8,7 @@ tags:
 categories: [Docker]
 
 ---
+
 <!--more-->
 
 ### 常用命令
@@ -84,12 +85,13 @@ root     25014 23182  0 22:27 ?        00:00:00 /usr/bin/docker-proxy -proto tcp
 root     25021 23189  0 22:27 ?        00:00:00 docker-containerd-shim -namespace moby -workdir /var/lib/docker/containerd/daemon/io.containerd.runtime.v1.linux/moby/d08ffca661436d9fc676355bc52940c264e7cee62c08c56e489fb9e09e1ff538 -address /var/run/docker/containerd/docker-containerd.sock -containerd-binary /usr/bin/docker-containerd -runtime-root /var/run/docker/runtime-runc
 root     25492 10525  0 22:35 pts/0    00:00:00 grep --color=auto docker
 ```
-
+```
 /usr/bin/docker-proxy -proto tcp<br>
 -host-ip 0.0.0.0   //<br>
 -host-port 8080   //linux系统的端口号<br>
 -container-ip 172.17.0.2  //docker相当于一个小型的linux系统，这就是小型系统的IP地址<br>
 -container-port 80  //docker内部的一个端口号<br>
+```
 
 ```
 [root@hadoop004 ~]# netstat -nlp |grep 8080
@@ -123,7 +125,7 @@ d08ffca66143        nginx:latest        "nginx -g 'daemon of…"   13 hours ago 
 
 1. 登录初始的nginx Web页面
 
-	![登录初始](/assets/pic/2019-06-28-1.png)
+![enter description here](/assets/blogImg/2019-06-28-1.png)
 
 2. 通过index.html配置一个自定义的首页
 
@@ -135,8 +137,7 @@ d08ffca66143        nginx:latest        "nginx -g 'daemon of…"   13 hours ago 
 	-rw-r--r-- 1 root root 92 Nov 13 23:09 index.html
 	```
 	在windows中打开index.html页面是这样的：
-	
-	![index.html](/assets/pic/2019-06-28-2.png)
+![enter description here](/assets/blogImg/2019-06-28-2.png)
 
 3. 将本地的html文件挂载到container中
 
@@ -157,7 +158,7 @@ d08ffca66143        nginx:latest        "nginx -g 'daemon of…"   13 hours ago 
 	
 4. 打开ip:8082页面查看
 
-	![8082](/assets/pic/2019-06-28-3.png)
+![enter description here](/assets/blogImg/2019-06-28-3.png)
 	
 发现首页已经被置换为本地文件中的index.html文件<br>
 -v 把本地文件或文件夹挂载到容器中<br>
