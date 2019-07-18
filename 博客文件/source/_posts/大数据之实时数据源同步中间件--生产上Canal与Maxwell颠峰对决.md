@@ -6,7 +6,8 @@ comments: true
 tags: 
 	- maxwell
 	- 高级
-categories:  其他组件
+categories:  实时同步中间件
+
 
 ---
 ##### 一.数据源同步中间件：
