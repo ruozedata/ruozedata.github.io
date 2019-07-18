@@ -8,15 +8,50 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/categories/%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
-        <lastmod>2019-07-09T05:29:42.882Z</lastmod>
+        <loc>http://yoursite.com/categories/HBase/</loc>
+        <lastmod>2019-07-18T12:26:50.578Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://yoursite.com/categories/Hive/</loc>
-        <lastmod>2019-07-09T03:21:59.914Z</lastmod>
+        <lastmod>2019-07-18T12:24:57.213Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/categories/%E5%85%B6%E4%BB%96%E7%BB%84%E4%BB%B6/</loc>
+        <lastmod>2019-07-18T12:24:04.126Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/categories/%E6%95%85%E9%9A%9C%E6%A1%88%E4%BE%8B/</loc>
+        <lastmod>2019-07-18T12:23:03.684Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/categories/%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
+        <lastmod>2019-07-18T04:01:05.170Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/categories/Elasticsearch/</loc>
+        <lastmod>2019-07-15T08:23:48.910Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/categories/Azkaban/</loc>
+        <lastmod>2019-07-11T09:19:31.214Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -64,13 +99,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/categories/%E6%95%85%E9%9A%9C%E6%A1%88%E4%BE%8B/</loc>
-        <lastmod>2019-06-20T03:26:26.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite.com/categories/Spark-SQL/</loc>
         <lastmod>2019-06-20T02:02:18.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -99,13 +127,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/categories/Elasticsearch/</loc>
-        <lastmod>2019-06-14T07:23:59.841Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite.com/categories/Impala/</loc>
         <lastmod>2019-06-14T07:20:18.781Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -122,13 +143,6 @@
     <url>
         <loc>http://yoursite.com/categories/CDH/</loc>
         <lastmod>2019-06-11T12:30:15.781Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/categories/%E5%85%B6%E4%BB%96%E7%BB%84%E4%BB%B6/</loc>
-        <lastmod>2019-06-11T05:41:52.743Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
